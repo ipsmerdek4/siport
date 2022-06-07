@@ -21,48 +21,8 @@ class Register extends Controller{
 
     
     public function progres_regis()
-    { 
-
-
-         /*    if (!$this->validate([
-                'g_email' => [
-                    'rules' => 'required|min_length[7]',
-                    'errors' => [
-                        'required'   => 'Email Required.',
-                        'min_length' => 'Email Minimum 7 Characters.',   
-                    ]
-                ], 
-                'g_HP' => [
-                    'rules' => 'required|max_length[15] ',
-                    'errors' => [
-                        'required'   => 'Number Mobile Phone/WhatsApp Required.',
-                        'max_length' => 'Number Mobile Phone/WhatsApp Maximum 15 Characters.',   
-                    ]
-                ],   
-                'u_name' => [
-                    'rules' => 'required|min_length[8]|max_length[15] ',
-                    'errors' => [
-                        'required'   => 'Username Required.',
-                        'min_length' => 'Username Minimum 8 Characters.',
-                        'max_length' => 'Username Maximum 15 Characters.',   
-                    ]
-                ], 
-                'u_pass' => [
-                    'rules' => 'required|min_length[8]|max_length[15] ',
-                    'errors' => [
-                        'required'   => 'Password Required.',
-                        'min_length' => 'Password Minimum 8 Characters.',
-                        'max_length' => 'Password Maximum 15 Characters.',     
-                    ]
-                ],  
-            ])) {
-                session()->setFlashdata('error', $this->validator->listErrors());
-                return redirect()->to(base_url('/register'))->withInput(); 
-            } 
- */
-           
-
-            
+    {  
+        
             $User = new UserModel(); 
 
             $HP = $this->request->getVar('g_HP');

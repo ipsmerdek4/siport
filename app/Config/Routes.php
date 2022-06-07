@@ -43,6 +43,8 @@ $routes->post('/slog', 'Login::progres_login');
 $routes->get('/register', 'Register::index');
 $routes->post('/regto', 'Register::progres_regis');
 
+$routes->get('/logout', 'Login::logout');
+
 
 
 /*

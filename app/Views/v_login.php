@@ -34,7 +34,14 @@
                       </div>
                       <div class="form-group ">
                         <label class="text-success font-weight-bold ">Password</label>
-                        <input type="text" class="form-control border border-success" name="p_name" placeholder="Password">
+                        <div class="input-group mb-3">
+                          <input type="password" class="form-control border border-success u-pass-d" name="p_name" placeholder="Password ">
+                          <div class="input-group-append">
+                            <button class="btn btn-success btn--pass hide pt-2 pb-0" type="button">
+                              <span id="ico-pass" class="ion-ios-eye" style="font-size:25px;"></span>
+                            </button>
+                          </div>
+                        </div>
                       </div>
                       <div class="form-group text-center">   
                           <button class="btn btn-success btn-block " style="font-size:14px; ">  

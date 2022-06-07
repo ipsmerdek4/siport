@@ -36,6 +36,10 @@ class Tbl_user extends Migration{
 				'type'           => 'INT',
 				'constraint'     => 3,
 			],  
+			'tgl_log_user' => [
+				'type'           => 'DATETIME',
+				'null'       	 => true,
+			], 
 			'tgl_pembuatan_user' => [
 				'type'           => 'DATETIME',
 				'null'       	 => true,
