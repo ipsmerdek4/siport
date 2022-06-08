@@ -32,6 +32,20 @@ class Home extends BaseController
                 echo view('ext/L1/navigasi', $data);
                 echo view('v_home_lv1', $data);
                 echo view('ext/L1/footer', $data);
+
+            }elseif (session()->get('level') == 5) { 
+                $data = array(  
+                    //'menu'          => 'Home',
+                    'title'         => $title,    
+                );
+
+                echo view('ext/LA/header', $data);
+                echo view('ext/LA/navigasi', $data);
+                echo view('ext/LA/menu', $data);
+                echo view('v_home_lvA', $data);
+                echo view('ext/LA/footer', $data);
+
+
             }else{ 
 
                  $data = array(
