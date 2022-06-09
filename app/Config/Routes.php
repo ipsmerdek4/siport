@@ -45,6 +45,10 @@ $routes->post('/regto', 'Register::progres_regis');
 
 $routes->get('/logout', 'Login::logout');
 
+$routes->get('/island', 'Island::index'); 
+$routes->post('/island/listisland', 'Island::listisland');
+
+
 
 
 /*

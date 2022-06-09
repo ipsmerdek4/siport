@@ -52,7 +52,8 @@ class Filters extends BaseConfig
                                             ]
                         ],
             'authadmin' => ['except' => [ 
-                                            'login', 'login/*',  
+                                            'login', 'login/*',
+                                            'island', 'island/*',  
                                             '/',   
                                             ]
                         ],

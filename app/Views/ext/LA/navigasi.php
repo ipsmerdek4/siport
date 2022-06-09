@@ -7,11 +7,11 @@
             <li>
               <a href="#" data-toggle="sidebar" class="nav-link nav-link-lg">
                 <i class="fas fa-bars"></i>
-            </a>
-            </li> 
-          </ul> 
+              </a>
+            </li>
+          </ul>
         </div>
-        <ul class="navbar-nav navbar-right"> 
+        <ul class="navbar-nav navbar-right">
           <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg beep"><i class="far fa-bell"></i></a>
             <div class="dropdown-menu dropdown-list dropdown-menu-right">
               <div class="dropdown-header">Notifications
@@ -73,11 +73,19 @@
           </li>
           <li class="dropdown">
             <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-              <img alt="image" src="<?=base_url()?>/stisla/assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
-              <div class="d-sm-none d-lg-inline-block">Hi, Ujang Maman</div>
+              <img alt="image" src="<?= base_url() ?>/stisla/assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">
+              <div class="d-sm-none d-lg-inline-block">Hi, <?= $user ?></div>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
-              <div class="dropdown-title">Logged in 5 min ago</div>
+              <?php
+              $menit = 0;
+              if ($timesaatlog < $timesaatini) {
+                $diff = $timesaatini - $timesaatlog;
+                $jam = floor($diff / (60 * 60));
+                $menit = $diff - $jam * (60 * 60);
+              }
+              ?>
+              <div class="dropdown-title">Logged in <?= floor($menit / 60) ?> min ago</div>
               <a href="features-profile.html" class="dropdown-item has-icon">
                 <i class="far fa-user"></i> Profile
               </a>

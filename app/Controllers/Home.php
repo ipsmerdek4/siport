@@ -10,14 +10,13 @@ class Home extends BaseController
             $User = new UserModel();   
             $title = 'Home &rsaquo; [SIPORT]';
 
+            $getUser = $User->where(['id_user' => session()->get('ID'),])->first();
+
+            $timesaatlog = strtotime($getUser->tgl_log_user);
+            $timesaatini = strtotime(date("Y-m-d H:i:s")); 
 
         
             if (session()->get('level') == 1) { 
-
-                $getUser = $User->where([ 'id_user' => session()->get('ID'), ])->first(); 
- 
-                $timesaatlog = strtotime($getUser->tgl_log_user);  
-                $timesaatini = strtotime(date("Y-m-d H:i:s")); 
 
                 $data = array(
                     //'menu'          => 'Home',
@@ -35,8 +34,11 @@ class Home extends BaseController
 
             }elseif (session()->get('level') == 5) { 
                 $data = array(  
-                    //'menu'          => 'Home',
-                    'title'         => $title,    
+                    'menu'          => 'home',
+                    'title'         => $title,
+                    'user'          => session()->get('name'),
+                    'timesaatini'   => $timesaatini,
+                    'timesaatlog'   => $timesaatlog,
                 );
 
                 echo view('ext/LA/header', $data);
