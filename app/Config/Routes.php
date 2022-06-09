@@ -45,8 +45,11 @@ $routes->post('/regto', 'Register::progres_regis');
 
 $routes->get('/logout', 'Login::logout');
 
-$routes->get('/island', 'Island::index'); 
+$routes->get('/island', 'Island::index');
 $routes->post('/island/listisland', 'Island::listisland');
+$routes->get('/island/insert', 'Island::insrt_p');
+$routes->get('/island/edit/(:any)', 'Island::edt_p/$1');
+$routes->get('/island/del/(:any)', 'Island::del_p/$1');
 
 
 

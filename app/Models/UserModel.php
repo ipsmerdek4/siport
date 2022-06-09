@@ -8,6 +8,7 @@ class UserModel extends Model{
     protected $primaryKey = 'id_user';
     protected $returnType = 'object'; 
     protected $allowedFields = ['hp','email', 'username', 'password', 'level', 'status', 'tgl_log_user','tgl_pembuatan_user'];
+    
 
     function reqLogin($input = null)
     {

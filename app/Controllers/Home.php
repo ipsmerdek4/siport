@@ -10,10 +10,15 @@ class Home extends BaseController
             $User = new UserModel();   
             $title = 'Home &rsaquo; [SIPORT]';
 
-            $getUser = $User->where(['id_user' => session()->get('ID'),])->first();
-
-            $timesaatlog = strtotime($getUser->tgl_log_user);
-            $timesaatini = strtotime(date("Y-m-d H:i:s")); 
+            $sessionID = session()->get('ID');
+            if (isset($sessionID)) {
+            
+                $getUser = $User->where(['id_user' => session()->get('ID'),])->first();
+    
+                $timesaatlog = strtotime($getUser->tgl_log_user);
+                $timesaatini = strtotime(date("Y-m-d H:i:s")); 
+            
+            }
 
         
             if (session()->get('level') == 1) { 

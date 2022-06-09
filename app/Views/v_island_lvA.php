@@ -16,20 +16,22 @@
  -->
 
             <div class="row">
-                <div class="col-12 col-md-6 col-lg-12">
+                <div class="col-12 col-lg-12">
                     <div class="card">
                         <!-- <div class="card-header">
                             <h4>Input Text</h4>
                         </div> -->
                         <div class="card-body">
 
+ 
 
-                            <table id="example" class="table table-striped table-bordered" style="width:100%">
+                            <table id="example" class="table table-bordered" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>name_island</th>
-                                        <th>tgl_pembuatan_island</th>
+                                        <th>Name Island</th>
+                                        <th>Date Create Data</th>
+                                        <th>Opsi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
