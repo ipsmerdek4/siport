@@ -50,8 +50,16 @@ $routes->post('/island/listisland', 'Island::listisland');
 $routes->get('/island/insert', 'Island::insrt_p');
 $routes->get('/island/edit/(:any)', 'Island::edt_p/$1');
 $routes->get('/island/del/(:any)', 'Island::del_p/$1');
+$routes->post('/island/insert/p', 'Island::insrt_pp');
+$routes->post('/island/edit/p/(:any)', 'Island::edt_pp/$1');
+$routes->get('/island/(:any)', 'Island::index/');
 
+$routes->get('/location', 'Location::index');
+$routes->post('/location/listlocation', 'Location::listlocation');
 
+$routes->get('/location/insert', 'Location::insrt_p');
+$routes->get('/location/edit/(:any)', 'Location::edt_p/$1');
+$routes->get('/location/del/(:any)', 'Location::del_p/$1');
 
 
 /*

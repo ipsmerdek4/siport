@@ -23,13 +23,16 @@
                         </div> -->
                         <div class="card-body">
 
- 
+
 
                             <table id="example" class="table table-bordered" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th>No</th>
                                         <th>Name Island</th>
+                                        <th>Name Location </th>
+                                        <th>Description </th>
+                                        <th>Picture</th>
                                         <th>Date Data </th>
                                         <th>Opsi</th>
                                     </tr>

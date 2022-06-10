@@ -1,9 +1,3 @@
-var colecthttp = window.location.href;
-var extrakcolect = colecthttp.split('@'); 
- 
-
-
-
 $.fn.dataTable.ext.errMode = "none";
 $(document).ready(function () {
   var table = $("#example").DataTable({
@@ -12,9 +6,6 @@ $(document).ready(function () {
     language: {
       processing: "Processing...",
     },
-    search: {
-      search: extrakcolect[1],
-    },
     serverSide: true,
     responsive: true,
     buttons: [
@@ -22,7 +13,7 @@ $(document).ready(function () {
         text: '<i class="fa fa-plus "></i>  <b>| Insert Data</b>',
         className: "btn btn-primary",
         action: function (e, dt, node, config) {
-          window.location.href = "/island/insert";
+          window.location.href = "/location/insert";
         },
         init: function (api, node, config) {
           $(node).removeClass("btn-secondary");
@@ -38,7 +29,7 @@ $(document).ready(function () {
         .appendTo($(".col-md-6:eq(0)", this.api().table().container()));
     },
     ajax: {
-      url: "/island/listisland",
+      url: "/location/listlocation",
       type: "POST",
     },
     columns: [
@@ -49,7 +40,16 @@ $(document).ready(function () {
         data: "name_island",
       },
       {
-        data: "tgl_pembuatan_island",
+        data: "name_location",
+      },
+      {
+        data: "ket_location",
+      },
+      {
+        data: "picture",
+      },
+      {
+        data: "tgl_pembuatan_location",
       },
       {
         data: "action",
@@ -93,12 +93,9 @@ $("#example").on("click", "#editdata", function (e) {
     html:
       "<div class='' style='font-size:15px;'>" +
       "Are you sure, <b>Edit</b> this data?<br><br>" +
-      "<b>[ Name Island => " +
-      extrak[0] +
-      " ]</b><br>" +
-      "<b>[ Date Data => " +
-      extrak[1] +
-      " ]</b><br>" +
+      "<b>[ Name Island => " + extrak[0] + " ]</b><br>" +
+      "<b>[ Name Location => " + extrak[1] + " ]</b><br>" +
+      "<b>[ Date Data => " + extrak[2] +" ]</b><br>" +
       "</div>",
     icon: "info",
     focusCancel: true,
@@ -128,12 +125,9 @@ $("#example").on("click", "#deldata", function (e) {
     html:
       "<div class='' style='font-size:15px;'>" +
       "Are you sure, <b>delete</b> this data?<br><br>" +
-      "<b>[ Name Island => " +
-      extrak[0] +
-      " ]</b><br>" +
-      "<b>[ Date Data => " +
-      extrak[1] +
-      " ]</b><br>" +
+      "<b>[ Name Island => " + extrak[0] + " ]</b><br>" +
+      "<b>[ Name Location => " + extrak[1] + " ]</b><br>" +
+      "<b>[ Date Data => " + extrak[2] +" ]</b><br>" +
       "</div>",
     icon: "info",
     focusCancel: true,

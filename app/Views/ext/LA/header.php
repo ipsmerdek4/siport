@@ -41,6 +41,9 @@
     } 
     
     
+
+
+    
     @media only screen and (max-width: 395px) {
       #example_filter>label>input {
         float: left;

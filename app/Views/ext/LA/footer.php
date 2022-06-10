@@ -19,6 +19,8 @@
 <script src="<?= base_url() ?>/stisla/assets/js/stisla.js"></script>
 
 <!-- JS Libraies -->
+<script src="<?= base_url() ?>/assets/sweetalert2/dist/sweetalert2.all.min.js"></script>
+
 <script src="<?= base_url() ?>/assets/datatables/datatables/jquery.dataTables.min.js"></script>
 <script src="<?= base_url() ?>/assets/datatables/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="<?= base_url() ?>/assets/datatables/datatables-responsive/js/dataTables.responsive.min.js"></script>
@@ -30,21 +32,36 @@
 <script src="<?= base_url() ?>/assets/datatables/datatables-buttons/js/buttons.colVis.min.js"></script>
 
 
+
 <!-- Page Specific JS File -->
 <script src="<?= base_url() ?>/stisla/assets/js/page/modules-ion-icons.js"></script>
 
 <!-- Template JS File -->
 <script src="<?= base_url() ?>/stisla/assets/js/scripts.js"></script>
 <script src="<?= base_url() ?>/stisla/assets/js/custom.js"></script>
-
-<script src="<?= base_url() ?>/assets/js/island.js"></script>
-
+<?php if ($menu == "dataisland") : ?>
+  <script src="<?= base_url() ?>/assets/js/island.js"></script>
+<?php elseif ($menu == "datalocation") : ?>
+  <script src="<?= base_url() ?>/assets/js/location.js"></script>
+<?php endif ?>
 
 
 
 <script>
-
-
+  <?php if (!empty(session()->getFlashdata('error'))) : ?>
+    Swal.fire({
+      title: 'Warning',
+      html: '<?php echo session()->getFlashdata('error'); ?>',
+      icon: 'warning',
+    });
+  <?php endif; ?>
+  <?php if (!empty(session()->getFlashdata('msg'))) : ?>
+    Swal.fire({
+      title: 'Success',
+      html: '<?php echo session()->getFlashdata('msg'); ?>',
+      icon: 'success',
+    });
+  <?php endif; ?>
 </script>
 
 
