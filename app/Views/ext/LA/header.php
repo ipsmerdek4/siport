@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="<?= base_url() ?>/assets/datatables/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="<?= base_url() ?>/assets/datatables/datatables-buttons/css/buttons.bootstrap4.min.css">
 
+  <link rel="stylesheet" href="<?= base_url() ?>/assets/select2/dist/css/select2.min.css">
 
 
   <!-- Template CSS -->
@@ -26,6 +27,7 @@
 
 
   <style>
+    /* Table redisain */
     #example_filter>label {
       margin: 10px 0 0 0 !important;
       font-weight: bold;
@@ -34,16 +36,28 @@
     #example_filter>label>input {
       padding: 0 10px 0 10px;
       margin: 0 0 0 10px;
-    } 
+    }
 
-    #example_length>label>select{ 
+    #example_length>label>select {
       width: 70px;
-    } 
-    
-    
+    }
+
+    /* select2 border */
+    span.select2-selection–multiple[aria-expanded=true] {
+      border-color: #da4d4d !important;
+      -webkit-box-shadow: 0 0 0 0.2rem rgba(218, 77, 77, 0.25);
+      box-shadow: 0 0 0 0.2rem rgba(218, 77, 77, 0.25);
+    }
+
+    .select2-container–classic.select2-container–open .select2-dropdown {
+      border-color: #da4d4d !important;
+      -webkit-box-shadow: 0 0 0 0.2rem rgba(218, 77, 77, 0.25);
+      box-shadow: 0 0 0 0.2rem rgba(218, 77, 77, 0.25);
+    }
 
 
-    
+
+
     @media only screen and (max-width: 395px) {
       #example_filter>label>input {
         float: left;

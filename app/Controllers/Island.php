@@ -117,7 +117,7 @@ class Island extends Controller
             $text1 = "Name Island Required.";
             $text1 = '<div class="" style="font-size:15px;">[ ' . $text1 . ' ]</div>';
         } elseif (strlen($nameisland) > 300) {
-            $text1 = "Name Island Minimum 300 Characters.";
+            $text1 = "Name Island Max 300 Characters.";
             $text1 = '<div class="" style="font-size:15px;">[ ' . $text1 . ' ]</div>';
         }elseif($checknametrue){
             $text1 = "Name Island Already Available.";

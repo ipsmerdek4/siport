@@ -31,6 +31,7 @@
 <script src="<?= base_url() ?>/assets/datatables/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="<?= base_url() ?>/assets/datatables/datatables-buttons/js/buttons.colVis.min.js"></script>
 
+<script src="<?= base_url() ?>/assets/select2/dist/js/select2.min.js"></script>
 
 
 <!-- Page Specific JS File -->
@@ -39,6 +40,8 @@
 <!-- Template JS File -->
 <script src="<?= base_url() ?>/stisla/assets/js/scripts.js"></script>
 <script src="<?= base_url() ?>/stisla/assets/js/custom.js"></script>
+
+
 <?php if ($menu == "dataisland") : ?>
   <script src="<?= base_url() ?>/assets/js/island.js"></script>
 <?php elseif ($menu == "datalocation") : ?>
@@ -46,8 +49,27 @@
 <?php endif ?>
 
 
-
 <script>
+  $(document).ready(function() {
+    var $select2 = $('#myselect').select2();
+    $select2.data('select2').$container.addClass("border border-primary rounded");
+
+    $("#photo").change(function() {
+      const file = this.files[0];
+      if (file) {
+        let reader = new FileReader();
+        reader.onload = function(event) {
+          $("#imgPreview")
+            .attr("src", event.target.result);
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+
+  });
+
+
   <?php if (!empty(session()->getFlashdata('error'))) : ?>
     Swal.fire({
       title: 'Warning',
@@ -55,6 +77,8 @@
       icon: 'warning',
     });
   <?php endif; ?>
+
+
   <?php if (!empty(session()->getFlashdata('msg'))) : ?>
     Swal.fire({
       title: 'Success',
@@ -62,7 +86,12 @@
       icon: 'success',
     });
   <?php endif; ?>
+
+
 </script>
+
+
+
 
 
 </body>

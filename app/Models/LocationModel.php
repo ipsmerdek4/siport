@@ -9,6 +9,15 @@ class LocationModel extends Model{
     protected $returnType = 'object';
     protected $allowedFields = ['id_location', 'id_island','name_location', 'ket_location', 'picture', 'tgl_pembuatan_location'];
 
+    function joinlocation()
+    {
+        $builder = $this->db->table('tbl_location');
+        $builder->join('tbl_island', 'tbl_island.id_island = tbl_location.id_island');
+        $query = $builder->get();
+
+        return $query->getResult();
+    }
+
 
     var $column_order = array('name_island', 'name_location', 'ket_location', 'tgl_pembuatan_location');
     var $order = array('tgl_pembuatan_location' => 'DESC');

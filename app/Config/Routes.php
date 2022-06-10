@@ -58,6 +58,7 @@ $routes->get('/location', 'Location::index');
 $routes->post('/location/listlocation', 'Location::listlocation');
 
 $routes->get('/location/insert', 'Location::insrt_p');
+$routes->post('/location/insert/p', 'Location::insrt_pp');
 $routes->get('/location/edit/(:any)', 'Location::edt_p/$1');
 $routes->get('/location/del/(:any)', 'Location::del_p/$1');
 
