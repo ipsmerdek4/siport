@@ -94,6 +94,26 @@ $(document).ready(function () {
  
 });
 
+$("#myModal").prependTo("body");
+
+$("#example").on("click", "#pictureview", function (e) {
+  const picture = $(this).data("picture");
+  const name = $(this).data("name");
+
+  $("#myModal").modal({
+    backdrop: "static",
+    keyboard: false,
+  });
+
+  $("#title").html(name);
+  $("#picture").html(
+    '<img src="/uploads/location/' +
+      picture +
+      '" "alt="' +
+      picture +
+      '" class="img w-100"   />'
+  );
+});
 
   
 

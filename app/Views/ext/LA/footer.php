@@ -46,25 +46,24 @@
   <script src="<?= base_url() ?>/assets/js/island.js"></script>
 <?php elseif ($menu == "datalocation") : ?>
   <?php if (isset($loadHttp)) {
-            if ($loadHttp == "insert") { ?>
-                <script src="<?= base_url() ?>/assets/js/ext/insert.js"></script>
-                <script src="<?= base_url() ?>/assets/js/location.js"></script>
-      <?php } else { ?>
-                <script src="<?= base_url() ?>/assets/js/location.js"></script>
+    if ($loadHttp == "insert") { ?>
+      <script src="<?= base_url() ?>/assets/js/ext/insert.js"></script>
+      <script src="<?= base_url() ?>/assets/js/location.js"></script>
+    <?php } elseif ($loadHttp == "update") { ?>
+      <script src="<?= base_url() ?>/assets/js/ext/update.js"></script>
+      <script src="<?= base_url() ?>/assets/js/location.js"></script>
+    <?php } else { ?>
+      <script src="<?= base_url() ?>/assets/js/location.js"></script>
     <?php   }
-        } else { ?>
-          <script src="<?= base_url() ?>/assets/js/location.js"></script> 
+  } else { ?>
+    <script src="<?= base_url() ?>/assets/js/location.js"></script>
   <?php } ?>
 <?php endif ?>
 
 
-<script>
+<script> 
 
-
-
-
-  <?php if (!empty(session()->getFlashdata('error'))) : ?>
-    Swal.fire({
+  <?php if (!empty(session()->getFlashdata('error'))) : ?> Swal.fire({
       title: 'Warning',
       html: '<?php echo session()->getFlashdata('error'); ?>',
       icon: 'warning',
@@ -72,8 +71,7 @@
   <?php endif; ?>
 
 
-  <?php if (!empty(session()->getFlashdata('msg'))) : ?>
-    Swal.fire({
+  <?php if (!empty(session()->getFlashdata('msg'))) : ?> Swal.fire({
       title: 'Success',
       html: '<?php echo session()->getFlashdata('msg'); ?>',
       icon: 'success',

@@ -28,24 +28,26 @@
                         </div> -->
                         <div class="card-body">
 
-                            <form action="<?= ($loadHttp == 'insert') ? base_url() . '/location/insert/p' : base_url() . '/island/edit/p/' . $getIsland->id_island ?>" method="POST" class="row" enctype="multipart/form-data">
+                            <form action="<?= ($loadHttp == 'insert') ? base_url() . '/location/insert/p' : base_url() . '/island/edit/p/' . $DataLocation->id_location ?>" method="POST" class="row" enctype="multipart/form-data">
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label class="text-primary">Select Island</label>
                                         <select id="myselect" class="form-control" name="island">
                                             <option value="0" readonly select>- Please Select the Island -</option>
+
+
                                             <?php foreach ($DataIsland as $value) : ?>
-                                                <option value="<?= $value->id_island ?>"><?= $value->name_island ?></option>
+                                                <option value="<?= $value->id_island ?>" <?= (isset($DataLocation->name_location)) ? ($DataLocation->id_island == $value->id_island) ? 'selected' :  '' : '' ?>><?= $value->name_island ?></option>
                                             <?php endforeach ?>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label class="text-primary">Name Location</label>
-                                        <input type="text" class="form-control border border-primary" name="namelocation" placeholder="Name Location" value="<?= (isset($getIsland->name_island)) ? $getIsland->name_island : '' ?>">
+                                        <input type="text" class="form-control border border-primary" name="namelocation" placeholder="Name Location" value="<?= (isset($DataLocation->name_location)) ? $DataLocation->name_location : '' ?>">
                                     </div>
                                     <div class="form-group">
                                         <label class="text-primary">Description Location</label>
-                                        <textarea name="ketlocation" class="form-control border border-primary" style="height:145px"></textarea>
+                                        <textarea name="ketlocation" class="form-control border border-primary" style="height:145px"><?= (isset($DataLocation->ket_location)) ? $DataLocation->ket_location : '' ?></textarea>
                                     </div>
 
                                 </div>
@@ -54,7 +56,7 @@
                                         <label class="text-primary">Picture</label>
                                         <div class="d-flex justify-content-center">
                                             <div class="border border-primary p-1" style="width:200px">
-                                                <img id="imgPreview" src="<?= base_url() ?>/stisla/assets/img/products/product-5-50.png" alt="pic" class="img w-100 mb-1" />
+                                                <img id="imgPreview" src="<?= (isset($DataLocation->picture)) ? base_url(). '/uploads/location/'.$DataLocation->picture : base_url().'/stisla/assets/img/products/product-5-50.png' ?>" alt="pic" class="img w-100 mb-1" />
                                                 <input id="photo" name="gambarnya" type="file" class="border border-primary w-100 p-1">
                                             </div>
                                         </div>

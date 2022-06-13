@@ -79,4 +79,13 @@ class IslandModel extends Model{
     
 
 
+
+    function inerjoin()
+    {
+
+
+        
+    }
+
+
 }

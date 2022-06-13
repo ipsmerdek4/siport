@@ -52,9 +52,12 @@ class Location extends Controller{
                 'name_island'               => '<a href="'.base_url(). '/island/@'. $key->name_island.'">'.$key->name_island.'</a>',
                 'name_location'             => $key->name_location,
                 'ket_location'              => $key->ket_location,
-                'picture'                   => '<div>'. 
-                                                '<img src="'.base_url(). '/uploads/location/'. 
-                                                $key->picture.'" alt="'. $key->picture.'"'. 'class="img " style="width:50px" />'. 
+                'picture'                   => '<div>'.
+                                                '<img id="pictureview" src="'.base_url(). '/uploads/location/'.
+                                                $key->picture.'" alt="'. $key->picture.'"'. 'class="img " style="width:50px;cursor: pointer;" '.
+                                                'data-picture="' . $key->picture . '"   ' .
+                                                'data-name="' . $key->name_location . '"   ' .
+                                                ' />'. 
                                                 '</div>',
                 'tgl_pembuatan_location'    => $key->tgl_pembuatan_location,
                 'action'                    => 
@@ -89,8 +92,7 @@ class Location extends Controller{
     {
         
         $User = new UserModel();
-        $Island = new IslandModel();
-        $Location = new LocationModel();
+        $Island = new IslandModel(); 
 
         $getUser = $User->where(['id_user' => session()->get('ID'),])->first();
         $DataIsland = $Island->findAll();
@@ -212,6 +214,39 @@ class Location extends Controller{
 
     public function edt_p($id = null)
     {
+        $id_location = $id;
+
+        $User = new UserModel();
+        $Location = new LocationModel();
+        $Island = new IslandModel(); 
+
+
+        $getUser = $User->where(['id_user' => session()->get('ID'),])->first();
+        $DataLocation = $Location->where(['id_location' => $id_location,])->first();
+        $DataIsland = $Island->findAll();
+
+        $timesaatlog = strtotime($getUser->tgl_log_user);
+        $timesaatini = strtotime(date("Y-m-d H:i:s"));
+
+ 
+
+        $data = array(
+            'menu'          => 'datalocation',
+            'title'         => 'Data Location &rsaquo; [SIPORT]',
+            'loadHttp'      => 'update',
+            'user'          => session()->get('name'),
+            'timesaatini'   => $timesaatini,
+            'timesaatlog'   => $timesaatlog,
+            'DataLocation'  => $DataLocation,
+            'DataIsland'    => $DataIsland,
+        );
+        echo view('ext/LA/header', $data);
+        echo view('ext/LA/navigasi', $data);
+        echo view('ext/LA/menu', $data);
+        echo view('v_location_insert_lvA', $data);
+        echo view('ext/LA/footer', $data);
+
+
 
 
     }
