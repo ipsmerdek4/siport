@@ -1,5 +1,7 @@
 $.fn.dataTable.ext.errMode = "none";
 $(document).ready(function () {
+   
+
   var table = $("#example").DataTable({
     order: [],
     processing: true,
@@ -88,7 +90,12 @@ $(document).ready(function () {
         });
     })
     .draw();
+
+ 
 });
+
+
+  
 
 $("#example").on("click", "#editdata", function (e) {
   e.preventDefault();

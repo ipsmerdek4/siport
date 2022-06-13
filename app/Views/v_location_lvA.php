@@ -15,6 +15,7 @@
             <p class="section-lead">We provide advanced input fields, such as date picker, color picker, and so on.</p>
  -->
 
+ 
             <div class="row">
                 <div class="col-12 col-lg-12">
                     <div class="card">
@@ -47,7 +48,11 @@
                             </table>
 
 
+
+
                         </div>
+
+
                     </div>
                 </div>
             </div>

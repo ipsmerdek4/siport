@@ -45,29 +45,22 @@
 <?php if ($menu == "dataisland") : ?>
   <script src="<?= base_url() ?>/assets/js/island.js"></script>
 <?php elseif ($menu == "datalocation") : ?>
-  <script src="<?= base_url() ?>/assets/js/location.js"></script>
+  <?php if (isset($loadHttp)) {
+            if ($loadHttp == "insert") { ?>
+                <script src="<?= base_url() ?>/assets/js/ext/insert.js"></script>
+                <script src="<?= base_url() ?>/assets/js/location.js"></script>
+      <?php } else { ?>
+                <script src="<?= base_url() ?>/assets/js/location.js"></script>
+    <?php   }
+        } else { ?>
+          <script src="<?= base_url() ?>/assets/js/location.js"></script> 
+  <?php } ?>
 <?php endif ?>
 
 
 <script>
-  $(document).ready(function() {
-    var $select2 = $('#myselect').select2();
-    $select2.data('select2').$container.addClass("border border-primary rounded");
-
-    $("#photo").change(function() {
-      const file = this.files[0];
-      if (file) {
-        let reader = new FileReader();
-        reader.onload = function(event) {
-          $("#imgPreview")
-            .attr("src", event.target.result);
-        };
-        reader.readAsDataURL(file);
-      }
-    });
 
 
-  });
 
 
   <?php if (!empty(session()->getFlashdata('error'))) : ?>
@@ -86,8 +79,6 @@
       icon: 'success',
     });
   <?php endif; ?>
-
-
 </script>
 
 

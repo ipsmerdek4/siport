@@ -52,8 +52,10 @@ class Location extends Controller{
                 'name_island'               => '<a href="'.base_url(). '/island/@'. $key->name_island.'">'.$key->name_island.'</a>',
                 'name_location'             => $key->name_location,
                 'ket_location'              => $key->ket_location,
-                'picture'                   => '<div><img src="'.base_url(). '/uploads/location/'. 
-                                                $key->picture.'" alt="'. $key->picture.'"'. 'class="img " style="width:50px" /></div>',
+                'picture'                   => '<div>'. 
+                                                '<img src="'.base_url(). '/uploads/location/'. 
+                                                $key->picture.'" alt="'. $key->picture.'"'. 'class="img " style="width:50px" />'. 
+                                                '</div>',
                 'tgl_pembuatan_location'    => $key->tgl_pembuatan_location,
                 'action'                    => 
                     '<button id="editdata" class="btn btn-success mr-1 pr-2 "' .
