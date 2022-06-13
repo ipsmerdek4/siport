@@ -1,13 +1,23 @@
 <?php
 
 namespace App\Controllers;
-use App\Models\UserModel;  
+
+use App\Models\UserModel;
+use App\Models\LocationModel;
+use App\Models\IslandModel;  
 
 class Home extends BaseController
 {
     public function index()
     { 
-            $User = new UserModel();   
+            $User = new UserModel();
+            $Location = new LocationModel();
+            $Island = new IslandModel();
+
+            $getIsland = $Island->joinisland();
+            $getLocation = $Location->findAll();
+
+
             $title = 'Home &rsaquo; [SIPORT]';
 
             $sessionID = session()->get('ID');
@@ -57,13 +67,14 @@ class Home extends BaseController
 
                  $data = array(
                     //'menu'          => 'Home',
-                    'title'         => $title,    
+                    'title'         => $title,
+                    'getLocation'   => $getLocation,
+                    'getIsland'     => $getIsland,
                 );
 
                 echo view('ext/header', $data);
-                echo view('ext/menu', $data);
-                echo view('ext/navigasi', $data);
-                echo view('v_home', $data);
+                echo view('ext/menu', $data); 
+                echo view('v_home', $data); 
                 echo view('ext/footer', $data);
             }
     }

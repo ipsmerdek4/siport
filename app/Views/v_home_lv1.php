@@ -3,9 +3,7 @@
             <h2 class="section-title">Select Location</h2>
             <p class="section-lead">Please select a tourist location that you will visit.</p>
        
-            
-
-
+             
 
             <div class="row">
 
@@ -33,23 +31,7 @@
             </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  
 
         </div>
 

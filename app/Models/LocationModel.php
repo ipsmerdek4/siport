@@ -9,6 +9,7 @@ class LocationModel extends Model{
     protected $returnType = 'object';
     protected $allowedFields = ['id_location', 'id_island','name_location', 'ket_location', 'picture', 'tgl_pembuatan_location'];
 
+   
     function joinlocation($id = null)
     {
         $builder = $this->db->table('tbl_location');

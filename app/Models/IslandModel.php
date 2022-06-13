@@ -8,6 +8,17 @@ class IslandModel extends Model{
     protected $returnType = 'object';
     protected $allowedFields = ['id_island', 'name_island', 'tgl_pembuatan_island'];
 
+
+    function joinisland()
+    {
+        $builder = $this->db->table('tbl_island');
+        $builder->join('tbl_location', 'tbl_location.id_island = tbl_island.id_island');
+        $builder->groupBy('tbl_island.id_island'); 
+        $query = $builder->get();
+
+        return $query->getResult();
+    }
+
     var $column_order = array('id_island', 'name_island', 'tgl_pembuatan_island');
     var $order = array('tgl_pembuatan_island' => 'DESC');
 
