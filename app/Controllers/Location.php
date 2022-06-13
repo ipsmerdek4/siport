@@ -251,9 +251,145 @@ class Location extends Controller{
 
     }
 
+
+   
+
+
+    public function edt_pp($id = null)
+    {
+        $id_location = $id;
+ 
+        $island             = $this->request->getVar('island');
+        $namelocation       = $this->request->getVar('namelocation'); 
+        $ketlocation        = $this->request->getVar('ketlocation');
+        $tgllocation        = $this->request->getVar('tgllocation');
+
+        $img = $this->request->getFile('gambarnya');
+        //format type 
+        $file_type = $img->getClientMimeType();
+        $valid_file_types = array("image/png", "image/jpeg", "image/jpg");
+        //size
+        $size = $img->getSizeByUnit('mb');
+
+        $text1 = "";
+        $text2 = "";
+        $text3 = "";
+        $text4 = "";
+        $text5 = "";
+
+
+
+        if ($img->isValid()) {
+            if (!in_array($file_type, $valid_file_types)) {
+                $text1 = 'The Format You Entered is Wrong,<br>Please Enter the Format: "image/png", "image/jpeg", "image/jpg".';
+                $text1 = '<div class="" style="font-size:15px;">[ ' . $text1 . ' ]</div>';
+            } elseif ($size > 2.000) {
+                $text1 = 'Size is too BIG, Only Available Size 2 Mb or Below';
+                $text1 = '<div class="" style="font-size:15px;">[ ' . $text1 . ' ]</div>';
+            }
+        }
+
+        if ($island == "0") {
+            $text2 = "Please Select the Island.";
+            $text2 = '<div class="" style="font-size:15px;">[ ' . $text2 . ' ]</div>';
+        }
+
+        if ($namelocation == "") {
+            $text3 = "Name Location Required.";
+            $text3 = '<div class="" style="font-size:15px;">[ ' . $text3 . ' ]</div>';
+        } elseif (strlen($namelocation) > 300) {
+            $text3 = "Name Location max 300 Characters.";
+            $text3 = '<div class="" style="font-size:15px;">[ ' . $text3 . ' ]</div>';
+        } 
+
+        if ($ketlocation == "") {
+            $text4 = "Description Location Required.";
+            $text4 = '<div class="" style="font-size:15px;">[ ' . $text4 . ' ]</div>';
+        }
+
+        if ($tgllocation == "") {
+            $text5 = "Date Create Data Required.";
+            $text5 = '<div class="" style="font-size:15px;">[ ' . $text5 . ' ]</div>';
+        }
+
+        function updatelocationy($sts, $id, $id_island, $namelocation, $ketlocation, $img, $tgllocation)
+        {
+            $Location           = new LocationModel();
+            $checkpicture       = $Location->where(['id_location ' => $id])->first();
+
+            if ($sts == 1) :
+                $data = [
+                    'id_island'                 => $id_island,
+                    'name_location'             => $namelocation,
+                    'ket_location'              => $ketlocation,
+                    'tgl_pembuatan_location'    => $tgllocation,
+                ];
+            else :
+                @unlink("uploads/location/" . $checkpicture->picture);
+                if (!$img->hasMoved()) {
+                    $newName = $img->getRandomName();
+                    $img->move('uploads/location/', $newName);
+                } else {
+                    $newName = "";
+                }
+                $data = [
+                    'id_island'                 => $id_island,
+                    'name_location'             => $namelocation,
+                    'ket_location'              => $ketlocation,
+                    'picture'                   => $newName,
+                    'tgl_pembuatan_location'    => $tgllocation,
+                ];
+            endif;
+            $Location->update($id, $data);  
+            
+            return 'oke';
+        }
+        
+
+        if (($text1) || ($text2) || ($text3) || ($text4) || ($text5)) {
+            session()->setFlashdata('error', $text2 . $text3 . $text4 . $text1 . $text5);
+            return redirect()->to(base_url('/location/edit/'.$id_location));
+        } else {
+
+            if ($img->isValid()) { // adagambar
+                updatelocationy(0, $id_location, $island, $namelocation, $ketlocation, $img, $tgllocation);
+                session()->setFlashdata('msg', '<div style="font-size:15px;">Update Successfully.</div>');
+                return redirect()->to(base_url('/location'));
+            }else{ //kosong gambarnyas
+                updatelocationy(1, $id_location, $island, $namelocation, $ketlocation, 0, $tgllocation);
+                session()->setFlashdata('msg', '<div style="font-size:15px;">Update Successfully.</div>');
+                return redirect()->to(base_url('/location'));
+
+            }
+        }
+
+
+    }
+
+
+
+
+
     public function del_p($id = null)
     {
+        $id_location = $id; 
+        $Location = new LocationModel(); 
 
+        $getLocation = $Location->joinlocation($id_location);
+
+        if ($Location->find($id_location)) {
+            @unlink("uploads/location/" . $getLocation[0]->picture);
+            $Location->delete($id_location);
+
+            session()->setFlashdata('msg', '<div style="font-size:15px;">Delete Successfully.<br><br>' . 
+            '<b>[ Name Island => ' . $getLocation[0]->name_island . ' ]</b><br>' .
+            '<b>[ Name Location => ' . $getLocation[0]->name_location . ' ]</b><br>' .
+            '<b>[ Date Data => ' . $getLocation[0]->tgl_pembuatan_location . ' ]</b></div>');
+            return redirect()->to(base_url('/location'));
+        } else {
+            session()->setFlashdata('error', '<div class="" style="font-size:15px;">An error occurred while deleting data.<br>Please repeat again.</div>');
+            return redirect()->to(base_url('/location'));
+        } 
     }
 
 

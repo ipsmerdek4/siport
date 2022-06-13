@@ -28,7 +28,7 @@
                         </div> -->
                         <div class="card-body">
 
-                            <form action="<?= ($loadHttp == 'insert') ? base_url() . '/location/insert/p' : base_url() . '/island/edit/p/' . $DataLocation->id_location ?>" method="POST" class="row" enctype="multipart/form-data">
+                            <form action="<?= ($loadHttp == 'insert') ? base_url() . '/location/insert/p' : base_url() . '/location/edit/p/' . $DataLocation->id_location ?>" method="POST" class="row" enctype="multipart/form-data">
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label class="text-primary">Select Island</label>

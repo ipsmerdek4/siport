@@ -61,8 +61,7 @@
 <?php endif ?>
 
 
-<script> 
-
+<script>
   <?php if (!empty(session()->getFlashdata('error'))) : ?> Swal.fire({
       title: 'Warning',
       html: '<?php echo session()->getFlashdata('error'); ?>',
