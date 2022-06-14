@@ -1,5 +1,5 @@
     <!--  -->
-      </section>
+    </section>
     </div>
 
     <footer class="main-footer">
@@ -28,6 +28,8 @@
 
     <!-- JS Libraies -->
 
+    <script src="<?= base_url() ?>/assets/select2/dist/js/select2.min.js"></script>
+
     <!-- Page Specific JS File -->
     <script src="<?= base_url() ?>/stisla/assets/js/page/modules-ion-icons.js"></script>
 
@@ -37,11 +39,28 @@
 
 
     <script>
+      $('.carousel').carousel({
+        interval: 2000,
+      })
+
+      $(document).ready(function() {
+        $('#myselect').select2().data('select2').$container.addClass("border border-primary rounded");
+        
+        $('#myselect2').select2({
+          minimumResultsForSearch: -1,
+        }).data('select2').$container.addClass("border border-primary rounded");
+
+        $('#myselect3').select2({
+          minimumResultsForSearch: -1,
+        }).data('select2').$container.addClass("border border-primary rounded");
+
+
+
+      });
+
+
       $('#regsub').click(function() {
         window.location = "<?= base_url() ?>/register";
-      });
-      $('#logsub').click(function() {
-        window.location = "<?= base_url() ?>/login";
       });
     </script>
 

@@ -33,9 +33,7 @@
                                     <div class="form-group">
                                         <label class="text-primary">Select Island</label>
                                         <select id="myselect" class="form-control" name="island">
-                                            <option value="0" readonly select>- Please Select the Island -</option>
-
-
+                                            <option value="0" readonly select>- Please Select the Island -</option> 
                                             <?php foreach ($DataIsland as $value) : ?>
                                                 <option value="<?= $value->id_island ?>" <?= (isset($DataLocation->name_location)) ? ($DataLocation->id_island == $value->id_island) ? 'selected' :  '' : '' ?>><?= $value->name_island ?></option>
                                             <?php endforeach ?>
