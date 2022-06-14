@@ -41,8 +41,8 @@ class Filters extends BaseConfig
                                             'login',
                                             'slog', 
                                             '/', 
-                                            'register', 
-                                            'regto', 
+                                            'register',
+                                            'visit', 'visit/*', 
                                             ]
                             ], 
         ],

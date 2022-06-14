@@ -29,34 +29,31 @@ foreach ($getIsland as $key => $value) : ?>
 
     <div class="row">
       <?php foreach ($getLocation as $key => $value2) :
-              if ($value2->id_island  == $value->id_island) : ?> 
+        if ($value2->id_island  == $value->id_island) : ?>
 
           <div class="col-12 col-sm-6 col-md-6 col-lg-3">
             <article class="article">
               <div class="article-header">
-                <div class="article-image" 
-                data-background="<?=($value2->picture == "")? base_url(). "/stisla/assets/img/news/img08.jpg" : base_url(). '/uploads/location/'. $value2->picture ?> ">
+                <div class="article-image" data-background="<?= ($value2->picture == "") ? base_url() . "/stisla/assets/img/news/img08.jpg" : base_url() . '/uploads/location/' . $value2->picture ?> ">
                 </div>
                 <div class="article-title">
                   <h2><a href="#"><?= $value2->name_location ?></a></h2>
                 </div>
               </div>
               <div class="article-details">
-                <p><?= $value2->ket_location?> </p>
+                <p><?= $value2->ket_location ?> </p>
                 <div class="article-cta">
-                  <a href="#" class="btn btn-primary">Visit </a>
+                  <a href="<?= base_url() ?>/visit/<?= $value2->id_location ?>" class="btn btn-primary">Visit </a>
                 </div>
               </div>
             </article>
           </div>
 
 
-      <?php   endif;
-            endforeach; ?>
+      <?php endif;
+      endforeach; ?>
     </div>
   </div>
 
 
 <?php endforeach; ?>
-
-   
