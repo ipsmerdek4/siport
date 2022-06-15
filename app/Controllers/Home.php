@@ -42,8 +42,7 @@ class Home extends BaseController
                 );
 
                 echo view('ext/L1/header', $data);
-                echo view('ext/L1/menu', $data);
-                echo view('ext/L1/navigasi', $data);
+                echo view('ext/L1/menu', $data); 
                 echo view('v_home_lv1', $data);
                 echo view('ext/L1/footer', $data);
 

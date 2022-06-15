@@ -10,12 +10,12 @@
         <div class="navbar-nav">
           <a href="#" class="nav-link sidebar-gone-show" data-toggle="sidebar"><i class="fas fa-bars"></i></a>
         </div>
-        <form class="form-inline mr-lg-auto ml-lg-0  " action="<?= base_url() ?>" method="post">
+        <div class="form-inline mr-lg-auto ml-lg-0  "  >
 
-        </form>
-        <ul class="navbar-nav navbar-right mr-lg-5">
+        </div>
+        <ul class="navbar-nav navbar-right mr-xl-5">
 
-          <li class="dropdown dropdown-list-toggle">
+          <!--     <li class="dropdown dropdown-list-toggle">
             <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg">
               <div class=" d-inline-block d-lg-none mt-1">Rp</div>
               <div class="d-sm-none d-lg-inline-block mt-2">[ Rp ] - IDR </div>
@@ -29,17 +29,17 @@
               </div>
             </div>
           </li>
+ -->
 
 
-
-          <li class="mr-lg-5">
-            <button id="regsub" class="btn btn-danger shadow-none px-3 d-lg-inline-block mt-lg-1 mr-3 mr-lg-5" type="submit">
+          <li class="mr-xl-5">
+            <button id="regsub" class="btn btn-danger shadow-none px-3 d-lg-inline-block mt-lg-1 mr-3 mr-xl-5" type="submit">
               <span class="ion-load-c d-inline-block float-left p-0 my-0 mr-2" data-pack="ios" data-tags="security, padlock, safe" style="font-size:20px;text-shadow:1px 1px #6b6b6b; ">
               </span>
               <div class="float-left p-0 m-0 " style="text-shadow:1px 1px #6b6b6b;">Register</div>
             </button>
           </li>
-          <li class="mr-lg-5 d-none d-lg-inline-block"></li>
+          <li class="mr-xl-5 d-none d-lg-inline-block"></li>
         </ul>
       </nav>
 

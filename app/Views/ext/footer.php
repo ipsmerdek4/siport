@@ -27,8 +27,9 @@
     <script src="<?= base_url() ?>/stisla/assets/js/stisla.js"></script>
 
     <!-- JS Libraies -->
-
     <script src="<?= base_url() ?>/assets/select2/dist/js/select2.min.js"></script>
+    <script src="<?= base_url() ?>/assets/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js"></script>
+
 
     <!-- Page Specific JS File -->
     <script src="<?= base_url() ?>/stisla/assets/js/page/modules-ion-icons.js"></script>
@@ -39,13 +40,22 @@
 
 
     <script>
+      $(function() {
+        $('#datetimepicker4').datetimepicker({
+          format: 'L',
+          viewMode: 'years',
+          format: 'DD/MM/YYYY'
+        });
+      });
+
+
       $('.carousel').carousel({
-        interval: 2000,
+        interval: 3000,
       })
 
       $(document).ready(function() {
         $('#myselect').select2().data('select2').$container.addClass("border border-primary rounded");
-        
+
         $('#myselect2').select2({
           minimumResultsForSearch: -1,
         }).data('select2').$container.addClass("border border-primary rounded");

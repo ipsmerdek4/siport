@@ -77,6 +77,7 @@ class Register extends Controller{
                 session()->setFlashdata('error', $text1.$text2.$text3.$text4 );
                 return redirect()->to(base_url('/register'))->withInput(); 
             }else{
+                
                 $User->insert([  
                     'username' => $username,
                     'password' => password_hash($password, PASSWORD_BCRYPT), 
