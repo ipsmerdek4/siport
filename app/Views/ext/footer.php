@@ -28,7 +28,7 @@
 
     <!-- JS Libraies -->
     <script src="<?= base_url() ?>/assets/select2/dist/js/select2.min.js"></script>
-    <script src="<?= base_url() ?>/assets/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="<?= base_url() ?>/assets/bootstrap4-datetime-picker-rails-master/javascripts/tempusdominus-bootstrap-4.min.js"></script>
 
 
     <!-- Page Specific JS File -->
