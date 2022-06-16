@@ -2,11 +2,11 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Data Island</h1>
-            <div class="section-header-breadcrumb">
-                <div class="breadcrumb-item active"><a href="<?= base_url() ?>/">Dashboard</a></div>
-                <div class="breadcrumb-item">Data Island</div>
-            </div>
+            <h1>Data Destination</h1>
+            <ul class="list-unstyled section-header-breadcrumb pt-3">
+                <li class="breadcrumb-item"><a href="<?=base_url()?>">Dashboard</a></li> 
+                <li class="breadcrumb-item active" aria-current="page">Data Destination</li>
+            </ul> 
         </div>
 
         <div class="section-body">
@@ -29,7 +29,7 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Name Island</th>
+                                        <th>Destination</th>
                                         <th>Date Data </th>
                                         <th>Opsi</th>
                                     </tr>

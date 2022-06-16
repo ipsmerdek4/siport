@@ -2,12 +2,15 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Data Island</h1>
-            <div class="section-header-breadcrumb">
-                <div class="breadcrumb-item active"><a href="<?= base_url() ?>/">Dashboard</a></div>
-                <div class="breadcrumb-item"><a href="<?= base_url() ?>/island">Data Island</a></div>
-                <div class="breadcrumb-item"><?= ($loadHttp == 'insert') ? 'Insert Data' : 'Update Data' ?></div>
-            </div>
+            <h1>Data Destination</h1>
+
+ 
+  <ul class="list-unstyled section-header-breadcrumb pt-3">
+    <li class="breadcrumb-item"><a href="<?=base_url()?>">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="<?=base_url()?>/destination">Data Destination</a></li>
+    <li class="breadcrumb-item active" aria-current="page">insert</li>
+  </ul> 
+ 
         </div>
 
         <div class="section-body">
@@ -28,17 +31,17 @@
                         </div> -->
                         <div class="card-body">
 
-                            <form action="<?= ($loadHttp == 'insert') ? base_url() . '/island/insert/p' : base_url() . '/island/edit/p/'. $getIsland->id_island ?>" method="POST" class="row">
+                            <form action="<?= ($loadHttp == 'insert') ? base_url() . '/destination/insert/p' : base_url() . '/destination/update/p/'. $gettujuan->id_tujuan  ?> " method="POST" class="row">
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
-                                        <label class="text-primary">Name Island</label>
-                                        <input type="text" class="form-control border border-primary" name="nameisland" placeholder="Name Island" value="<?= (isset($getIsland->name_island)) ? $getIsland->name_island : '' ?>">
+                                        <label class="text-primary">Destination</label>
+                                        <input type="text" class="form-control border border-primary" name="nmdestination" placeholder="Enter Destination" value="<?= (isset($gettujuan->nm_tujuan)) ? $gettujuan->nm_tujuan : '' ?>">
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label class="text-primary"><?= ($loadHttp == 'insert') ? 'Date Create Data' : ' Date Update Data' ?></label>
-                                        <input type="text" class="form-control border border-primary" readonly value="<?= date("Y-m-d H:i:s") ?>" name="tglisland">
+                                        <input type="text" class="form-control border border-primary" readonly value="<?= date("Y-m-d H:i:s") ?>" name="tgldestination">
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-12">

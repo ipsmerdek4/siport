@@ -23,6 +23,30 @@
 
 
   <style>
+
+    .d-myorder{
+      color: #343a40; 
+    }
+    .d-myorder:hover{
+      color: #6777ef; 
+    }
+    .d-myorder-head{
+      padding :23.5px 0;
+      padding-right: 15px;
+    } 
+    .d-myorder-fot{ 
+      border-bottom: 2px solid white;
+      padding :23.5px 0;
+    }
+    .d-myorder-fot:hover{
+      /* color: #343a40;  */
+      border-bottom: 2px solid #6777ef; 
+    }
+
+
+
+
+
     /* serching logo */
     .serchlocation .select2-container--default .select2-selection--single .select2-selection__arrow b {
       background-image: url("<?= base_url() ?>/assets/img/ico/3936854_creanimasi_pencarian_search_searching_icon.png");

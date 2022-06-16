@@ -42,8 +42,7 @@ class Filters extends BaseConfig
                                             'slog',
                                             'regto', 
                                             '/', 
-                                            'register',
-                                            'visit', 'visit/*', 
+                                            'register', 
                                             ]
                             ], 
         ],
@@ -52,10 +51,9 @@ class Filters extends BaseConfig
                                             '/',   
                                             ]
                         ],
-            'authadmin' => ['except' => [ 
-                                            'login', 'login/*',
-                    'island', 'island/*',
-                    'location', 'location/*',  
+            'authadmin' => ['except' => [  
+                                            'destination', 'destination/*', 
+                                            'departure', 'departure/*', 
                                             '/',   
                                             ]
                         ],

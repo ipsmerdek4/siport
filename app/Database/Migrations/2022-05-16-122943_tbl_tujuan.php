@@ -3,30 +3,30 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class Tbl_island extends Migration{
+class Tbl_tujuan extends Migration{
     public function up(){
 
-       $this->forge->addField([ 
-            'id_island'          => [
+        $this->forge->addField([ 
+            'id_tujuan'          => [
                 'type'           => 'INT',
                 'constraint'     => 10,
                 'unsigned'       => true,
                 'auto_increment' => true
             ],  
-			'name_island'       => [
+			'nm_tujuan'       => [
 				'type'           => 'VARCHAR',
 				'constraint'     => '100', 
 			],  
-			'tgl_pembuatan_island' => [
+			'tgl_crt_dt_tujuan' => [
 				'type'           => 'DATETIME',
 				'null'       	 => true,
 			], 
         ]);
-        $this->forge->addPrimaryKey('id_island', true); 
-        $this->forge->createTable('tbl_island'); 
+        $this->forge->addPrimaryKey('id_tujuan', true); 
+        $this->forge->createTable('tbl_tujuan'); 
     }
 
     public function down(){
-        $this->forge->dropTable('tbl_island');
+        $this->forge->dropTable('tbl_tujuan');
     }
 }

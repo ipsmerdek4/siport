@@ -15,17 +15,17 @@
                 </a>
             </li>
             <li class="menu-header">Pages</li>
-            <li class="nav-item dropdown  <?php echo $menu == 'dataisland' || $menu == 'datalocation' ? 'active' : '' ?> ">
+            <li class="nav-item dropdown  <?php echo $menu == 'destination' || $menu == 'departure' ? 'active' : '' ?> ">
                 <a href="#" class="nav-link has-dropdown pl-1">
                     <i class="fa fa-car ml-3"></i>
                     <span>Data Tours</span>
                 </a>
                 <ul class="dropdown-menu ">
-                    <li class=" <?php echo $menu == 'dataisland' ? 'active' : '' ?>  ">
-                        <a class="nav-link" href="<?= base_url() ?>/island">Island</a>
+                    <li class=" <?php echo $menu == 'destination' ? 'active' : '' ?>  ">
+                        <a class="nav-link" href="<?= base_url() ?>/destination">Destination</a>
                     </li>
-                    <li class=" <?php echo $menu == 'datalocation' ? 'active' : '' ?>  ">
-                        <a class="nav-link" href="<?= base_url() ?>/location">Location</a>
+                    <li class=" <?php echo $menu == 'departure' ? 'active' : '' ?>  ">
+                        <a class="nav-link" href="<?= base_url() ?>/departure">Departure</a>
                     </li>
                 </ul>
             </li>

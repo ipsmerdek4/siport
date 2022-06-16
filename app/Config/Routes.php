@@ -46,24 +46,19 @@ $routes->post('/regto', 'Register::progres_regis');
 
 $routes->get('/logout', 'Login::logout');
 
-$routes->get('/island', 'Island::index');
-$routes->post('/island/listisland', 'Island::listisland');
-$routes->get('/island/insert', 'Island::insrt_p');
-$routes->get('/island/edit/(:any)', 'Island::edt_p/$1');
-$routes->get('/island/del/(:any)', 'Island::del_p/$1');
-$routes->post('/island/insert/p', 'Island::insrt_pp');
-$routes->post('/island/edit/p/(:any)', 'Island::edt_pp/$1');
-$routes->get('/island/(:any)', 'Island::index/');
+$routes->get('/destination', 'Destination::index');
+$routes->post('/destination/list', 'Destination::list');
 
-$routes->get('/location', 'Location::index');
-$routes->post('/location/listlocation', 'Location::listlocation');
+$routes->get('/destination/insert', 'Destination::insert');
+$routes->post('/destination/insert/p', 'Destination::inp_progress');
 
-$routes->get('/location/insert', 'Location::insrt_p');
-$routes->post('/location/insert/p', 'Location::insrt_pp');
-$routes->get('/location/edit/(:any)', 'Location::edt_p/$1');
-$routes->post('/location/edit/p/(:any)', 'Location::edt_pp/$1');
+$routes->get('/destination/delete/(:any)', 'Destination::delete/$1');
 
-$routes->get('/location/del/(:any)', 'Location::del_p/$1');
+$routes->get('/destination/update/(:any)', 'Destination::update/$1'); 
+$routes->post('/destination/update/p/(:any)', 'Destination::up_progress/$1'); 
+
+
+$routes->get('/departure', 'Departure::index');
 
 
 /*

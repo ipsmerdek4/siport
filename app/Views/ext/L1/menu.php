@@ -55,9 +55,15 @@
           <ul class="navbar-nav">
             <li class="menu-header d-lg-none">Page</li>
             <li class="nav-item active">
-              <a href="#" class="nav-link">
+              <a href="<?=base_url()?>" class="nav-link">
                 <i class="ion ion-android-car"></i>
                 <span>Tour</span>
+              </a>
+            </li>
+            <li class="nav-item active d-xl-none">
+              <a href="#" class="nav-link">
+                <i class="ion ion-android-car"></i>
+                <span>My Order</span>
               </a>
             </li>
 
@@ -66,13 +72,15 @@
           <ul class="m-2 list-unstyled d-none d-xl-inline-block ">
 
             <li class="nav-item nav-right ">
-              <a href="#" class="nav-link " style="color:blue">
-                 <span>My Order</span>
+              <a href="#" class="nav-link "  >
+                <div class="d-myorder font-weight-bold">
+                  <i class="ion-clipboard float-left d-myorder-head"></i> 
+                  <div class="d-myorder-fot float-left">
+                    <span>My Order</span>
+                  </div>
+                </div>
               </a>
-            </li>
-            <li>
-
-            </li>
+            </li> 
 
           </ul>
 

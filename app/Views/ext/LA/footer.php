@@ -41,27 +41,21 @@
 <script src="<?= base_url() ?>/stisla/assets/js/scripts.js"></script>
 <script src="<?= base_url() ?>/stisla/assets/js/custom.js"></script>
 
-
-<?php if ($menu == "dataisland") : ?>
-  <script src="<?= base_url() ?>/assets/js/island.js"></script>
-<?php elseif ($menu == "datalocation") : ?>
-  <?php if (isset($loadHttp)) {
-    if ($loadHttp == "insert") { ?>
-      <script src="<?= base_url() ?>/assets/js/ext/insert.js"></script>
-      <script src="<?= base_url() ?>/assets/js/location.js"></script>
-    <?php } elseif ($loadHttp == "update") { ?>
-      <script src="<?= base_url() ?>/assets/js/ext/update.js"></script>
-      <script src="<?= base_url() ?>/assets/js/location.js"></script>
-    <?php } else { ?>
-      <script src="<?= base_url() ?>/assets/js/location.js"></script>
-    <?php   }
-  } else { ?>
-    <script src="<?= base_url() ?>/assets/js/location.js"></script>
-  <?php } ?>
-<?php endif ?>
+<?php if (isset($loadHttp)) :  ?> 
+    <?php if ($loadHttp == "insert") : ?> 
+              <script src="<?= base_url() ?>/assets/js/destination/insert.js"></script> 
+    <?php elseif ($loadHttp == "update") :?>
+        <!--  -->
+    <?php endif; ?> 
+<?php else : ?>
+    <script src="<?= base_url() ?>/assets/js/destination/insert.js"></script> s
+<?php endif; ?>
 
 
-<script>
+<script> 
+
+
+/*  */
   <?php if (!empty(session()->getFlashdata('error'))) : ?> Swal.fire({
       title: 'Warning',
       html: '<?php echo session()->getFlashdata('error'); ?>',
