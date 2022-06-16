@@ -3,29 +3,29 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class TujuanModel extends Model{
-    protected $table      = 'tbl_tujuan';
-    protected $primaryKey = 'id_tujuan';
+class DestinationModel extends Model{
+    protected $table      = 'tbl_destination';   
+    protected $primaryKey = 'id_destination';
     protected $returnType = 'object'; 
-    protected $allowedFields = ['id_tujuan','nm_tujuan','tgl_crt_dt_tujuan'];
+    protected $allowedFields = ['id_destination','nm_destination','tgl_crt_dt_destination'];
 
-    var $column_order = array('id_tujuan','nm_tujuan','tgl_crt_dt_tujuan');
-    var $order = array('tgl_crt_dt_tujuan' => 'DESC');
+    var $column_order = array('id_destination','nm_destination','tgl_crt_dt_destination');
+    var $order = array('tgl_crt_dt_destination' => 'DESC');
 
 
     function get_datatables()
     { 
         
         if ($_POST['length'] != -1); 
-                $builder = $this->db->table('tbl_tujuan');
+                $builder = $this->db->table('tbl_destination');
 
             // search
             if ($_POST['search']['value']) {
                 $search = $_POST['search']['value'];
-                $builder->like('nm_tujuan', $search);
-                $builder->orLike('tgl_crt_dt_tujuan', $search); 
+                $builder->like('nm_destination', $search);
+                $builder->orLike('tgl_crt_dt_destination', $search); 
             } else {
-                $builder->where('id_tujuan !=', '');
+                $builder->where('id_destination !=', '');
             }
 
             // order
@@ -49,8 +49,8 @@ class TujuanModel extends Model{
 
     function jumlah_semua()
     {
-        $builder = $this->db->table('tbl_tujuan');
-        $builder->selectCount('id_tujuan');
+        $builder = $this->db->table('tbl_destination');
+        $builder->selectCount('id_destination');
 
         $query = $builder->get();
         return $query->getResult();
@@ -60,15 +60,15 @@ class TujuanModel extends Model{
     function jumlah_filter()
     {
 
-        $builder = $this->db->table('tbl_tujuan');
-        $builder->selectCount('id_tujuan');
+        $builder = $this->db->table('tbl_destination');
+        $builder->selectCount('id_destination');
         // search
         if ($_POST['search']['value']) {
             $search = $_POST['search']['value'];
-            $builder->like('nm_tujuan', $search);
-            $builder->orLike('tgl_crt_dt_tujuan', $search);
+            $builder->like('nm_destination', $search);
+            $builder->orLike('tgl_crt_dt_destination', $search);
         } else {
-            $builder->where('id_tujuan !=', '');
+            $builder->where('id_destination !=', '');
         }
 
 
@@ -78,16 +78,6 @@ class TujuanModel extends Model{
  
     }
     
-
-
-
-
-
-
-
-
-
-
 
 
 

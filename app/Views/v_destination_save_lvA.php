@@ -31,11 +31,11 @@
                         </div> -->
                         <div class="card-body">
 
-                            <form action="<?= ($loadHttp == 'insert') ? base_url() . '/destination/insert/p' : base_url() . '/destination/update/p/'. $gettujuan->id_tujuan  ?> " method="POST" class="row">
+                            <form action="<?= ($loadHttp == 'insert') ? base_url() . '/destination/insert/p' : base_url() . '/destination/update/p/'. $getDestination->id_destination ?> " method="POST" class="row">
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label class="text-primary">Destination</label>
-                                        <input type="text" class="form-control border border-primary" name="nmdestination" placeholder="Enter Destination" value="<?= (isset($gettujuan->nm_tujuan)) ? $gettujuan->nm_tujuan : '' ?>">
+                                        <input type="text" class="form-control border border-primary" name="nmdestination" placeholder="Enter Destination" value="<?= (isset($getDestination->nm_destination)) ? $getDestination->nm_destination : '' ?>">
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-6">

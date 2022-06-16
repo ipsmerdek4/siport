@@ -1,10 +1,12 @@
 <?php 
 namespace App\Controllers;
 
-use CodeIgniter\Controller;
+use CodeIgniter\Controller;  
 use App\Models\UserModel;  
 
 class Login extends Controller{
+
+    public function VARs(){ return $request = service('request'); }
 
 
     public function index()
@@ -20,12 +22,14 @@ class Login extends Controller{
  
     }
 
+   
+
     public function progres_login()
     { 
         $User = new UserModel(); 
 
-        $username = $this->request->getVar('u_name');
-        $password = $this->request->getVar('p_name');
+        $username = $this->VARs()->getVar('u_name');
+        $password = $this->VARs()->getVar('p_name');
 
             $text1 = "";
             $text2 = "";
@@ -73,7 +77,7 @@ class Login extends Controller{
                         } 
                         
                     }else{
-                        session()->setFlashdata('msg', '<div class="" style="font-size:15px;">'. 
+                        session()->setFlashdata('error', '<div class="" style="font-size:15px;">'. 
                                                         '[ Password Salah ]'.
                                                         '</div>');
                         return redirect()->to(base_url('/login')); 

@@ -8,9 +8,8 @@ class Home extends BaseController
 {
     public function index()
     { 
-            $User = new UserModel(); 
-
-
+            $User = new UserModel();  
+            
             $title = 'Home &rsaquo; [SIPORT]';
 
             $sessionID = session()->get('ID');

@@ -58,6 +58,12 @@ $routes->get('/destination/update/(:any)', 'Destination::update/$1');
 $routes->post('/destination/update/p/(:any)', 'Destination::up_progress/$1'); 
 
 
+$routes->get('/vehicle', 'Vehicle::index'); 
+$routes->post('/vehicle/list', 'Vehicle::list');
+
+
+
+
 $routes->get('/departure', 'Departure::index');
 
 

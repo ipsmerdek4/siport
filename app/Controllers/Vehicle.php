@@ -2,70 +2,77 @@
 namespace App\Controllers;
 
 use CodeIgniter\Controller;
+use App\Models\VehicleModel;
 use App\Models\UserModel; 
-use App\Models\DestinationModel; 
 
-class Destination extends Controller{
+
+class Vehicle extends Controller{
 
     public function VARs(){ return $request = service('request'); }
 
+
     public function index()
     { 
+            $User = new UserModel();  
+            
+            $title = 'Vehicle &rsaquo; [SIPORT]';
 
-        $User = new UserModel();  
+            $sessionID = session()->get('ID');
+            if (isset($sessionID)) {
+            
+                $getUser = $User->where(['id_user' => session()->get('ID'),])->first();
+    
+                $timesaatlog = strtotime($getUser->tgl_log_user);
+                $timesaatini = strtotime(date("Y-m-d H:i:s")); 
+            
+            }
 
-        $sessionID = session()->get('ID');
-        if (isset($sessionID)) {
-        
-            $getUser = $User->where(['id_user' => session()->get('ID'),])->first();
+            $data = array(  
+                'menu'          => 'vehicle',
+                'title'         => $title,
+                'user'          => session()->get('name'),
+                'timesaatini'   => $timesaatini,
+                'timesaatlog'   => $timesaatlog,
+            );
 
-            $timesaatlog = strtotime($getUser->tgl_log_user);
-            $timesaatini = strtotime(date("Y-m-d H:i:s")); 
-        
-        }
+            echo view('ext/LA/header', $data);
+            echo view('ext/LA/navigasi', $data);
+            echo view('ext/LA/menu', $data);
+            echo view('v_vehicle_lvA', $data);
+            echo view('ext/LA/footer', $data);
 
-        $data = array(  
-            'menu'          => 'destination',
-            'title'         => 'Destination &rsaquo; [SIPORT]',
-            'user'          => session()->get('name'),
-            'timesaatini'   => $timesaatini,
-            'timesaatlog'   => $timesaatlog,
-        );
 
-        echo view('ext/LA/header', $data);
-        echo view('ext/LA/navigasi', $data);
-        echo view('ext/LA/menu', $data);
-        echo view('v_destination_lvA', $data);
-        echo view('ext/LA/footer', $data);
- 
     }
+
+
 
     public function list()
     {
-        $Destination = new DestinationModel();
+        $Vehicle = new VehicleModel();
 
-        $listing = $Destination->get_datatables();
-        $jumlah_semua = $Destination->jumlah_semua();
-        $jumlah_filter = $Destination->jumlah_filter();
+        $listing = $Vehicle->get_datatables();
+        $jumlah_semua = $Vehicle->jumlah_semua();
+        $jumlah_filter = $Vehicle->jumlah_filter();
 
 
         $data = array();
         $no = $_POST['start'];
         foreach ($listing as $key) {
             $no++;
-            $dataviewsweetalert = $key->nm_destination."(^)".$key->tgl_crt_dt_destination ;
+            $dataviewsweetalert = $key->nm_vehicle."(^)".$key->tgl_crt_dt_vehicle ;
             $row = array(
                 'no' => $no,
-                'nm_tujuan' => $key->nm_destination,
-                'tgl_crt_dt_tujuan' => $key->tgl_crt_dt_destination,
+                'name' => $key->nm_vehicle,
+                'seat' => $key->seat,
+                'tgl' => $key->tgl_crt_dt_vehicle,
                 'action' => '<button id="editdata" class="btn btn-success mr-1 pr-2 "'. 
                             'data-data="' . $dataviewsweetalert . '"   ' .
-                            'data-href="' . base_url() . '/destination/update/' . $key->id_destination . '"   >' .
+                            'data-href="' . base_url() . '/vehicle/update/' . $key->id_vehicle  . '"   >' .
                             '<i class="far fa-edit"></i>'.
                             '</button>' .
                             '<button id="deldata"  class="btn btn-danger"'.
                             'data-data="'. $dataviewsweetalert.'"   ' .
-                            'data-href="' . base_url() . '/destination/delete/' . $key->id_destination . '"   >' .
+                            'data-href="' . base_url() . '/vehicle/delete/' . $key->id_vehicle  . '"   >' .
                             '<i class="fas fa-trash"></i>' .
                             '</button>',
             ); 
@@ -75,14 +82,16 @@ class Destination extends Controller{
 
         $output = array(
             'draw'  => $_POST['draw'],
-            'recordsTotal' => $jumlah_semua[0]->id_destination,
-            'recordsFiltered' => $jumlah_filter[0]->id_destination,
+            'recordsTotal' => $jumlah_semua[0]->id_vehicle,
+            'recordsFiltered' => $jumlah_filter[0]->id_vehicle,
             'data'  => $data
         );
 
         echo json_encode($output); 
     }
 
+
+    
     public function insert()
     {
         $User = new UserModel();  
@@ -116,10 +125,10 @@ class Destination extends Controller{
     public function inp_progress()
     {
 
-        $Destination = new DestinationModel();
+        $Tujuan = new TujuanModel();
 
         $nmdestination = $this->VARs()->getVar('nmdestination');
-        $checknametrue  = $Destination->where(['nm_destination' => $nmdestination])->first();
+        $checknametrue  = $Tujuan->where(['nm_tujuan' => $nmdestination])->first();
 
         $tgldestination = $this->VARs()->getVar('tgldestination');
 
@@ -146,9 +155,9 @@ class Destination extends Controller{
             return redirect()->to(base_url('/destination/insert'));
         } else {
 
-            $Destination->insert([
-                'nm_destination'             => $nmdestination, 
-                'tgl_crt_dt_destination'     => $tgldestination,
+            $Tujuan->insert([
+                'nm_tujuan'             => $nmdestination, 
+                'tgl_crt_dt_tujuan'     => $tgldestination,
             ]);
 
             session()->setFlashdata('msg', '<div style="font-size:15px;">Insert Successfully.</div>');
@@ -162,12 +171,12 @@ class Destination extends Controller{
  
     public function update($id = null)
     {
-        $id_destination   = $id;
+        $id_tujuan  = $id;
 
         $User = new UserModel();  
-        $Destination = new DestinationModel();
+        $Tujuan = new TujuanModel();
 
-        $getDestination = $Destination->where(['id_destination ' => $id_destination ,])->first();
+        $gettujuan = $Tujuan->where(['id_tujuan' => $id_tujuan,])->first();
 
         $sessionID = session()->get('ID');
         if (isset($sessionID)) {
@@ -180,13 +189,13 @@ class Destination extends Controller{
         }
 
         $data = array(  
-            'menu'              => 'destination',
-            'loadHttp'          => 'update',
-            'title'             => 'Destination &rsaquo; [SIPORT]',
-            'user'              => session()->get('name'),
-            'timesaatini'       => $timesaatini,
-            'timesaatlog'       => $timesaatlog,
-            'getDestination'    => $getDestination,
+            'menu'          => 'destination',
+            'loadHttp'      => 'update',
+            'title'         => 'Destination &rsaquo; [SIPORT]',
+            'user'          => session()->get('name'),
+            'timesaatini'   => $timesaatini,
+            'timesaatlog'   => $timesaatlog,
+            'gettujuan'     => $gettujuan,
         );
 
         echo view('ext/LA/header', $data);
@@ -199,8 +208,8 @@ class Destination extends Controller{
 
     public function up_progress($id = null)
     {
-        $id_destination  = $id;
-        $Destination = new DestinationModel();
+        $id_tujuan  = $id;
+        $Tujuan = new TujuanModel();
 
         $nmdestination = $this->VARs()->getVar('nmdestination');  
         $tgldestination = $this->VARs()->getVar('tgldestination');
@@ -224,14 +233,14 @@ class Destination extends Controller{
 
         if (($text1) || ($text2)) {
             session()->setFlashdata('error', $text1 . $text2);
-            return redirect()->to(base_url('/destination/update/'.$id_destination));
+            return redirect()->to(base_url('/destination/update/'.$id_tujuan));
         } else {
 
             $data = [
-                'nm_destination'         => $nmdestination,
-                'tgl_crt_dt_destination' => $tgldestination,
+                'nm_tujuan'         => $nmdestination,
+                'tgl_crt_dt_tujuan' => $tgldestination,
             ];  
-            $Destination->update($id_destination, $data);  
+            $Tujuan->update($id_tujuan, $data);  
 
             session()->setFlashdata('msg', '<div style="font-size:15px;">Update Successfully.</div>');
             return redirect()->to(base_url('/destination'));  
@@ -245,30 +254,24 @@ class Destination extends Controller{
  
     public function delete( $id = null)
     {
-        $id_destination  = $id;
-        $Destination = new DestinationModel();
+        $id_tujuan  = $id;
+        $Tujuan = new TujuanModel();
 
-
-        $getDestination = $Destination->where(['id_destination' => $id_destination,])->first();
+        $getTujuan = $Tujuan->where(['id_tujuan' => $id_tujuan,])->first();
  
-        if ($Destination->find($id_destination)) {
-            $Destination->delete($id_destination);
+        if ($Tujuan->find($id_tujuan)) {
+            $Tujuan->delete($id_tujuan);
 
             session()->setFlashdata('msg', '<div style="font-size:15px;">Delete Successfully.<br><br>'.
-            '<b>[ ID => ' . $getDestination->id_destination  . ' ]</b><br>' .
-            '<b>[ Destination => ' . $getDestination->nm_destination . ' ]</b><br>' .
-            '<b>[ Date Data => '. $getDestination->tgl_crt_dt_destination.' ]</b></div>');
+            '<b>[ ID => ' . $getTujuan->id_tujuan  . ' ]</b><br>' .
+            '<b>[ Destination => ' . $getTujuan->nm_tujuan . ' ]</b><br>' .
+            '<b>[ Date Data => '. $getTujuan->tgl_crt_dt_tujuan.' ]</b></div>');
             return redirect()->to(base_url('/destination')); 
         } else {
             session()->setFlashdata('error', '<div class="" style="font-size:15px;">An error occurred while deleting data.<br>Please repeat again.</div>');
             return redirect()->to(base_url('/destination'));
         } 
     }
-
-
-
-
-
 
 
 

@@ -53,6 +53,7 @@ class Filters extends BaseConfig
                         ],
             'authadmin' => ['except' => [  
                                             'destination', 'destination/*', 
+                                            'vehicle', 'vehicle/*', 
                                             'departure', 'departure/*', 
                                             '/',   
                                             ]

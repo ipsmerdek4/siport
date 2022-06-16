@@ -6,6 +6,8 @@ use App\Models\UserModel;
 
 class Register extends Controller{
 
+    public function VARs(){ return $request = service('request'); }
+
     public function index()
     { 
             $data = array(
@@ -25,10 +27,10 @@ class Register extends Controller{
         
             $User = new UserModel(); 
 
-            $HP = $this->request->getVar('g_HP');
-            $email = $this->request->getVar('g_email');
-            $username = $this->request->getVar('u_name');
-            $password = $this->request->getVar('u_pass'); 
+            $HP = $this->VARs()->getVar('g_HP');
+            $email = $this->VARs()->getVar('g_email');
+            $username = $this->VARs()->getVar('u_name');
+            $password = $this->VARs()->getVar('u_pass'); 
 
             $text1 = "";
             $text2 = "";
