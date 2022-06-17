@@ -62,6 +62,7 @@ $routes->get('/vehicle', 'Vehicle::index');
 $routes->post('/vehicle/list', 'Vehicle::list');
 
 
+$routes->get('/driver', 'Driver::index'); 
 
 
 $routes->get('/departure', 'Departure::index');
