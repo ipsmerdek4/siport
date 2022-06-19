@@ -20,21 +20,17 @@ class Tbl_driver extends Migration{
 				'type'           => 'VARCHAR',
 				'constraint'     => '100', 
 			],  
-			'number'             => [ //nomer WA
+			'number_driver'		 => [  
 				'type'           => 'VARCHAR',
 				'constraint'     => '20', 
-			],  
-			'plat_car'           => [ //plat kendaraan
-				'type'           => 'VARCHAR',
-				'constraint'     => '20', 
-			],  
-			'picture'            => [ //foto wajah
+			],   
+			'picture'            => [ 
 				'type'           => 'TEXT', 
 			],  
-			'picture_KTP'        => [ //foto ktp
+			'picture_KTP'        => [  
 				'type'           => 'TEXT', 
 			],  
-			'picture_SIM'        => [ //foto sim
+			'picture_SIM'        => [  
 				'type'           => 'TEXT', 
 			],  
 			'tgl_crt_dt_driver'  => [

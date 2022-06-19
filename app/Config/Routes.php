@@ -60,6 +60,33 @@ $routes->post('/destination/update/p/(:any)', 'Destination::up_progress/$1');
 
 $routes->get('/vehicle', 'Vehicle::index'); 
 $routes->post('/vehicle/list', 'Vehicle::list');
+ 
+$routes->get('/vehicle/insert', 'Vehicle::insert'); 
+$routes->post('/vehicle/insert/p', 'Vehicle::inp_progress');
+
+$routes->get('/vehicle/delete/(:any)', 'Vehicle::delete/$1');
+
+$routes->get('/vehicle/update/(:any)', 'Vehicle::update/$1'); 
+$routes->post('/vehicle/update/p/(:any)', 'Vehicle::up_progress/$1'); 
+
+ 
+
+
+$routes->get('/driver', 'Driver::index'); 
+$routes->post('/driver/list', 'Driver::list');
+ 
+$routes->get('/driver/insert', 'Driver::insert'); 
+$routes->post('/driver/insert/p', 'Driver::inp_progress');
+
+$routes->get('/driver/delete/(:any)', 'Driver::delete/$1');
+
+$routes->get('/driver/update/(:any)', 'Driver::update/$1'); 
+$routes->post('/driver/update/p/(:any)', 'Driver::up_progress/$1'); 
+
+ 
+ 
+
+
 
 
 $routes->get('/driver', 'Driver::index'); 

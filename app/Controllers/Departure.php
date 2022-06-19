@@ -27,7 +27,7 @@ class Departure extends Controller{
 
 
         $data = array(  
-            'menu'          => 'Departure',
+            'menu'          => 'departure',
             'title'         => $title,
             'user'          => session()->get('name'),
             'timesaatini'   => $timesaatini,

@@ -13,12 +13,13 @@
   <!-- CSS Libraries -->
   <link rel="stylesheet" href="<?= base_url() ?>/stisla/node_modules/ionicons201/css/ionicons.min.css">
 
-
   <link rel="stylesheet" href="<?= base_url() ?>/assets/datatables/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="<?= base_url() ?>/assets/datatables/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="<?= base_url() ?>/assets/datatables/datatables-buttons/css/buttons.bootstrap4.min.css">
 
   <link rel="stylesheet" href="<?= base_url() ?>/assets/select2/dist/css/select2.min.css">
+  
+  <link rel="stylesheet" href="<?=base_url()?>/assets/intl-tel-input/css/intlTelInput.css">
 
 
   <!-- Template CSS -->
@@ -27,6 +28,9 @@
 
 
   <style>
+    /*  */
+    .iti{ width: 100%;}
+
     /* Table redisain */
     #example_filter>label {
       margin: 10px 0 0 0 !important;
