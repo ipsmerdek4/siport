@@ -60,10 +60,10 @@
                                     <div class="form-group">
                                         <label class="text-primary">Destination</label> 
                                         <div class="input-group mb-3">
-                                            <input id="vw-Destination" readonly type="text" class="form-control border border-primary" placeholder="" aria-label="">
+                                            <input id="vw-Destination" readonly type="text" class="form-control border border-primary" placeholder="-" name="textone">
                                             <div class="input-group-append">
                                             <button  data-sts="1" class="btn btn-primary pt-2 openserch" type="button">
-                                                <i class="icon ion-search px-2 " style="font-size: 20px;"></i>
+                                                <i class="icon ion-search  " style="font-size: 20px;padding: 0 1px 0 1px;"></i>
                                             </button>
                                             </div>
                                         </div> 
@@ -71,10 +71,10 @@
                                     <div class="form-group">
                                         <label class="text-primary">Name Vehicle</label> 
                                         <div class="input-group mb-3">
-                                            <input id="vw-Vehicle" readonly type="text" class="form-control border border-primary" placeholder="" aria-label="">
+                                            <input id="vw-Vehicle" readonly type="text" class="form-control border border-primary" placeholder="-" name="texttwo">
                                             <div class="input-group-append">
                                             <button  data-sts="2" class="btn btn-primary pt-2 openserch" type="button">
-                                                <i class="icon ion-search px-2 " style="font-size: 20px;"></i>
+                                                <i class="icon ion-search   " style="font-size: 20px;padding: 0 1px 0 1px;"></i>
                                             </button>
                                             </div>
                                         </div> 
@@ -82,10 +82,10 @@
                                     <div class="form-group">
                                         <label class="text-primary">Name Driver</label> 
                                         <div class="input-group mb-3">
-                                            <input id="vw-driver" readonly type="text" class="form-control border border-primary" placeholder="" aria-label="">
+                                            <input id="vw-driver" readonly type="text" class="form-control border border-primary" placeholder="-" name="texttree">
                                             <div class="input-group-append">
                                             <button  data-sts="3" class="btn btn-primary pt-2 openserch" type="button">
-                                                <i class="icon ion-search px-2 " style="font-size: 20px;"></i>
+                                                <i class="icon ion-search" style="font-size: 20px;padding: 0 1px 0 1px;" ></i>
                                             </button>
                                             </div>
                                         </div> 
@@ -93,40 +93,45 @@
 
                                     <div class="form-group">
                                         <label class="text-primary">Plat Number</label>
-                                        <input type="text" class="form-control border border-primary"  name="">
+                                        <input type="text" class="form-control border border-primary"  name="plat" placeholder="Enter Plat Number">
                                     </div>
 
 
-                                </div>
+                                </div> 
+
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group  ">
                                         <label class="text-primary">Date of Departure</label>
                                         <div class="row">
-                                            <div class="input-group col-6">
-                                                <input type="text" id="datedat" value="<?=date("m/d/Y")?>" class="form-control border border-primary" name="" readonly/>
-                                                <div class="input-group-append">
-                                                    <button type="button" class="btn btn-primary" data-toggle="datepicker">
-                                                        <i class="far fa-calendar-alt"></i>
-                                                    </button>
-                                                </div>
+                                            <div class="col-12 col-lg-6 mb-2 mb-lg-0">
+                                                <div class="input-group ">
+                                                    <input type="text" id="datedat" value="<?=date("m/d/Y")?>" class="form-control border border-primary" name="tglK" readonly/>
+                                                    <div class="input-group-append">
+                                                        <button type="button" class="btn btn-primary" data-toggle="datepicker">
+                                                            <i class="far fa-calendar-alt" style="padding: 0 2px 0 2px;"></i>
+                                                        </button>
+                                                    </div>
+                                                </div> 
                                             </div>
-                                            <div class="input-group col-6"> 
-                                                <input type="text" id="timevalue" class="form-control border border-primary"  readonly/> 
-                                                <div class="input-group-append">
-                                                    <button type="button" class="btn btn-primary" id="timepicker">
-                                                        <i class="far fa-clock"></i>
-                                                    </button>
+                                            <div class="col-12 col-lg-6 ">
+                                                <div class="input-group ">  
+                                                    <input type="text" id="timevalue" value="<?=date("h:i A")?>" class="form-control border border-primary " name="timeK"  readonly/> 
+                                                    <div class="input-group-append">
+                                                        <button type="button" class="btn btn-primary" id="timepicker">
+                                                            <i class="far fa-clock"  style="padding: 0 1px 0 1px;"></i>
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="text-primary">Price</label>
-                                        <input type="text" class="form-control border border-primary" value="" name="">
+                                        <input type="text" class="form-control border border-primary" id="rupiah" data-a-sign="Rp. " data-a-dec="," data-a-sep="." value="0"  name="price">
                                     </div>
                                     <div class="form-group">
                                         <label class="text-primary"><?= ($loadHttp == 'insert') ? 'Date Create Data' : ' Date Update Data' ?></label>
-                                        <input type="text" class="form-control border border-primary" readonly value="<?= date("Y-m-d H:i:s") ?>" name="tgldestination">
+                                        <input type="text" class="form-control border border-primary" readonly value="<?= date("Y-m-d H:i:s") ?>" name="tgldata">
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-12">

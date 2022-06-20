@@ -38,7 +38,8 @@
 <script src="<?=base_url()?>/assets/Datetime/dayjs-f/datepicker-bs4.js"></script> 
 <script src="<?=base_url()?>/assets/Datetime/Material-Time-Picker-Plugin-jQuery-MDTimePicker/mdtimepicker.js"></script>
 
- 
+<script type="text/javascript" src="<?=base_url()?>/assets/autoNumeric/autoNumeric.js"></script>
+
 
 <!-- Page Specific JS File -->
 <script src="<?= base_url() ?>/stisla/assets/js/page/modules-ion-icons.js"></script>
@@ -72,13 +73,19 @@
  
 
 
- /*  */
-  $(document).ready(function(){ 
-    $('#datedat').datepicker({  });  
-  });
+/*  */ 
+  jQuery('#datedat').datepicker();   
+  
 
-  $('#timepicker').mdtimepicker().on('timechanged',function(e){ 
-    $('#timevalue').val(e.value); 
+  $('#timepicker').mdtimepicker().on('timechanged',function(e){  
+    var times = e.value;
+    var pecahtime = times.split(':');
+    if (pecahtime[0] < 10) {
+      $jamnew = 0 + pecahtime[0];
+    }else{
+      $jamnew = pecahtime[0];
+    } 
+    $('#timevalue').val($jamnew + ':' + pecahtime[1]); 
   });
 
 
@@ -342,6 +349,12 @@ $("#VWshowSERCH").on("hidden.bs.modal", function(){
 /*  */
 $.fn.dataTable.ext.errMode = "none";
 $(document).ready(function () {
+
+
+
+  /*  */
+  $('#rupiah').autoNumeric('init');
+  /*  */
   var table = $("#example").DataTable({
       order: [],
       processing: true,

@@ -14,10 +14,10 @@
  * @todo add support for additional options
  */
 var settings = {
-	format: 'MM/DD/YY',
+	format: 'MM/DD/YYYY',
 	maxDate: null,
 	minDate: '1900-01-01',
-	minScreenWidth: 576,
+	minScreenWidth: 0,
 	popoverWidth: '19rem'
 };
 
@@ -473,11 +473,12 @@ jQuery.fn.datepicker = function (options) {
 
 	// Convert to date type if screen doesn't meet the mininum width or an IOS device
 	if ((common_options.minScreenWidth && window.screen.width < common_options.minScreenWidth)
-		|| /iPad|iPhone|iPod/.test(navigator.userAgent))
+		/* || /iPad|iPhone|iPod/.test(navigator.userAgent) */)
 	{
 		return this.each(function () {
 			var $input = jQuery(this);
-			this.type = 'date';
+			//this.type = 'date';
+			this.type = 'DD/MM/YYYY';
 			jQuery('[data-toggle="datepicker"][data-target="#' + this.id + '"]').add($input.siblings().find('[data-toggle="datepicker"]')).on('click', function () {
 				$input.focus();
 			});

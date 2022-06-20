@@ -19,7 +19,7 @@
 
   <link rel="stylesheet" href="<?= base_url() ?>/assets/select2/dist/css/select2.min.css">
   
-  <link rel="stylesheet" href="<?=base_url()?>/assets/Datetime/intl-tel-input/css/intlTelInput.css">
+  <link rel="stylesheet" href="<?=base_url()?>/assets/intl-tel-input/css/intlTelInput.css">
   
   <link href="<?=base_url()?>/assets/Datetime/Material-Time-Picker-Plugin-jQuery-MDTimePicker/mdtimepicker.css" rel="stylesheet" type="text/css">
 
