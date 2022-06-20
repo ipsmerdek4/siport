@@ -2,10 +2,10 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Data Vehicle</h1>
+            <h1>Data Driver</h1>
             <ul class="list-unstyled section-header-breadcrumb pt-3">
                 <li class="breadcrumb-item"><a href="<?=base_url()?>">Dashboard</a></li> 
-                <li class="breadcrumb-item active" aria-current="page">Data Vehicle</li>
+                <li class="breadcrumb-item active" aria-current="page">Data Driver</li>
             </ul> 
         </div>
 

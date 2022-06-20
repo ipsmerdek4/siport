@@ -68,9 +68,7 @@ $routes->get('/vehicle/delete/(:any)', 'Vehicle::delete/$1');
 
 $routes->get('/vehicle/update/(:any)', 'Vehicle::update/$1'); 
 $routes->post('/vehicle/update/p/(:any)', 'Vehicle::up_progress/$1'); 
-
  
-
 
 $routes->get('/driver', 'Driver::index'); 
 $routes->post('/driver/list', 'Driver::list');
@@ -86,14 +84,27 @@ $routes->post('/driver/update/p/(:any)', 'Driver::up_progress/$1');
  
  
 
+$routes->get('/departure', 'Departure::index'); 
+$routes->post('/departure/list', 'Departure::list');
+ 
+$routes->get('/departure/insert', 'Departure::insert'); 
+$routes->get('/departure/insert/a', 'Departure::serchone'); 
+$routes->get('/departure/insert/b', 'Departure::serchtwo'); 
+$routes->get('/departure/insert/c', 'Departure::serchtree'); 
 
 
+$routes->post('/departure/insert/p', 'Departure::inp_progress');
 
-$routes->get('/driver', 'Driver::index'); 
+$routes->get('/departure/delete/(:any)', 'Departure::delete/$1');
 
+$routes->get('/departure/update/(:any)', 'Departure::update/$1'); 
+$routes->post('/departure/update/p/(:any)', 'Departure::up_progress/$1'); 
 
-$routes->get('/departure', 'Departure::index');
+ 
+ 
 
+ 
+ 
 
 /*
  * --------------------------------------------------------------------

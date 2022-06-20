@@ -42,11 +42,11 @@
 
                                         <div class="input-group mb-3">
                                             <div class="input-group-append ">
-                                                <button id="minus" class="btn btn-warning rounded-left px-5" type="button">-</button>
+                                                <button id="minus" class="btn btn-primary rounded-left px-lg-5" type="button">-</button>
                                             </div>
-                                            <input type="text" class="numbertype form-control" value="<?= (isset($getVehicle->seat)) ? $getVehicle->seat : '0' ?>" name="nametwo">
+                                            <input type="text" class="numbertype form-control border border-primary" value="<?= (isset($getVehicle->seat)) ? $getVehicle->seat : '0' ?>" name="nametwo">
                                             <div class="input-group-append">
-                                                <button id="plus" class="btn btn-warning rounded-right px-5" type="button">+</button>
+                                                <button id="plus" class="btn btn-primary rounded-right px-lg-5" type="button">+</button>
                                             </div> 
                                         </div>
   
@@ -59,6 +59,8 @@
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-12">
+                                    
+                                <hr class="border-bottom-0 border-primary mt-5">
                                     <div class="form-group text-center">
                                         <button type="submit" class="btn btn-primary px-5">Save</button>
                                     </div>

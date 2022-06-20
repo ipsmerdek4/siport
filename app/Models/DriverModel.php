@@ -7,7 +7,7 @@ class DriverModel extends Model{
     protected $table      = 'tbl_driver';
     protected $primaryKey = 'id_driver';
     protected $returnType = 'object'; 
-    protected $allowedFields = ['NIK','full_name', 'number_driver', 'picture', 'picture_KTP', 'picture_SIM','tgl_crt_dt_driver'];
+    protected $allowedFields = ['id_driver', 'NIK','full_name', 'number_driver', 'picture', 'picture_KTP', 'picture_SIM','tgl_crt_dt_driver'];
 
 
 

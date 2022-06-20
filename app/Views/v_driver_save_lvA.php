@@ -80,6 +80,8 @@
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-12">
+                                    
+                                    <hr class="border-bottom-0 border-primary mt-5">
                                     <div class="form-group text-center">
                                         <button type="submit" class="btn btn-primary px-5">Save</button>
                                     </div>
