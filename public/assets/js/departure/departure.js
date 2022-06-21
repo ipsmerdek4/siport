@@ -1,42 +1,8 @@
 
-
-$("#photo").change(function() {
-  const file = this.files[0];
-  if (file) {
-    var reader = new FileReader();
-    reader.onload = function(event) {
-      $("#imgPreview").attr("src", event.target.result);
-    };
-    reader.readAsDataURL(file);
-  }
-}); 
-
-
-
-
-$("#myModal").prependTo("body");
-
-$("#example").on("click", "#pictureview", function (e) {
-  const picture = $(this).data("picture");
-  const name = $(this).data("name"); 
-
-  $("#myModal").modal({
-    backdrop: "static",
-    keyboard: false,
-  });
- 
-  $("#title").html('<div style="font-size:12px">' + name + '</div>');
-  $("#picture").html(
-    '<img src="/uploads/destination/' + picture + '" "alt="' +  picture + '" class="img w-100"   />'
-  );  
-});
-
-
-
-
-
+/*  */
 $.fn.dataTable.ext.errMode = "none";
 $(document).ready(function () {
+  /*  */
   var table = $("#example").DataTable({
       order: [],
       processing: true,
@@ -53,7 +19,7 @@ $(document).ready(function () {
           text: '<i class="fa fa-plus "></i>  <b>| Insert Data</b>',
           className: "btn btn-primary",
           action: function (e, dt, node, config) {
-            window.location.href = "/destination/insert";
+            window.location.href = "/departure/insert";
           },
           init: function (api, node, config) {
             $(node).removeClass("btn-secondary");
@@ -69,7 +35,7 @@ $(document).ready(function () {
           .appendTo($(".col-md-6:eq(0)", this.api().table().container()));
       },
       ajax: {
-        url: "/destination/list",
+        url: "/departure/list",
         type: "POST",
       },
       columns: [
@@ -77,13 +43,25 @@ $(document).ready(function () {
                   data: "no",
                 },
                 {
-                  data: "nm_tujuan",
+                  data: "destination",
                 },
                 {
-                  data: "picture",
+                  data: "vehicle",
                 },
                 {
-                  data: "tgl_crt_dt_tujuan",
+                  data: "plat",
+                }, 
+                {
+                  data: "nm_driver",
+                },
+                {
+                  data: "date_departure",
+                },
+                {
+                  data: "Price",
+                },
+                {
+                  data: "tgldata",
                 },
                 {
                   data: "action",
@@ -94,12 +72,16 @@ $(document).ready(function () {
                   targets: [0],
                   orderable: false,
                   className: "text-center",
-                }, 
-                { targets: [1], className: "text-center", },
-                { targets: [2], className: "text-center",  orderable: false, },
-                { targets: [3], className: "text-center", },
+                },
+                { targets: [1],  className: "text-center" },
+                { targets: [2],  className: "text-center" },
+                { targets: [3],  className: "text-center" },
+                { targets: [4],  className: "text-center" },
+                { targets: [5],  className: "text-center" },
+                { targets: [6],  className: "text-center" },
+                { targets: [7],  className: "text-center" }, 
                 {
-                  targets: [4],
+                  targets: [8],  
                   className: "text-center",
                   orderable: false,
                 },
@@ -133,8 +115,12 @@ $("#example").on("click", "#editdata", function (e) {
       html:
             "<div class='' style='font-size:15px;'>" +
             "Are you sure, <b>Edit</b> this data?<br><br>" +
-            "<b>[ Destination => " +  extrak[0] + " ]</b><br>" +
-            "<b>[ Date Data => " + extrak[1] + " ]</b><br>" +
+            "<b>[ Destination => " +  extrak[0] + " ]</b><br>" + 
+            "<b>[ Vehicle => " +  extrak[1] + " ]</b><br>" + 
+            "<b>[ Plat Number => " +  extrak[2] + " ]</b><br>" + 
+            "<b>[ Driver => " +  extrak[3] + " ]</b><br>" + 
+            "<b>[ Date of Departure => " +  extrak[4] + " ]</b><br>" + 
+            "<b>[ Price => " +  extrak[5] + " ]</b><br>" + 
             "</div>",
       icon: "info",
       focusCancel: true,
@@ -164,8 +150,12 @@ $("#example").on("click", "#deldata", function (e) {
       html:
         "<div class='' style='font-size:15px;'>" +
         "Are you sure, <b>delete</b> this data?<br><br>" +
-        "<b>[ Destination => " +  extrak[0] + " ]</b><br>" +
-        "<b>[ Date Data => " + extrak[1] + " ]</b><br>" +
+        "<b>[ Destination => " +  extrak[0] + " ]</b><br>" + 
+        "<b>[ Vehicle => " +  extrak[1] + " ]</b><br>" + 
+        "<b>[ Plat Number => " +  extrak[2] + " ]</b><br>" + 
+        "<b>[ Driver => " +  extrak[3] + " ]</b><br>" + 
+        "<b>[ Date of Departure => " +  extrak[4] + " ]</b><br>" + 
+        "<b>[ Price => " +  extrak[5] + " ]</b><br>" + 
         "</div>",
       icon: "info",
       focusCancel: true,
@@ -183,3 +173,5 @@ $("#example").on("click", "#deldata", function (e) {
       }
     });
 });
+
+

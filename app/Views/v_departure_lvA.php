@@ -31,7 +31,7 @@
                                         <th>No</th>
                                         <th>Destination</th>
                                         <th>Name Vehicle </th>
-                                        <th>Plat Number </th>
+                                        <th>Plat Number </th> 
                                         <th>Name Driver </th>
                                         <th>Date of Departure </th>
                                         <th>Price </th>

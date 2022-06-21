@@ -30,6 +30,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Destination</th>
+                                        <th>Picture</th>
                                         <th>Date Data </th>
                                         <th>Opsi</th>
                                     </tr>
@@ -42,6 +43,31 @@
                                     </tr>
                                 </tbody>
                             </table>
+
+
+
+
+                            <!-- The Modal -->
+                            <div class="modal fade" id="myModal">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                            <h4 class="modal-title" id="title"></h4>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+
+                                        <!-- Modal body -->
+                                        <div class="modal-body" id="picture">
+                                        </div>
+        
+
+                                    </div>
+                                </div>
+                            </div>
+
+
 
 
                         </div>

@@ -55,12 +55,12 @@
                             </div>
 
  
-                            <form action="<?= ($loadHttp == 'insert') ? base_url() . '/departure/insert/p' : base_url() . '/departure/update/p/'. $getDestination->id_destination ?> " method="POST" class="row">
+                            <form action="<?= ($loadHttp == 'insert') ? base_url() . '/departure/insert/p' : base_url() . '/departure/update/p/'. $getDeparture[0]->id_departure ?> " method="POST" class="row">
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label class="text-primary">Destination</label> 
                                         <div class="input-group mb-3">
-                                            <input id="vw-Destination" readonly type="text" class="form-control border border-primary" placeholder="-" name="textone">
+                                            <input id="vw-Destination" readonly type="text" class="form-control border border-primary" placeholder="-" name="textone" value="<?=(isset($getDeparture[0]->id_destination)) ? $getDeparture[0]->nm_destination.' || '.date("shi").'.000'.$getDeparture[0]->id_destination.'.22'.date("s") : '' ?>">
                                             <div class="input-group-append">
                                             <button  data-sts="1" class="btn btn-primary pt-2 openserch" type="button">
                                                 <i class="icon ion-search  " style="font-size: 20px;padding: 0 1px 0 1px;"></i>
@@ -71,7 +71,7 @@
                                     <div class="form-group">
                                         <label class="text-primary">Name Vehicle</label> 
                                         <div class="input-group mb-3">
-                                            <input id="vw-Vehicle" readonly type="text" class="form-control border border-primary" placeholder="-" name="texttwo">
+                                            <input id="vw-Vehicle" readonly type="text" class="form-control border border-primary" placeholder="-" name="texttwo" value="<?=(isset($getDeparture[0]->id_vehicle)) ? $getDeparture[0]->nm_vehicle.' || '.date("shi").'.000'.$getDeparture[0]->id_vehicle .'.22'.date("s") : '' ?>" >
                                             <div class="input-group-append">
                                             <button  data-sts="2" class="btn btn-primary pt-2 openserch" type="button">
                                                 <i class="icon ion-search   " style="font-size: 20px;padding: 0 1px 0 1px;"></i>
@@ -82,7 +82,7 @@
                                     <div class="form-group">
                                         <label class="text-primary">Name Driver</label> 
                                         <div class="input-group mb-3">
-                                            <input id="vw-driver" readonly type="text" class="form-control border border-primary" placeholder="-" name="texttree">
+                                            <input id="vw-driver" readonly type="text" class="form-control border border-primary" placeholder="-" name="texttree" value="<?=(isset($getDeparture[0]->id_driver)) ? $getDeparture[0]->full_name.' || '.date("shi").'.000'.$getDeparture[0]->id_driver .'.22'.date("s") : '' ?>">
                                             <div class="input-group-append">
                                             <button  data-sts="3" class="btn btn-primary pt-2 openserch" type="button">
                                                 <i class="icon ion-search" style="font-size: 20px;padding: 0 1px 0 1px;" ></i>
@@ -93,7 +93,7 @@
 
                                     <div class="form-group">
                                         <label class="text-primary">Plat Number</label>
-                                        <input type="text" class="form-control border border-primary"  name="plat" placeholder="Enter Plat Number">
+                                        <input type="text" class="form-control border border-primary"  name="plat" placeholder="Enter Plat Number" value="<?=(isset($getDeparture[0]->plat_number)) ? $getDeparture[0]->plat_number  : '' ?>">
                                     </div>
 
 
@@ -105,7 +105,18 @@
                                         <div class="row">
                                             <div class="col-12 col-lg-6 mb-2 mb-lg-0">
                                                 <div class="input-group ">
-                                                    <input type="text" id="datedat" value="<?=date("m/d/Y")?>" class="form-control border border-primary" name="tglK" readonly/>
+                                                    <?php
+                                                        if(isset($getDeparture[0]->plat_number)) {
+                                                            $pecah1 = explode(' ', $getDeparture[0]->date_of_departure);
+                                                            $pecah2 = explode('-', $pecah1[0]); 
+                                                            $datetampil = $pecah2[1].'/'.$pecah2[2].'/'.$pecah2[0];
+                                                            $newtime = $pecah1[1].' '.$pecah1[2];
+                                                        } else{
+                                                            $datetampil = date("m/d/Y");
+                                                            $newtime    = date("h:i A");
+                                                        } 
+                                                    ?>
+                                                    <input type="text" id="datedat" value="<?=$datetampil?>" class="form-control border border-primary" name="tglK" readonly/>
                                                     <div class="input-group-append">
                                                         <button type="button" class="btn btn-primary" data-toggle="datepicker">
                                                             <i class="far fa-calendar-alt" style="padding: 0 2px 0 2px;"></i>
@@ -115,7 +126,7 @@
                                             </div>
                                             <div class="col-12 col-lg-6 ">
                                                 <div class="input-group ">  
-                                                    <input type="text" id="timevalue" value="<?=date("h:i A")?>" class="form-control border border-primary " name="timeK"  readonly/> 
+                                                    <input type="text" id="timevalue" value="<?=$newtime?>" class="form-control border border-primary " name="timeK"  readonly/> 
                                                     <div class="input-group-append">
                                                         <button type="button" class="btn btn-primary" id="timepicker">
                                                             <i class="far fa-clock"  style="padding: 0 1px 0 1px;"></i>
@@ -127,7 +138,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="text-primary">Price</label>
-                                        <input type="text" class="form-control border border-primary" id="rupiah" data-a-sign="Rp. " data-a-dec="," data-a-sep="." value="0"  name="price">
+                                        <input type="text" class="form-control border border-primary" id="rupiah" data-a-sign="Rp. " data-a-dec="," data-a-sep="."  name="price" value="<?=(isset($getDeparture[0]->price)) ? $getDeparture[0]->price  : 0 ?>">
                                     </div>
                                     <div class="form-group">
                                         <label class="text-primary"><?= ($loadHttp == 'insert') ? 'Date Create Data' : ' Date Update Data' ?></label>

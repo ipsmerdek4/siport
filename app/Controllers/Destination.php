@@ -57,6 +57,13 @@ class Destination extends Controller{
             $row = array(
                 'no' => $no,
                 'nm_tujuan' => $key->nm_destination,
+                'picture'           =>  '<div>'. 
+                                            '<img src="'.base_url(). '/uploads/destination/'. 
+                                            $key->picture_destination.'" alt="'. $key->picture_destination.'"'. 'class="img " id="pictureview" style="width:50px;cursor: pointer;" '. 
+                                            'data-picture="' . $key->picture_destination . '"   ' .
+                                            'data-name="' . $key->picture_destination . '"   ' . 
+                                            ' />'. 
+                                        '</div>', 
                 'tgl_crt_dt_tujuan' => $key->tgl_crt_dt_destination,
                 'action' => '<button id="editdata" class="btn btn-success mr-1 pr-2 "'. 
                             'data-data="' . $dataviewsweetalert . '"   ' .
@@ -141,13 +148,48 @@ class Destination extends Controller{
             $text2 = '<div class="" style="font-size:15px;">[ ' . $text2 . ' ]</div>';
         }
 
-        if (($text1) || ($text2)) {
-            session()->setFlashdata('error', $text1 . $text2);
+
+        //format type  
+        $valid_file_types = array("image/png", "image/jpeg", "image/jpg");
+
+        //variable
+        $img1 =  $this->VARs()->getFile('gambar1');
+        //format type  
+        $file_type1 = $img1->getClientMimeType();
+        //size
+        $size1 = $img1->getSizeByUnit('mb');
+
+
+        $text11 = "";
+
+        if (!$img1->isValid()) { 
+            $text11 = "Picture Required.";
+            $text11 = '<div class="" style="font-size:15px;">[ ' . $text11 . ' ]</div>';
+        }elseif(!in_array($file_type1, $valid_file_types)){
+            $text11 = 'The Format You Entered is Wrong,<br>Please Enter the Format: "image/png", "image/jpeg", "image/jpg".';
+            $text11 = '<div class="" style="font-size:15px;">[ ' . $text11 . ' ]</div>';
+        } elseif ($size1 > 2.000) { 
+            $text11 = 'Size is too BIG, Only Available Size 2 Mb or Below';
+            $text11 = '<div class="" style="font-size:15px;">[ ' . $text11 . ' ]</div>';
+        }
+
+        
+
+        if (($text1) || ($text2) || ($text11)) {
+            session()->setFlashdata('error', $text1 . $text2 . $text11);
             return redirect()->to(base_url('/destination/insert'));
         } else {
 
+            if (!$img1->hasMoved()) {
+                $newName1 = $img1->getRandomName();
+                $img1->move('uploads/destination/', $newName1);
+            }else{
+                $newName1 = "";
+            }
+
             $Destination->insert([
                 'nm_destination'             => $nmdestination, 
+                'picture_destination'        => $newName1, 
                 'tgl_crt_dt_destination'     => $tgldestination,
             ]);
 
@@ -221,14 +263,56 @@ class Destination extends Controller{
             $text2 = "Date Create Data Required.";
             $text2 = '<div class="" style="font-size:15px;">[ ' . $text2 . ' ]</div>';
         }
+ 
+        //format type  
+        $valid_file_types = array("image/png", "image/jpeg", "image/jpg", "image/gif");
 
-        if (($text1) || ($text2)) {
-            session()->setFlashdata('error', $text1 . $text2);
+        //variable
+        $img1 =  $this->VARs()->getFile('gambar1');
+        //format type  
+        $file_type1 = $img1->getClientMimeType();
+        //size
+        $size1 = $img1->getSizeByUnit('mb');
+
+
+        $text11 = "";
+
+        if ($img1->isValid()) { // adagambar  
+            if(!in_array($file_type1, $valid_file_types)){
+                $text11 = 'The Format You Entered is Wrong,<br>Please Enter the Format: "image/png", "image/jpeg", "image/jpg".';
+                $text11 = '<div class="" style="font-size:15px;">[ ' . $text11 . ' ]</div>';
+            } elseif ($size1 > 2.000) { 
+                $text11 = 'Size is too BIG, Only Available Size 2 Mb or Below';
+                $text11 = '<div class="" style="font-size:15px;">[ ' . $text11 . ' ]</div>';
+            }
+        }
+
+
+
+        if (($text1) || ($text2) || ($text11)) {
+            session()->setFlashdata('error', $text1 . $text2 . $text11);
             return redirect()->to(base_url('/destination/update/'.$id_destination));
         } else {
 
+            $getDestination = $Destination->where(['id_destination' => $id_destination ,])->first();
+
+
+            if ($img1->isValid()) { // adagambar
+                @unlink("uploads/destination/" . $getDestination->picture_destination);
+                if (!$img1->hasMoved()) {
+                    $newName1 = $img1->getRandomName();
+                    $img1->move('uploads/destination/', $newName1);
+                } else {
+                    $newName1 = "";
+                } 
+            }else{ //kosong gambarnyas 
+                $newName1 = $getDestination->picture_destination;  
+            }
+
+
             $data = [
                 'nm_destination'         => $nmdestination,
+                'picture_destination'    => $newName1, 
                 'tgl_crt_dt_destination' => $tgldestination,
             ];  
             $Destination->update($id_destination, $data);  

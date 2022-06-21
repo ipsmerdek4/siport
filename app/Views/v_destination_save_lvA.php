@@ -31,12 +31,23 @@
                         </div> -->
                         <div class="card-body">
 
-                            <form action="<?= ($loadHttp == 'insert') ? base_url() . '/destination/insert/p' : base_url() . '/destination/update/p/'. $getDestination->id_destination ?> " method="POST" class="row">
+                            <form action="<?= ($loadHttp == 'insert') ? base_url() . '/destination/insert/p' : base_url() . '/destination/update/p/'. $getDestination->id_destination ?> " method="POST" class="row" enctype="multipart/form-data">
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label class="text-primary">Destination</label>
                                         <input type="text" class="form-control border border-primary" name="nmdestination" placeholder="Enter Destination" value="<?= (isset($getDestination->nm_destination)) ? $getDestination->nm_destination : '' ?>">
                                     </div>
+                                    <div class="form-group">
+                                        <label class="text-primary">Picture</label>
+                                        <div class="d-flex justify-content-center">
+                                            <div class="border border-primary p-1" style="width:200px">
+                                                <img id="imgPreview" src="<?= (isset($getDestination->picture_destination)) ? base_url(). '/uploads/destination/' .$getDestination->picture_destination  :  base_url().'/stisla/assets/img/news/img01.jpg' ?> " alt="Picture" class="img w-100 mb-1" />
+                                                <input id="photo" name="gambar1" type="file" class="border border-primary w-100 p-1">
+                                            </div>
+                                        </div>
+                                    </div>
+
+
                                 </div>
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">

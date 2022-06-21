@@ -42,6 +42,7 @@ class Filters extends BaseConfig
                                             'slog',
                                             'regto', 
                                             '/', 
+                                            'views', 'views/*',  
                                             'register', 
                                             ]
                             ], 

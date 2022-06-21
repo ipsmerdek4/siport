@@ -17,6 +17,9 @@ class Tbl_Destination extends Migration{
 				'type'           => 'VARCHAR',
 				'constraint'     => '100', 
 			],  
+			'picture_destination'       => [
+				'type'           => 'TEXT', 
+			],  
 			'tgl_crt_dt_destination' => [
 				'type'           => 'DATETIME',
 				'null'       	 => true,

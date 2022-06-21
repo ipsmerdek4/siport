@@ -27,9 +27,10 @@
     <script src="<?= base_url() ?>/stisla/assets/js/stisla.js"></script>
 
     <!-- JS Libraies -->
-    <script src="<?= base_url() ?>/assets/select2/dist/js/select2.min.js"></script>
-    <script src="<?= base_url() ?>/assets/bootstrap4-datetime-picker-rails-master/javascripts/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="<?= base_url() ?>/assets/select2/dist/js/select2.min.js"></script> 
 
+    <script src="<?=base_url()?>/assets/Datetime/dayjs-f/dayjs/dayjs.min.js"></script> 
+    <script src="<?=base_url()?>/assets/Datetime/dayjs-f/datepicker-bs4.js"></script> 
 
     <!-- Page Specific JS File -->
     <script src="<?= base_url() ?>/stisla/assets/js/page/modules-ion-icons.js"></script>
@@ -39,14 +40,39 @@
     <script src="<?= base_url() ?>/stisla/assets/js/custom.js"></script>
 
 
+
+   
+
     <script>
-      $(function() {
-        $('#datetimepicker4').datetimepicker({
-          format: 'L',
-          viewMode: 'years',
-          format: 'DD/MM/YYYY'
-        });
+      
+
+
+
+
+      jQuery('#datedat').datepicker();   
+  
+
+
+      $("#VWshowSERCH").prependTo("body");
+      $('#viewpictue').click(function() {
+        var selct = $('#myselect').val();  
+
+        if (selct != 0) { 
+          $("#VWshowSERCH").modal({
+            backdrop: "static",
+            keyboard: false,
+          }); 
+          var data = { gosdt : selct, };  
+          $.getJSON("/views/a", data, function (result) {     
+            $.each(result.hasil, function() {
+              $('#title').html( result.hasil.nm_destination );
+              $('#serchdatabody').html( '<img class="img w-100" src="uploads/destination/' + result.hasil.picture_destination + '" alt=" ' + result.hasil.picture_destination + ' ">'  );
+            });  
+          });  
+        } 
       });
+
+
 
 
       $('.carousel').carousel({
@@ -54,12 +80,9 @@
       })
 
       $(document).ready(function() {
-        $('#myselect').select2().data('select2').$container.addClass("border border-primary rounded");
-
-        $('#myselect2').select2({
-          minimumResultsForSearch: -1,
-        }).data('select2').$container.addClass("border border-primary rounded");
-
+        $('#myselect').select2({
+         }).data('select2').$container.addClass("border border-primary rounded");
+ 
         $('#myselect3').select2({
           minimumResultsForSearch: -1,
         }).data('select2').$container.addClass("border border-primary rounded");

@@ -26,13 +26,18 @@ class Tbl_departure extends Migration{
 				'type'           => 'VARCHAR',
 				'constraint'     => '20', 
 			],   
+			'book_seat'		 => [  
+				'type'           => 'INT', 
+                'constraint'     => 10,
+			],  
 			'id_driver'          => [ 
                 'type'           => 'INT',
                 'constraint'     => 10,
                 'unsigned'       => true, 
 			],  
 			'date_of_departure'  => [  
-				'type'           => 'DATETIME',
+				'type'           => 'VARCHAR',
+				'constraint'     => '50', 
 			],  
 			'price'              => [  
 				'type'           => 'BIGINT', 

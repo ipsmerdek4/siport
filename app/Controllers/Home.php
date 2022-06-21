@@ -3,13 +3,18 @@
 namespace App\Controllers;
 
 use App\Models\UserModel; 
+use App\Models\DestinationModel; 
 
 class Home extends BaseController
 {
     public function index()
     { 
             $User = new UserModel();  
+            $Destination = new DestinationModel();
             
+            $getDestination = $Destination->findAll();
+
+
             $title = 'Home &rsaquo; [SIPORT]';
 
             $sessionID = session()->get('ID');
@@ -59,6 +64,7 @@ class Home extends BaseController
                 $data = array(
                     //'menu'          => 'Home',
                     'title'         => $title, 
+                    'getDestination'        => $getDestination,
                 );
 
                 echo view('ext/header', $data);
@@ -67,4 +73,17 @@ class Home extends BaseController
                 echo view('ext/footer', $data);
             }
     }
+
+
+    public function views_a()
+    {
+        $Destination = new DestinationModel();   
+
+        $id_destination = $this->request->getVar('gosdt'); 
+        $dataDestination = $Destination->where(['id_destination' => $id_destination,])->first(); 
+ 
+        echo json_encode(array("hasil" => $dataDestination));   
+    }
+
+
 }

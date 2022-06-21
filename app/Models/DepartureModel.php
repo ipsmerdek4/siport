@@ -7,8 +7,19 @@ class DepartureModel extends Model{
     protected $table      = 'tbl_departure';
     protected $primaryKey = 'id_departure';
     protected $returnType = 'object'; 
-    protected $allowedFields = ['id_destination','id_vehicle', 'plat_number', 'id_driver', 'date_of_departure', 'price', 'tgl_crt_dt_departure'];
+    protected $allowedFields = ['id_destination','id_vehicle', 'plat_number', 'book_seat', 'id_driver', 'date_of_departure', 'price', 'tgl_crt_dt_departure'];
 
+
+    function joinAll($id = null){
+        $builder = $this->db->table('tbl_departure');
+        $builder->join('tbl_destination', 'tbl_destination.id_destination = tbl_departure.id_destination');
+        $builder->join('tbl_vehicle', 'tbl_vehicle.id_vehicle = tbl_departure.id_vehicle');
+        $builder->join('tbl_driver', 'tbl_driver.id_driver = tbl_departure.id_driver'); 
+        $builder->where('id_departure', $id); 
+
+        $query = $builder->get();
+        return $query->getResult();
+    }
 
     var $column_order = array('id_destination','id_vehicle', 'plat_number', 'id_driver', 'date_of_departure', 'price', 'tgl_crt_dt_departure');
     var $order = array('tgl_crt_dt_departure' => 'DESC');

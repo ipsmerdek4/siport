@@ -7,7 +7,7 @@ class DestinationModel extends Model{
     protected $table      = 'tbl_destination';   
     protected $primaryKey = 'id_destination';
     protected $returnType = 'object'; 
-    protected $allowedFields = ['id_destination','nm_destination','tgl_crt_dt_destination'];
+    protected $allowedFields = ['id_destination','nm_destination','picture_destination','tgl_crt_dt_destination'];
 
     var $column_order = array('id_destination','nm_destination','tgl_crt_dt_destination');
     var $order = array('tgl_crt_dt_destination' => 'DESC');

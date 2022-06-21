@@ -67,32 +67,35 @@
         <form action="<?= base_url() ?>/login">
           <div class="col-12 col-lg-8 offset-lg-2 pt-4">
             <div class="row">
-              <div class="form-group col-12 col-sm-6 col-lg-12 serchlocation">
-                <select id="myselect" class="form-control" name="">
-                  <option value="0" readonly select>Select Destination</option>
-                </select>
-              </div>
-              <div class="form-group col-12 col-sm-6 col-lg-4 ">
-
-                <div class="input-group " id="datetimepicker4" data-target-input="nearest">
-                  <input type="text" class="form-control datetimepicker-input border border-primary" data-target="#datetimepicker4" placeholder="Select Date" />
-                  <div class="input-group-append " data-target="#datetimepicker4" data-toggle="datetimepicker">
-                    <div class="btn btn-primary border border-primary">
-                      <i class="fas fa-calendar mt-2"></i>
-                    </div>
+              <div class="form-group col-12 col-sm-12 col-lg-12 serchlocation "> 
+                  <div class="row">
+                    <div class="col-12 col-sm-10 col-lg-10 ">
+                      <select id="myselect" class="form-control" >
+                            <option value="0" readonly selected>Find Destination</option>
+                        <?php foreach ($getDestination as $value1) : ?>
+                            <option value="<?=$value1->id_destination?>"><?=$value1->nm_destination?></option>
+                        <?php endforeach; ?>
+                      </select>
+                    </div> 
+                    <div class="col-12 col-sm-2 col-lg-2 "> 
+                      <button type="button" id="viewpictue" class="btn btn-primary btn-block py-2">View</button> 
+                    </div> 
                   </div>
-                </div>
-
               </div>
-              <div class="form-group col-12 col-sm-6 col-lg-4 serchcars">
-                <select id="myselect2" class="form-control" name="">
-                  <option value="0" readonly select>Select Vehicle</option>
-                </select>
-              </div>
+              <div class="form-group col-12 col-sm-6 col-lg-8 ">
+                  <div class="input-group "> 
+                      <input type="text" id="datedat" class="form-control border border-primary" name=" " placeholder="Select Date" />
+                      <div class="input-group-append">
+                          <button type="button" class="btn btn-primary" data-toggle="datepicker">
+                              <i class="far fa-calendar-alt" style="padding: 0 2px 0 2px;"></i>
+                          </button>
+                      </div>
+                  </div>   
+              </div> 
               <div class="form-group col-12 col-sm-6 col-lg-4 serchpassanger">
                 <select id="myselect3" class="form-control" name="">
                   <option value="0" readonly select>- Select Passenger -</option>
-                  <?php for ($i = 1; $i <= 4; $i++) : ?>
+                  <?php for ($i = 1; $i <= 8; $i++) : ?>
                     <option value=" " readonly select><?= $i ?> Passenger</option>
                   <?php endfor; ?>
                 </select>
@@ -111,3 +114,25 @@
 
   </div>
 </div>
+ 
+
+    <!-- The Modal -->
+    <div class="modal fade" id="VWshowSERCH">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title" id="title"></h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body" > 
+                    <div id="serchdatabody"></div> 
+                </div>
+
+
+            </div>
+        </div>
+    </div>
