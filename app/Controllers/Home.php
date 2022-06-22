@@ -3,7 +3,9 @@
 namespace App\Controllers;
 
 use App\Models\UserModel; 
-use App\Models\DestinationModel; 
+use App\Models\DestinationModel;   
+use Nullix\CryptoJsAes\CryptoJsAes;
+ 
 
 class Home extends BaseController
 {
@@ -31,11 +33,12 @@ class Home extends BaseController
             if (session()->get('level') == 1) { 
 
                 $data = array(
-                    //'menu'          => 'Home',
-                    'title'         => $title,    
-                    'user'          => session()->get('name'), 
-                    'timesaatini'   => $timesaatini,
-                    'timesaatlog'   => $timesaatlog ,
+                    //'menu'                => 'Home',
+                    'title'                 => $title,    
+                    'user'                  => session()->get('name'), 
+                    'timesaatini'           => $timesaatini,
+                    'timesaatlog'           => $timesaatlog ,
+                    'getDestination'        => $getDestination,
                 );
 
                 echo view('ext/L1/header', $data);
@@ -62,8 +65,8 @@ class Home extends BaseController
             }else{ 
 
                 $data = array(
-                    //'menu'          => 'Home',
-                    'title'         => $title, 
+                    //'menu'                => 'Home',
+                    'title'                 => $title, 
                     'getDestination'        => $getDestination,
                 );
 
@@ -83,6 +86,62 @@ class Home extends BaseController
         $dataDestination = $Destination->where(['id_destination' => $id_destination,])->first(); 
  
         echo json_encode(array("hasil" => $dataDestination));   
+    }
+
+
+    public function views_b()
+    {
+        $warningX = '<div style="font-size:15px;">To Get Started, Please Login First or if you don&#39;t Have an Account, Please Register First.</div>';
+        session()->setFlashdata('error', $warningX);
+        return redirect()->to(base_url('login'));
+    }
+
+
+    
+
+    public function Vw($ids = null)
+    { 
+          
+        $id = $_GET['dof'];
+
+        require "../public/assets/scure/src/CryptoJsAes.php";
+
+// encrypt
+ $password = "123456";
+ 
+$decrypted = CryptoJsAes::decrypt($id, $password);
+
+ echo $decrypted;
+
+         
+    /*     $User = new UserModel();   
+         
+        $title = 'Home &rsaquo; [SIPORT]';
+
+        $sessionID = session()->get('ID');
+        if (isset($sessionID)) {
+        
+            $getUser = $User->where(['id_user' => session()->get('ID'),])->first();
+
+            $timesaatlog = strtotime($getUser->tgl_log_user);
+            $timesaatini = strtotime(date("Y-m-d H:i:s")); 
+        
+        }
+        
+        $data = array(
+            'menu'                  => 'Home',
+            'title'                 => $title,    
+            'user'                  => session()->get('name'), 
+            'timesaatini'           => $timesaatini,
+            'timesaatlog'           => $timesaatlog , 
+        );
+
+        echo view('ext/L1/header', $data);
+        echo view('ext/L1/menu', $data); 
+        echo view('v_viewdesti_lv1', $data);
+        echo view('ext/L1/footer', $data);
+
+ */
     }
 
 

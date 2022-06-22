@@ -12,6 +12,27 @@
 </div>
 </div>
 
+<?php
+define("encryption_method", "AES-128-CBC");
+define("key", "123GOFKS");
+
+function encrypt($data) {
+    $key = key;
+    $plaintext = $data;
+    $ivlen = openssl_cipher_iv_length($cipher = encryption_method);
+    $iv = openssl_random_pseudo_bytes($ivlen);
+    $ciphertext_raw = openssl_encrypt($plaintext, $cipher, $key, $options = OPENSSL_RAW_DATA, $iv);
+    $hmac = hash_hmac('sha256', $ciphertext_raw, $key, $as_binary = true);
+    $ciphertext = base64_encode($iv . $hmac . $ciphertext_raw);
+    return $ciphertext;
+} 
+
+
+?>
+
+
+
+
 
 
 <!-- General JS Scripts -->
@@ -24,8 +45,9 @@
 
 <!-- JS Libraies -->
 <script src="<?= base_url() ?>/assets/select2/dist/js/select2.min.js"></script>
-<script src="<?= base_url() ?>/assets/bootstrap4-datetime-picker-rails-master/javascripts/tempusdominus-bootstrap-4.min.js"></script>
 
+<script src="<?=base_url()?>/assets/Datetime/dayjs-f/dayjs/dayjs.min.js"></script> 
+<script src="<?=base_url()?>/assets/Datetime/dayjs-f/datepicker-bs4.js"></script> 
 
 <!-- Page Specific JS File -->
 <script src="<?= base_url() ?>/stisla/assets/js/page/modules-ion-icons.js"></script>
@@ -34,34 +56,32 @@
 <script src="<?= base_url() ?>/stisla/assets/js/scripts.js"></script>
 <script src="<?= base_url() ?>/stisla/assets/js/custom.js"></script>
 
+<script src="<?= base_url() ?>/assets/js/home.js"></script>
+ 
+
+
+<script src="<?= base_url() ?>/assets/scure/dist/cryptojs-aes.min.js"></script>
+<script src="<?= base_url() ?>/assets/scure/dist/cryptojs-aes-format.js"></script>
 
 <script>
-  $(function() {
-    $('#datetimepicker4').datetimepicker({
-      format: 'L',
-      viewMode: 'years',
-      format: 'DD/MM/YYYY'
-    });
-  });
 
-  $('.carousel').carousel({
-    interval: 3000,
-  })
-
-  $(document).ready(function() {
-    $('#myselect').select2().data('select2').$container.addClass("border border-primary rounded");
-
-    $('#myselect2').select2({
-      minimumResultsForSearch: -1,
-    }).data('select2').$container.addClass("border border-primary rounded");
-
-    $('#myselect3').select2({
-      minimumResultsForSearch: -1,
-    }).data('select2').$container.addClass("border border-primary rounded");
+ 
+$('#submit').click(function() {
+  var destination = $('#myselect').val();   
+  var date = $('#datedat').val();   
+  var passanger = $('#myselect3').val();    
+  var link = "destination=" + destination + "&date=" + date + "&passanger=" + passanger; 
+  /*  */ 
+        let password = '123456'
+        let encrypted = CryptoJSAesJson.encrypt(link, password) 
+    
+  /*  */  
+  var newlink = "/views/s?dof=" + encrypted  ; 
+ 
+  window.location.href = newlink;   
+});
 
 
-
-  });
 </script>
 
 

@@ -64,7 +64,7 @@
 
     <div class="col-12 col-sm-12 col-md-12 col-lg-12">
       <article class="article">
-        <form action="<?= base_url() ?>/login">
+        <form action="<?= base_url() ?>/views/b">
           <div class="col-12 col-lg-8 offset-lg-2 pt-4">
             <div class="row">
               <div class="form-group col-12 col-sm-12 col-lg-12 serchlocation "> 
@@ -104,12 +104,68 @@
           </div>
           <div class="col-12 col-lg-8 offset-lg-2  ">
             <div class="pb-4 text-center">
-              <button class="btn btn-primary border">Searching</button>
+              <button type="submit" class="btn btn-primary border">Searching</button>
             </div>
           </div>
         </form>
       </article>
     </div>
+
+
+    <div class="row">
+        <div class="col-12 ">
+            <div class="text-center h5 mb-4 " style="color:#191d21">Contact Us</div>
+        </div> 
+        <div class="col-12 col-sm-6 col-lg-4">
+            <div class="card rounded-lg"> 
+              <div class="card-body text-center"> 
+              <a href = "mailto: Admin@siport.co.id">
+                  <div class="float-left w-25 my-2" >
+                    <img src="<?=base_url()?>/assets/img/ico/mail-outline.png" alt="mail-outline" class="img w-100 ">
+                  </div>
+                  <div class="text-left pl-3 pt-2 float-left w-75 my-3 h6 " style="color:#6777ef;">
+                    Email : <br>
+                    Admin@siport.co.id
+                  </div>
+              </a>
+              </div>
+            </div>
+        </div>
+        
+        <div class="col-12 col-sm-6 col-lg-4">
+            <div class="card rounded-lg"> 
+              <div class="card-body text-center"> 
+              <a href = "https://api.whatsapp.com/send?phone=62123456789">
+                  <div class="float-left w-25 my-2" >
+                    <img src="<?=base_url()?>/assets/img/ico/logo-whatsapp.png" alt="logo-whatsapp" class="img w-100 ">
+                  </div>
+                  <div class="text-left pl-3 pt-2 float-left w-75 my-3 h6 " style="color:#25D366;">
+                    WhatsApp : <br>
+                    +681 234 567 89
+                  </div>
+              </a>
+              </div>
+            </div>
+        </div>
+  
+        <div class="col-12 col-sm-6 col-lg-4">
+            <div class="card rounded-lg"> 
+              <div class="card-body text-center"> 
+              <a href = "#">
+                  <div class="float-left w-25 my-2" >
+                    <img src="<?=base_url()?>/assets/img/ico/call-outline.png" alt="logo-whatsapp" class="img w-100">
+                  </div>
+                  <div class="text-left pl-3 pt-2 float-left w-75 my-3 h6 " style="color:#191d21;">
+                    Phone : <br>
+                    ( +621 )111 2222
+                  </div>
+              </a>
+              </div>
+            </div>
+        </div> 
+    </div>
+
+
 
 
   </div>

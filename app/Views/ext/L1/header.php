@@ -13,8 +13,7 @@
   <!-- CSS Libraries -->
   <link rel="stylesheet" href="<?= base_url() ?>/stisla/node_modules/ionicons201/css/ionicons.min.css">
   <link rel="stylesheet" href="<?= base_url() ?>/assets/select2/dist/css/select2.min.css">
-  <link rel="stylesheet" href="<?= base_url() ?>/assets/bootstrap4-datetime-picker-rails-master/stylesheets/tempusdominus-bootstrap-4.min.css" />
-
+ 
   <!-- Template CSS -->
   <link rel="stylesheet" href="<?= base_url() ?>/stisla/assets/css/style.css">
   <link rel="stylesheet" href="<?= base_url() ?>/stisla/assets/css/components.css">

@@ -50,6 +50,7 @@ class Filters extends BaseConfig
         'after' => [
             'authuser' => ['except' => [ 
                                             '/',   
+                                            'views', 'views/*', 
                                             ]
                         ],
             'authadmin' => ['except' => [  

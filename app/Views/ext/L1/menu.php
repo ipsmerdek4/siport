@@ -60,9 +60,9 @@
                 <span>Tour</span>
               </a>
             </li>
-            <li class="nav-item active d-xl-none">
+            <li class="nav-item d-xl-none">
               <a href="#" class="nav-link">
-                <i class="ion ion-android-car"></i>
+                <i class="ion ion-clipboard"></i>
                 <span>My Order</span>
               </a>
             </li>

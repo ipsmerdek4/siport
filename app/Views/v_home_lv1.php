@@ -57,56 +57,140 @@
  <div class="section-body">
 
 
-   <h2 class="section-title">Select Location</h2>
-   <p class="section-lead">select a tourist location that you will visit.</p>
+    <h2 class="section-title">Select Location</h2>
+    <p class="section-lead">select a tourist location that you will visit.</p>
 
-   <div class="row">
+    <div class="row">
 
-     <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-       <article class="article">
-         <form action="<?= base_url() ?>/login">
-           <div class="col-12 col-lg-8 offset-lg-2 pt-4">
-             <div class="row">
-               <div class="form-group col-12 col-sm-6 col-lg-12 serchlocation">
-                 <select id="myselect" class="form-control" name="">
-                   <option value="0" readonly select>Select Destination</option>
-                 </select>
-               </div>
-               <div class="form-group col-12 col-sm-6 col-lg-4 ">
+      <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+        <article class="article"> 
+          <div class="col-12 col-lg-8 offset-lg-2 pt-4">
+            <div class="row">
+              <div class="form-group col-12 col-sm-12 col-lg-12 serchlocation "> 
+                  <div class="row">
+                    <div class="col-12 col-sm-10 col-lg-10 ">
+                      <select id="myselect" class="form-control" >
+                            <option value="0" readonly>Find Destination</option>
+                        <?php foreach ($getDestination as $value1) : ?>
+                            <option value="<?=$value1->id_destination?>"><?=$value1->nm_destination?></option>
+                        <?php endforeach; ?>
+                      </select>
+                    </div> 
+                    <div class="col-12 col-sm-2 col-lg-2 "> 
+                      <button type="button" id="viewpictue" class="btn btn-primary btn-block py-2">View</button> 
+                    </div> 
+                  </div>
+              </div>
+              <div class="form-group col-12 col-sm-6 col-lg-8 ">
+                  <div class="input-group "> 
+                      <input type="text" id="datedat" class="form-control border border-primary" placeholder="Select Date" />
+                      <div class="input-group-append">
+                          <button type="button" class="btn btn-primary" data-toggle="datepicker">
+                              <i class="far fa-calendar-alt" style="padding: 0 2px 0 2px;"></i>
+                          </button>
+                      </div>
+                  </div>   
+              </div> 
+              <div class="form-group col-12 col-sm-6 col-lg-4 serchpassanger">
+                <select id="myselect3" class="form-control" name="">
+                  <option value="0" readonly>- Select Passenger -</option>
+                  <?php for ($i = 1; $i <= 8; $i++) : ?>
+                    <option value="<?=$i?>"><?= $i ?> Passenger</option>
+                  <?php endfor; ?>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-lg-8 offset-lg-2  ">
+            <div class="pb-4 text-center">
+              <button id="submit" type="button" class="btn btn-primary border">Searching</button>
+            </div>
+          </div> 
+        </article>
+      </div>
 
-                 <div class="input-group " id="datetimepicker4" data-target-input="nearest">
-                   <input type="text" class="form-control datetimepicker-input border border-primary" data-target="#datetimepicker4" placeholder="Select Date" />
-                   <div class="input-group-append " data-target="#datetimepicker4" data-toggle="datetimepicker">
-                     <div class="btn btn-primary border border-primary">
-                       <i class="fas fa-calendar mt-2"></i>
-                     </div>
-                   </div>
-                 </div>
+    </div>
 
-               </div>
-               <div class="form-group col-12 col-sm-6 col-lg-4 serchcars">
-                 <select id="myselect2" class="form-control" name="">
-                   <option value="0" readonly select>Select Vehicle</option>
-                 </select>
-               </div>
-               <div class="form-group col-12 col-sm-6 col-lg-4 serchpassanger">
-                 <select id="myselect3" class="form-control" name="">
-                   <option value="0" readonly select>- Select Passenger -</option>
-                   <?php for ($i = 1; $i <= 4; $i++) : ?>
-                     <option value=" " readonly select><?= $i ?> Passenger</option>
-                   <?php endfor; ?>
-                 </select>
-               </div>
-             </div>
-           </div>
-           <div class="col-12 col-lg-8 offset-lg-2  ">
-             <div class="pb-4 text-center">
-               <button class="btn btn-primary border">Searching</button>
-             </div>
-           </div>
-         </form>
-       </article>
-     </div>
 
-   </div>
- </div>
+    <div class="row">
+      <div class="col-12 ">
+          <div class="text-center h5 mb-4 " style="color:#191d21">Contact Us</div>
+      </div> 
+      <div class="col-12 col-sm-6 col-lg-4">
+          <div class="card rounded-lg"> 
+            <div class="card-body text-center"> 
+            <a href = "mailto: Admin@siport.co.id">
+                <div class="float-left w-25 my-2" >
+                  <img src="<?=base_url()?>/assets/img/ico/mail-outline.png" alt="mail-outline" class="img w-100 ">
+                </div>
+                <div class="text-left pl-3 pt-2 float-left w-75 my-3 h6 " style="color:#6777ef;">
+                  Email : <br>
+                  Admin@siport.co.id
+                </div>
+            </a>
+            </div>
+          </div>
+      </div>
+      
+      <div class="col-12 col-sm-6 col-lg-4">
+          <div class="card rounded-lg"> 
+            <div class="card-body text-center"> 
+            <a href = "https://api.whatsapp.com/send?phone=62123456789">
+                <div class="float-left w-25 my-2" >
+                  <img src="<?=base_url()?>/assets/img/ico/logo-whatsapp.png" alt="logo-whatsapp" class="img w-100 ">
+                </div>
+                <div class="text-left pl-3 pt-2 float-left w-75 my-3 h6 " style="color:#25D366;">
+                  WhatsApp : <br>
+                  +681 234 567 89
+                </div>
+            </a>
+            </div>
+          </div>
+      </div>
+
+      
+      <div class="col-12 col-sm-6 col-lg-4">
+          <div class="card rounded-lg"> 
+            <div class="card-body text-center"> 
+            <a href = "#">
+                <div class="float-left w-25 my-2" >
+                  <img src="<?=base_url()?>/assets/img/ico/call-outline.png" alt="logo-whatsapp" class="img w-100">
+                </div>
+                <div class="text-left pl-3 pt-2 float-left w-75 my-3 h6 " style="color:#191d21;">
+                  Phone : <br>
+                  ( +621 )111 2222
+                </div>
+            </a>
+            </div>
+          </div>
+      </div>
+
+
+
+    </div>
+
+
+</div>
+
+
+
+    <!-- The Modal -->
+    <div class="modal fade" id="VWshowSERCH">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title" id="title"></h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body" > 
+                    <div id="serchdatabody"></div> 
+                </div>
+
+
+            </div>
+        </div>
+    </div>
