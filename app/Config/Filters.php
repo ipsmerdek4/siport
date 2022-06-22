@@ -39,8 +39,8 @@ class Filters extends BaseConfig
         'before' => [    
              'authadmin' => ['except' => [
                                             'login',
-                                            'slog',
-                                            'regto', 
+                                            'slog', 'slog/*',
+                                            'regto', 'regto/*', 
                                             '/', 
                                             'views', 'views/*',  
                                             'register', 

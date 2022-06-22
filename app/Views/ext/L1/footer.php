@@ -11,24 +11,7 @@
 </footer>
 </div>
 </div>
-
-<?php
-define("encryption_method", "AES-128-CBC");
-define("key", "123GOFKS");
-
-function encrypt($data) {
-    $key = key;
-    $plaintext = $data;
-    $ivlen = openssl_cipher_iv_length($cipher = encryption_method);
-    $iv = openssl_random_pseudo_bytes($ivlen);
-    $ciphertext_raw = openssl_encrypt($plaintext, $cipher, $key, $options = OPENSSL_RAW_DATA, $iv);
-    $hmac = hash_hmac('sha256', $ciphertext_raw, $key, $as_binary = true);
-    $ciphertext = base64_encode($iv . $hmac . $ciphertext_raw);
-    return $ciphertext;
-} 
-
-
-?>
+ 
 
 
 
@@ -65,23 +48,23 @@ function encrypt($data) {
 
 <script>
 
- 
+ /* 
 $('#submit').click(function() {
   var destination = $('#myselect').val();   
   var date = $('#datedat').val();   
   var passanger = $('#myselect3').val();    
   var link = "destination=" + destination + "&date=" + date + "&passanger=" + passanger; 
-  /*  */ 
-        let password = '123456'
-        let encrypted = CryptoJSAesJson.encrypt(link, password) 
+   
+
+  var password = '12345adasdasdalksdjlasasdkajsjd1ioo12o312312321ADASDA';
+  var encrypted = CryptoJSAesJson.encrypt(link, password);
     
-  /*  */  
-  var newlink = "/views/s?dof=" + encrypted  ; 
+   var newlink = "/views/z?dof=" + encrypted  ; 
  
   window.location.href = newlink;   
 });
 
-
+ */
 </script>
 
 

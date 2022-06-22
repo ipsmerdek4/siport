@@ -1,8 +1,3 @@
-
-
-
-
-
       jQuery('#datedat').datepicker();   
    
       $("#VWshowSERCH").prependTo("body");

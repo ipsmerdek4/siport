@@ -6,9 +6,17 @@ use App\Models\UserModel;
 use App\Models\DestinationModel;   
 use Nullix\CryptoJsAes\CryptoJsAes;
  
+require "../public/assets/scure/src/CryptoJsAes.php";
 
 class Home extends BaseController
 {
+ 
+
+    public function VARs(){ return $request = service('request'); }
+
+  
+
+
     public function index()
     { 
             $User = new UserModel();  
@@ -97,24 +105,13 @@ class Home extends BaseController
     }
 
 
-    
-
-    public function Vw($ids = null)
-    { 
-          
-        $id = $_GET['dof'];
-
-        require "../public/assets/scure/src/CryptoJsAes.php";
-
-// encrypt
- $password = "123456";
+    public function views_z($id = null)
+    {
  
-$decrypted = CryptoJsAes::decrypt($id, $password);
+        // decrypt  
+        echo base64_decode($id);
 
- echo $decrypted;
-
-         
-    /*     $User = new UserModel();   
+         /*     $User = new UserModel();   
          
         $title = 'Home &rsaquo; [SIPORT]';
 
@@ -142,6 +139,24 @@ $decrypted = CryptoJsAes::decrypt($id, $password);
         echo view('ext/L1/footer', $data);
 
  */
+
+     }
+
+    public function Vw()
+    { 
+ 
+        $Destination = $this->VARs()->getVar('Destination');
+        $dates = $this->VARs()->getVar('dates');
+        $passanger = $this->VARs()->getVar('passanger');
+
+        $pack = $Destination.'*'.$dates.'*'.$passanger;
+ 
+        $newlink = base64_encode($pack);
+ 
+          
+        return redirect()->to(base_url().'/views/z/'.$newlink);
+         
+   
     }
 
 

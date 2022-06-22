@@ -64,48 +64,50 @@
 
       <div class="col-12 col-sm-12 col-md-12 col-lg-12">
         <article class="article"> 
-          <div class="col-12 col-lg-8 offset-lg-2 pt-4">
-            <div class="row">
-              <div class="form-group col-12 col-sm-12 col-lg-12 serchlocation "> 
-                  <div class="row">
-                    <div class="col-12 col-sm-10 col-lg-10 ">
-                      <select id="myselect" class="form-control" >
-                            <option value="0" readonly>Find Destination</option>
-                        <?php foreach ($getDestination as $value1) : ?>
-                            <option value="<?=$value1->id_destination?>"><?=$value1->nm_destination?></option>
-                        <?php endforeach; ?>
-                      </select>
-                    </div> 
-                    <div class="col-12 col-sm-2 col-lg-2 "> 
-                      <button type="button" id="viewpictue" class="btn btn-primary btn-block py-2">View</button> 
-                    </div> 
-                  </div>
-              </div>
-              <div class="form-group col-12 col-sm-6 col-lg-8 ">
-                  <div class="input-group "> 
-                      <input type="text" id="datedat" class="form-control border border-primary" placeholder="Select Date" />
-                      <div class="input-group-append">
-                          <button type="button" class="btn btn-primary" data-toggle="datepicker">
-                              <i class="far fa-calendar-alt" style="padding: 0 2px 0 2px;"></i>
-                          </button>
-                      </div>
-                  </div>   
-              </div> 
-              <div class="form-group col-12 col-sm-6 col-lg-4 serchpassanger">
-                <select id="myselect3" class="form-control" name="">
-                  <option value="0" readonly>- Select Passenger -</option>
-                  <?php for ($i = 1; $i <= 8; $i++) : ?>
-                    <option value="<?=$i?>"><?= $i ?> Passenger</option>
-                  <?php endfor; ?>
-                </select>
+          <form action="<?=base_url()?>/views/k" method="POST">
+            <div class="col-12 col-lg-8 offset-lg-2 pt-4">
+              <div class="row">
+                <div class="form-group col-12 col-sm-12 col-lg-12 serchlocation "> 
+                    <div class="row">
+                      <div class="col-12 col-sm-10 col-lg-10 ">
+                        <select id="myselect" class="form-control" name="Destination">
+                              <option value="0" readonly>Find Destination</option>
+                          <?php foreach ($getDestination as $value1) : ?>
+                              <option value="<?=$value1->id_destination?>"><?=$value1->nm_destination?></option>
+                          <?php endforeach; ?>
+                        </select>
+                      </div> 
+                      <div class="col-12 col-sm-2 col-lg-2 "> 
+                        <button type="button" id="viewpictue" class="btn btn-primary btn-block py-2">View</button> 
+                      </div> 
+                    </div>
+                </div>
+                <div class="form-group col-12 col-sm-6 col-lg-8 ">
+                    <div class="input-group "> 
+                        <input type="text" id="datedat" class="form-control border border-primary" placeholder="Select Date" name="dates"/>
+                        <div class="input-group-append">
+                            <button type="button" class="btn btn-primary" data-toggle="datepicker">
+                                <i class="far fa-calendar-alt" style="padding: 0 2px 0 2px;"></i>
+                            </button>
+                        </div>
+                    </div>   
+                </div> 
+                <div class="form-group col-12 col-sm-6 col-lg-4 serchpassanger">
+                  <select id="myselect3" class="form-control" name="passanger">
+                    <option value="0" readonly>- Select Passenger -</option>
+                    <?php for ($i = 1; $i <= 8; $i++) : ?>
+                      <option value="<?=$i?>"><?= $i ?> Passenger</option>
+                    <?php endfor; ?>
+                  </select>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="col-12 col-lg-8 offset-lg-2  ">
-            <div class="pb-4 text-center">
-              <button id="submit" type="button" class="btn btn-primary border">Searching</button>
-            </div>
-          </div> 
+            <div class="col-12 col-lg-8 offset-lg-2  ">
+              <div class="pb-4 text-center">
+                <button type="submit" type="button" class="btn btn-primary border">Searching</button>
+              </div>
+            </div> 
+          </form>
         </article>
       </div>
 
