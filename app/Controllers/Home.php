@@ -105,11 +105,33 @@ class Home extends BaseController
     }
 
 
+    public function encrypt_descrip($action, $string) {
+        $output = false;
+        $encrypt_method = "AES-256-CBC";
+        $secret_key = 'asdadoaudo8asudoaud8o';
+        $secret_iv = '555555334342423';
+        // hash
+        $key = hash('sha256', $secret_key);
+    
+        // iv - encrypt method AES-256-CBC expects 16 bytes - else you will get a warning
+        $iv = substr(hash('sha256', $secret_iv), 0, 16);
+        if ( $action == 'encrypt' ) {
+            $output = openssl_encrypt($string, $encrypt_method, $key, 0, $iv);
+            $output = base64_encode($output);
+        } else if( $action == 'decrypt' ) {
+            $output = openssl_decrypt(base64_decode($string), $encrypt_method, $key, 0, $iv);
+        }
+        return $output;
+    }
+
     public function views_z($id = null)
     {
  
-        // decrypt  
-        echo base64_decode($id);
+        // decrypt    
+        $decrypted_txt = $this->encrypt_descrip('decrypt', $id);
+        echo "Decrypted Text = " .$decrypted_txt. "\n"; 
+
+
 
          /*     $User = new UserModel();   
          
@@ -149,12 +171,10 @@ class Home extends BaseController
         $dates = $this->VARs()->getVar('dates');
         $passanger = $this->VARs()->getVar('passanger');
 
-        $pack = $Destination.'*'.$dates.'*'.$passanger;
- 
-        $newlink = base64_encode($pack);
- 
-          
-        return redirect()->to(base_url().'/views/z/'.$newlink);
+        $pack = $Destination.'*'.$dates.'*'.$passanger;  
+        $encrypted_txt = $this->encrypt_descrip('encrypt', $pack); 
+         
+        return redirect()->to(base_url().'/views/z/'.$encrypted_txt);
          
    
     }
