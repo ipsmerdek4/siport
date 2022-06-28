@@ -10,6 +10,19 @@ class DepartureModel extends Model{
     protected $allowedFields = ['id_destination','id_vehicle', 'plat_number', 'book_seat', 'id_driver', 'date_of_departure', 'price', 'tgl_crt_dt_departure'];
 
 
+    function whereandlike($nameW = null, $where = null, $nameL = null, $like = null)
+    { 
+        $builder = $this->db->table('tbl_departure');
+        $builder->join('tbl_destination', 'tbl_destination.id_destination = tbl_departure.id_destination');
+        $builder->join('tbl_vehicle', 'tbl_vehicle.id_vehicle = tbl_departure.id_vehicle');
+        $builder->join('tbl_driver', 'tbl_driver.id_driver = tbl_departure.id_driver'); 
+        $builder->where($nameW, $where); 
+        $builder->like($nameL, $where); 
+
+        $query = $builder->get();
+        return $query->getResult();
+    }
+
     function joinAll($id = null){
         $builder = $this->db->table('tbl_departure');
         $builder->join('tbl_destination', 'tbl_destination.id_destination = tbl_departure.id_destination');

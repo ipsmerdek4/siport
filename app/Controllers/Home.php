@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\UserModel; 
 use App\Models\DestinationModel;   
+use App\Models\DepartureModel;   
 use Nullix\CryptoJsAes\CryptoJsAes;
  
 require "../public/assets/scure/src/CryptoJsAes.php";
@@ -104,7 +105,7 @@ class Home extends BaseController
         return redirect()->to(base_url('login'));
     }
 
-
+    /* function excrip and descript */
     public function encrypt_descrip($action, $string) {
         $output = false;
         $encrypt_method = "AES-256-CBC";
@@ -123,13 +124,64 @@ class Home extends BaseController
         }
         return $output;
     }
-
+    /*  */
     public function views_z($id = null)
     {
- 
-        // decrypt    
+  
+        $User = new UserModel();  
+        $Destination = new DestinationModel();
+        $Departure = new DepartureModel();
+
+        $title = 'Home &rsaquo; [SIPORT]';
+
+        $sessionID = session()->get('ID');
+        if (isset($sessionID)) {
+        
+            $getUser = $User->where(['id_user' => session()->get('ID'),])->first();
+
+            $timesaatlog = strtotime($getUser->tgl_log_user);
+            $timesaatini = strtotime(date("Y-m-d H:i:s")); 
+        
+        }
+
+   
         $decrypted_txt = $this->encrypt_descrip('decrypt', $id);
-        echo "Decrypted Text = " .$decrypted_txt. "\n"; 
+        $pecah = explode('*', $decrypted_txt); 
+        $id_destination = $pecah[0];
+        $tgl = $pecah[1];
+        $tglpecah = explode('/',$tgl);
+        $tgl = $tglpecah[1].'-'.$tglpecah[0].'-'.$tglpecah[2];
+        $penumpang = $pecah[2];
+
+        /*  */
+        $getDeparture = $Departure->whereandlike('tbl_departure.id_destination', $id_destination, 'date_of_departure', '2022-06-29');
+       
+        echo strtotime($getDeparture[0]->date_of_departure) .'<br>';
+        echo strtotime(date("Y-m-d h:i")) .'<br>';
+        echo date("Y-m-d h:i A");
+
+        exit();
+        $getDestination = $Destination->where(['id_destination' => $id_destination,])->first();
+
+
+
+        $data = array(
+            'menu'                  => 'Home_view',
+            'title'                 => $title,    
+            'user'                  => session()->get('name'), 
+            'timesaatini'           => $timesaatini,
+            'timesaatlog'           => $timesaatlog , 
+            'getDestination'        => $getDestination , 
+            'tgl'                   => $tgl , 
+            'penumpang'             => $penumpang , 
+            'getDeparture'          => $getDeparture,
+        );
+
+        echo view('ext/L1/header', $data);
+        echo view('ext/L1/menu', $data); 
+        echo view('v_list_lv1', $data);
+        echo view('ext/L1/footer', $data);
+
 
 
 

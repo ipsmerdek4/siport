@@ -11,11 +11,7 @@
 </footer>
 </div>
 </div>
- 
-
-
-
-
+  
 
 
 <!-- General JS Scripts -->
@@ -39,7 +35,15 @@
 <script src="<?= base_url() ?>/stisla/assets/js/scripts.js"></script>
 <script src="<?= base_url() ?>/stisla/assets/js/custom.js"></script>
 
-<script src="<?= base_url() ?>/assets/js/home.js"></script>
+<?php if (isset($menu)) : ?> 
+    <?php if ($menu == "Home_view") : ?> 
+
+    <?php else: ?>
+        <script src="<?= base_url() ?>/assets/js/home.js"></script>
+    <?php endif; ?>
+<?php else: ?>
+    <script src="<?= base_url() ?>/assets/js/home.js"></script> 
+<?php endif; ?>
  
 
 
@@ -47,24 +51,7 @@
 <script src="<?= base_url() ?>/assets/scure/dist/cryptojs-aes-format.js"></script>
 
 <script>
-
- /* 
-$('#submit').click(function() {
-  var destination = $('#myselect').val();   
-  var date = $('#datedat').val();   
-  var passanger = $('#myselect3').val();    
-  var link = "destination=" + destination + "&date=" + date + "&passanger=" + passanger; 
-   
-
-  var password = '12345adasdasdalksdjlasasdkajsjd1ioo12o312312321ADASDA';
-  var encrypted = CryptoJSAesJson.encrypt(link, password);
-    
-   var newlink = "/views/z?dof=" + encrypted  ; 
  
-  window.location.href = newlink;   
-});
-
- */
 </script>
 
 
