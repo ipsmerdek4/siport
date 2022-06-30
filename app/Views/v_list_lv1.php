@@ -44,7 +44,12 @@
     <div class="row mt-3"> 
 
     <?php foreach ($getDeparture as $value) : ?>
-    
+      <?php
+        
+          $datedata = strtotime($value->date_of_departure);
+          $dateskrang = strtotime(date("Y-m-d h:i A"));
+          if ($datedata <> $dateskrang) : ?>
+             
       <div class="col-12 col-sm-12 col-md-12 col-lg-12">
         <article class="article">  
             <div class="row pb-5">
@@ -61,27 +66,29 @@
                       </div>
                 </div>
                 <div class="col-12 col-lg-3 align-self-center text-center text-lg-left ">
-                      <div class="">
-                          <div class="h6 "><?=$value->full_name?></div>
-                      </div>
-                      <div class="">
-                          <div class="h6 "><?=$value->nm_vehicle?></div>
-                      </div>
+                           <div class="h6 "><?=$value->full_name?></div> 
+                          <div class="h6 ">Vehicle : <?=$value->nm_vehicle?></div>
+                 </div>
+                <div class="col-12 col-lg-2 align-self-center text-center ">
+                <div class="">Seat</div>
+                <div class="">Ready <?=$value->book_seat?>/<?=$value->seat?></div>
                 </div>
                 <div class="col-12 col-lg-2 align-self-center text-center ">
-                  <div class="my-3">Redy <?=$value->book_seat?>/<?=$value->seat?> Seat</div>
-                </div>
-                <div class="col-12 col-lg-2 align-self-center text-center ">
-                  <div class="my-3">Rp <?=$value->price?>,-</div>
+                <div class=" ">Price</div>
+                <div class=" ">Rp <?=$value->price?>,-</div>
                 </div>
                 <div class="col-12 col-lg-3 align-self-center text-center ">
-                  <button class="btn btn-primary px-5 my-3">Order</button>
+                  <form action="<?=base_url()?>/departure/k" method="post">
+                    <input type="hidden" value="<?=$value->id_departure ?>*<?=$penumpang?>" readonly name="orderk">
+                    <button class="btn btn-primary px-5 my-3">Order</button>
+                  </form>
                 </div>
 
             </div>  
         </article>
       </div>
 
+          <?php endif; ?>
     <?php endforeach; ?>
 
     

@@ -17,7 +17,7 @@ class DepartureModel extends Model{
         $builder->join('tbl_vehicle', 'tbl_vehicle.id_vehicle = tbl_departure.id_vehicle');
         $builder->join('tbl_driver', 'tbl_driver.id_driver = tbl_departure.id_driver'); 
         $builder->where($nameW, $where); 
-        $builder->like($nameL, $where); 
+        $builder->like($nameL, $like); 
 
         $query = $builder->get();
         return $query->getResult();

@@ -13,7 +13,11 @@
   <!-- CSS Libraries -->
   <link rel="stylesheet" href="<?= base_url() ?>/stisla/node_modules/ionicons201/css/ionicons.min.css">
   <link rel="stylesheet" href="<?= base_url() ?>/assets/select2/dist/css/select2.min.css">
- 
+  
+  <link rel="stylesheet" href="<?=base_url()?>/assets/intl-tel-input/css/intlTelInput.css">
+
+  <link rel="stylesheet" href="<?=base_url()?>/assets/country-picker-flags/build/css/countrySelect.css">
+
   <!-- Template CSS -->
   <link rel="stylesheet" href="<?= base_url() ?>/stisla/assets/css/style.css">
   <link rel="stylesheet" href="<?= base_url() ?>/stisla/assets/css/components.css">
@@ -23,6 +27,11 @@
 
   <style>
 
+    .country-select.inside { width: 100% } 
+    .selected-flag{background-color: #e3eaef; width: 100px;}
+    .iti{ width: 100%;}
+
+    /*  */
     .d-myorder{
       color: #343a40; 
     }
@@ -92,6 +101,32 @@
     .carousel-control-next-icon,
     .carousel-control-prev-icon {
       filter: invert(1);
+    }
+
+    /* style select order home */
+    
+    .select-arrow {   
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background: url("/assets/img/ico/icons8-chevron-down-50.png") 93% / 10% no-repeat ;
+    }
+          
+
+    @media only screen and (max-width: 769px) {
+      .select-arrow {    
+            background: url("/assets/img/ico/icons8-chevron-down-50.png") 98% / 2% no-repeat ;
+          } 
+    }
+    @media only screen and (max-width: 426px) {
+      .select-arrow {    
+            background: url("/assets/img/ico/icons8-chevron-down-50.png") 97% / 4% no-repeat ;
+          } 
+    }
+    @media only screen and (max-width: 321px) {
+      .select-arrow {    
+            background: url("/assets/img/ico/icons8-chevron-down-50.png") 96% / 6% no-repeat ;
+          } 
     }
   </style>
 

@@ -151,16 +151,12 @@ class Home extends BaseController
         $tgl = $pecah[1];
         $tglpecah = explode('/',$tgl);
         $tgl = $tglpecah[1].'-'.$tglpecah[0].'-'.$tglpecah[2];
+        $tglcari = $tglpecah[2].'-'.$tglpecah[0].'-'.$tglpecah[1];
         $penumpang = $pecah[2];
 
         /*  */
-        $getDeparture = $Departure->whereandlike('tbl_departure.id_destination', $id_destination, 'date_of_departure', '2022-06-29');
-       
-        echo strtotime($getDeparture[0]->date_of_departure) .'<br>';
-        echo strtotime(date("Y-m-d h:i")) .'<br>';
-        echo date("Y-m-d h:i A");
-
-        exit();
+        $getDeparture = $Departure->whereandlike('tbl_departure.id_destination', $id_destination, 'date_of_departure', $tglcari);
+   
         $getDestination = $Destination->where(['id_destination' => $id_destination,])->first();
 
 
@@ -181,38 +177,7 @@ class Home extends BaseController
         echo view('ext/L1/menu', $data); 
         echo view('v_list_lv1', $data);
         echo view('ext/L1/footer', $data);
-
-
-
-
-         /*     $User = new UserModel();   
-         
-        $title = 'Home &rsaquo; [SIPORT]';
-
-        $sessionID = session()->get('ID');
-        if (isset($sessionID)) {
-        
-            $getUser = $User->where(['id_user' => session()->get('ID'),])->first();
-
-            $timesaatlog = strtotime($getUser->tgl_log_user);
-            $timesaatini = strtotime(date("Y-m-d H:i:s")); 
-        
-        }
-        
-        $data = array(
-            'menu'                  => 'Home',
-            'title'                 => $title,    
-            'user'                  => session()->get('name'), 
-            'timesaatini'           => $timesaatini,
-            'timesaatlog'           => $timesaatlog , 
-        );
-
-        echo view('ext/L1/header', $data);
-        echo view('ext/L1/menu', $data); 
-        echo view('v_viewdesti_lv1', $data);
-        echo view('ext/L1/footer', $data);
-
- */
+ 
 
      }
 
@@ -230,6 +195,53 @@ class Home extends BaseController
          
    
     }
+
+
+
+    public function departure_k()
+    {
+        $orderk = $this->VARs()->getVar('orderk');
+        $pecahorder = explode("*", $orderk);
+        $id_departure = $pecahorder[0];
+        $penumpang = $pecahorder[1];
+
+        /*  */
+        $User = new UserModel();  
+
+        $title = 'Home &rsaquo; [SIPORT]';
+
+        $sessionID = session()->get('ID');
+        if (isset($sessionID)) {
+        
+            $getUser = $User->where(['id_user' => session()->get('ID'),])->first();
+
+            $timesaatlog = strtotime($getUser->tgl_log_user);
+            $timesaatini = strtotime(date("Y-m-d H:i:s")); 
+        
+        }
+
+
+
+        
+        $data = array(
+            'menu'                  => 'Home_order',
+            'title'                 => $title,    
+            'user'                  => session()->get('name'), 
+            'timesaatini'           => $timesaatini,
+            'timesaatlog'           => $timesaatlog ,  
+            'penumpang'             => $penumpang ,  
+        );
+
+        echo view('ext/L1/header', $data);
+        echo view('ext/L1/menu', $data); 
+        echo view('v_order_lv1', $data);
+        echo view('ext/L1/footer', $data);
+
+
+
+
+    }
+
 
 
 }
