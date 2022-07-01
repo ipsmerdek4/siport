@@ -42,6 +42,9 @@ $routes->post('/views/k', 'Home::Vw');
 
 $routes->post('/departure/k', 'Home::departure_k'); 
 
+$routes->post('/trans/k', 'Home::pembayaran_k'); 
+$routes->post('/trans/kv', 'Home::pembayaran_kV'); 
+
 
 
 $routes->get('/views/z/(:any)', 'Home::views_z/$1');

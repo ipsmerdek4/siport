@@ -23,6 +23,8 @@
 <script src="<?= base_url() ?>/stisla/assets/js/stisla.js"></script>
 
 <!-- JS Libraies -->
+<script src="<?=base_url()?>/assets/sweetalert2/dist/sweetalert2.all.min.js"></script>
+
 <script src="<?= base_url() ?>/assets/select2/dist/js/select2.min.js"></script>
 <script src="<?=base_url()?>/assets/intl-tel-input/js/intlTelInput.js"></script> 
 
@@ -47,9 +49,109 @@
 
 
     <?php elseif ($menu == "Home_order") : ?> 
+
+
+    <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-tY7QOp5fnqXQfQHM"></script>
+ 
       <script>
 
+        $("#pay-button").click(function(e){
+          e.preventDefault(); 
+          const price = $(this).data("price");
+ 
+          $.ajax({
+              type: "post",
+              url: "/trans/k",
+              data: {
+                  prices: price,
+              },
+              dataType: "json",
+              success: function (response) {
+                  if (response.error) { 
+                        Swal.fire('error', response.error, 'error');
+                  }else{ 
+                      snap.pay(response.snapToken, {   
+                          onSuccess: function(result){  
+                                let dataResult = JSON.stringify(result, null, 2);
+                                let dataObj = JSON.parse(dataResult);
 
+
+                                alert(dataObj.payment_type + " " + dataObj.status_message + " " + dataObj.bank + " " + dataObj.gross_amount + " " + dataObj.order_id  + " " + dataObj.transaction_id + " " + dataObj.transaction_time + " " + dataObj.masked_card);
+                               /*  $.ajax({
+                                  type: "post",
+                                  url: "/trans/kv",
+                                  data: {
+                                    payment_type: dataObj.payment_type,
+                                    order_id: dataObj.order_id,
+                                    gross_amount: dataObj.gross_amount,
+                                    va_numbers: dataObj.va_numbers[0].va_number,
+                                    bank: dataObj.va_numbers[0].bank,
+                                  },
+                                  dataType: "json",
+                                  success: function (response) {
+                                      $('.showdetail').html(response);
+                                  }
+                                });  */
+                          },
+                          // Optional
+                          onPending: function(result){
+                                let dataResult = JSON.stringify(result, null, 2);
+                                let dataObj = JSON.parse(dataResult);
+
+
+                                alert(dataObj.payment_type + " " + dataObj.status_message + " " + dataObj.va_numbers[0].bank + " " + dataObj.va_numbers[0].va_number + " " + dataObj.gross_amount + " " + dataObj.order_id  + " " + dataObj.transaction_id + " " + dataObj.transaction_time  + " " + dataObj.transaction_status);
+
+                               /*  
+                                $.ajax({
+                                  type: "post",
+                                  url: "/trans/kv",
+                                  data: {
+                                    order_id: dataObj.order_id,
+                                    gross_amount: dataObj.gross_amount,
+                                    va_numbers: dataObj.va_numbers[0].va_number,
+                                    bank: dataObj.va_numbers[0].bank,
+                                  },
+                                  dataType: "json",
+                                  success: function (response) {
+                                      $('.showdetail').html(response);
+                                  }
+                                });  */
+                          },
+                          // Optional
+                          onError: function(result){ 
+
+                                Swal.fire('error', response.error, 'error');
+                                /* 
+                                $.ajax({
+                                  type: "post",
+                                  url: "/trans/kv",
+                                  data: {
+                                    order_id: dataObj.order_id,
+                                    gross_amount: dataObj.gross_amount,
+                                    va_numbers: dataObj.va_numbers[0].va_number,
+                                    bank: dataObj.va_numbers[0].bank,
+                                  },
+                                  dataType: "json",
+                                  success: function (response) {
+                                      $('.showdetail').html(response);
+                                  }
+                                });   */
+                          }
+                      });
+
+
+
+                  }
+              }
+            });
+
+
+        });
+
+ 
+
+
+        /*  */
 
       $(".country_selector").countrySelect({ 
             responsiveDropdown:true, 
@@ -84,9 +186,7 @@
             };
           }(jQuery));
 
-          
- 
-
+           
             /*  */
             var phoneInputID = "#phone";
             var input = document.querySelector(phoneInputID);

@@ -179,7 +179,7 @@ class Home extends BaseController
         echo view('ext/L1/footer', $data);
  
 
-     }
+    }
 
     public function Vw()
     { 
@@ -204,6 +204,11 @@ class Home extends BaseController
         $pecahorder = explode("*", $orderk);
         $id_departure = $pecahorder[0];
         $penumpang = $pecahorder[1];
+        
+        /*  */
+        $Departure = new DepartureModel();
+        $getDeparture = $Departure->joinAll($id_departure);
+
 
         /*  */
         $User = new UserModel();  
@@ -219,10 +224,7 @@ class Home extends BaseController
             $timesaatini = strtotime(date("Y-m-d H:i:s")); 
         
         }
-
-
-
-        
+ 
         $data = array(
             'menu'                  => 'Home_order',
             'title'                 => $title,    
@@ -230,6 +232,7 @@ class Home extends BaseController
             'timesaatini'           => $timesaatini,
             'timesaatlog'           => $timesaatlog ,  
             'penumpang'             => $penumpang ,  
+            'getDeparture'          => $getDeparture[0],
         );
 
         echo view('ext/L1/header', $data);
@@ -240,6 +243,133 @@ class Home extends BaseController
 
 
 
+    }
+
+
+    public function pembayaran_k()
+    {
+        $tampilkan = [];
+        $decrypt_prices = $this->VARs()->getVar('prices'); 
+        if (isset($decrypt_prices)) {
+            $prices = $this->encrypt_descrip('decrypt', $decrypt_prices); 
+            $pecah = explode("*", $prices); 
+            /*  */
+            $harga = $pecah[0];
+            $id_departure = $pecah[1];
+            if (($harga != "")&&($id_departure != "")) {
+                 
+                    /* mitrans */
+                    // Set your Merchant Server Key
+                    \Midtrans\Config::$serverKey = 'SB-Mid-server-IlCtlNOSQ5UtaBlirOgmEE30';
+                    // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+                    \Midtrans\Config::$isProduction = false;
+                    // Set sanitization on (default)
+                    \Midtrans\Config::$isSanitized = true;
+                    // Set 3DS transaction for credit card to true
+                    \Midtrans\Config::$is3ds = true;
+
+                    // Populate items
+                    $items = array(
+                        array(
+                            'id'       => 'item1',
+                            'price'    => 100000,
+                            'quantity' => 1,
+                            'name'     => 'Adidas f50'
+                        ),
+                        array(
+                            'id'       => 'item2',
+                            'price'    => 50000,
+                            'quantity' => 2,
+                            'name'     => 'Nike N90'
+                        )
+                    );
+
+                    // Populate customer's billing address
+                    $billing_address = array(
+                        'first_name'   => "Andri",
+                        'last_name'    => "Setiawan",
+                        'address'      => "Karet Belakang 15A, Setiabudi.",
+                        'city'         => "Jakarta",
+                        'postal_code'  => "51161",
+                        'phone'        => "081322311801",
+                        'country_code' => 'IDN'
+                    );
+
+                    // Populate customer's shipping address
+                    $shipping_address = array(
+                        'first_name'   => "John",
+                        'last_name'    => "Watson",
+                        'address'      => "Bakerstreet 221B.",
+                        'city'         => "Jakarta",
+                        'postal_code'  => "51162",
+                        'phone'        => "081322311801",
+                        'country_code' => 'IDN'
+                    );
+
+                    // Populate customer's info
+                    $customer_details = array(
+                        'first_name'       => "Andri",
+                        'last_name'        => "Setiawan",
+                        'email'            => "test@test.com",
+                        'phone'            => "081322311801",
+                        'billing_address'  => $billing_address,
+                        'shipping_address' => $shipping_address
+                    );
+
+                     
+
+                    //$token_id = "123123";
+  
+                    $order_id = rand(); 
+
+
+                    $params = array( 
+                        'transaction_details' => array(
+                            'order_id' =>  $order_id,
+                            'gross_amount' => 10000,
+                        ),
+                        'item_details'        => $items,
+                        'customer_details'    => $customer_details
+                    );
+ 
+
+                    $tampilkan = [
+                        'snapToken' => \Midtrans\Snap::getSnapToken($params), 
+                    ];
+            
+
+
+
+
+            }else{
+                $tampilkan = [
+                    'error'     => 'Sorry, Data Not Available..',
+                ];
+            } 
+        }else{
+            $tampilkan = [
+                'error'     => 'Sorry, an error occurred 1, please try again.',
+            ];
+        }
+
+
+        echo json_encode($tampilkan);
+
+ 
+
+    }
+
+
+    public function pembayaran_kV()
+    {
+
+       echo $payment_type = $this->VARs()->getVar('payment_type');  
+
+       /* echo $order_id = $this->VARs()->getVar('order_id');  
+       echo $gross_amount = $this->VARs()->getVar('gross_amount');  
+       echo $va_numbers = $this->VARs()->getVar('va_numbers');  
+       echo $bank = $this->VARs()->getVar('bank');  
+ */
     }
 
 

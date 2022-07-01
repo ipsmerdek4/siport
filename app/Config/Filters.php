@@ -52,7 +52,7 @@ class Filters extends BaseConfig
                                             '/',   
                                             'views', 'views/*', 
                                             'departure/*', 
-
+                                            'trans', 'trans/*',
                                             ]
                         ],
             'authadmin' => ['except' => [  
