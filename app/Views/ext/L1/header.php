@@ -17,6 +17,9 @@
   <link rel="stylesheet" href="<?=base_url()?>/assets/intl-tel-input/css/intlTelInput.css">
 
   <link rel="stylesheet" href="<?=base_url()?>/assets/country-picker-flags/build/css/countrySelect.css">
+  <!-- block mitrans -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/featherlight/1.7.12/featherlight.min.css">
+
 
   <!-- Template CSS -->
   <link rel="stylesheet" href="<?= base_url() ?>/stisla/assets/css/style.css">

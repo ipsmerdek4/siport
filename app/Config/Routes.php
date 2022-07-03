@@ -41,10 +41,16 @@ $routes->get('/views/b', 'Home::views_b');
 $routes->post('/views/k', 'Home::Vw'); 
 
 $routes->post('/departure/k', 'Home::departure_k'); 
+$routes->get('/paymen/p/(:any)', 'Home::paymen_p/$1'); 
+$routes->post('/checkout', 'Home::paymen_checkout'); 
+$routes->post('/checkout/request', 'Home::paymen_checkout_req'); 
 
 $routes->post('/trans/k', 'Home::pembayaran_k'); 
 $routes->post('/trans/kv', 'Home::pembayaran_kV'); 
 
+
+
+$routes->get('/myorder', 'Order::index'); 
 
 
 $routes->get('/views/z/(:any)', 'Home::views_z/$1');

@@ -61,7 +61,7 @@
               </a>
             </li>
             <li class="nav-item d-xl-none">
-              <a href="#" class="nav-link">
+              <a href="<?=base_url()?>/myorder" class="nav-link">
                 <i class="ion ion-clipboard"></i>
                 <span>My Order</span>
               </a>
@@ -72,7 +72,7 @@
           <ul class="m-2 list-unstyled d-none d-xl-inline-block ">
 
             <li class="nav-item nav-right ">
-              <a href="#" class="nav-link "  >
+              <a href="<?=base_url()?>/myorder" class="nav-link "  >
                 <div class="d-myorder font-weight-bold">
                   <i class="ion-clipboard float-left d-myorder-head"></i> 
                   <div class="d-myorder-fot float-left">

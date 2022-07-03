@@ -2,7 +2,10 @@
 
 namespace App\Controllers;
 
+use App\Models\CreditCardModel; 
 use App\Models\UserModel; 
+use App\Models\PassengerModel; 
+use App\Models\TransaksiModel; 
 use App\Models\DestinationModel;   
 use App\Models\DepartureModel;   
 use Nullix\CryptoJsAes\CryptoJsAes;
@@ -11,11 +14,28 @@ require "../public/assets/scure/src/CryptoJsAes.php";
 
 class Home extends BaseController
 {
- 
-
+  
     public function VARs(){ return $request = service('request'); }
 
-  
+    /* function excrip and descript */
+    public function encrypt_descrip($action, $string) {
+        $output = false;
+        $encrypt_method = "AES-256-CBC";
+        $secret_key = 'asdadoaudo8asudoaud8o';
+        $secret_iv = '555555334342423';
+        // hash
+        $key = hash('sha256', $secret_key);
+    
+        // iv - encrypt method AES-256-CBC expects 16 bytes - else you will get a warning
+        $iv = substr(hash('sha256', $secret_iv), 0, 16);
+        if ( $action == 'encrypt' ) {
+            $output = openssl_encrypt($string, $encrypt_method, $key, 0, $iv);
+            $output = base64_encode($output);
+        } else if( $action == 'decrypt' ) {
+            $output = openssl_decrypt(base64_decode($string), $encrypt_method, $key, 0, $iv);
+        }
+        return $output;
+    }
 
 
     public function index()
@@ -105,25 +125,7 @@ class Home extends BaseController
         return redirect()->to(base_url('login'));
     }
 
-    /* function excrip and descript */
-    public function encrypt_descrip($action, $string) {
-        $output = false;
-        $encrypt_method = "AES-256-CBC";
-        $secret_key = 'asdadoaudo8asudoaud8o';
-        $secret_iv = '555555334342423';
-        // hash
-        $key = hash('sha256', $secret_key);
-    
-        // iv - encrypt method AES-256-CBC expects 16 bytes - else you will get a warning
-        $iv = substr(hash('sha256', $secret_iv), 0, 16);
-        if ( $action == 'encrypt' ) {
-            $output = openssl_encrypt($string, $encrypt_method, $key, 0, $iv);
-            $output = base64_encode($output);
-        } else if( $action == 'decrypt' ) {
-            $output = openssl_decrypt(base64_decode($string), $encrypt_method, $key, 0, $iv);
-        }
-        return $output;
-    }
+  
     /*  */
     public function views_z($id = null)
     {
@@ -184,14 +186,82 @@ class Home extends BaseController
     public function Vw()
     { 
  
-        $Destination = $this->VARs()->getVar('Destination');
-        $dates = $this->VARs()->getVar('dates');
-        $passanger = $this->VARs()->getVar('passanger');
+        $Destination = $this->VARs()->getVar('Destination'); 
+        if (isset($Destination)) {
+            $dates = $this->VARs()->getVar('dates');
+            $passanger = $this->VARs()->getVar('passanger');
+    
+            $pack = $Destination.'*'.$dates.'*'.$passanger;  
+            $encrypted_txt = $this->encrypt_descrip('encrypt', $pack); 
+             
+            return redirect()->to(base_url().'/views/z/'.$encrypted_txt);
+        }
+       
+        $encryptt = $this->VARs()->getVar('encrypt');  
+        if (isset($encryptt)) {
+            $title1 = $this->VARs()->getVar('titles1');   
+            $fname1 = $this->VARs()->getVar('fname1');   
+            $email1 = $this->VARs()->getVar('email1');   
+            $phone1 = $this->VARs()->getVar('phone1');   
 
-        $pack = $Destination.'*'.$dates.'*'.$passanger;  
-        $encrypted_txt = $this->encrypt_descrip('encrypt', $pack); 
-         
-        return redirect()->to(base_url().'/views/z/'.$encrypted_txt);
+
+            $title = $this->VARs()->getVar('title');   
+            $fname = $this->VARs()->getVar('fname');   
+            $idman = $this->VARs()->getVar('idman');   
+            $country = $this->VARs()->getVar('country');   
+
+            $metode = $this->VARs()->getVar('metode');   
+
+
+            $decryptd_txt = $this->encrypt_descrip('decrypt', $encryptt); 
+            $pecahkan = explode("*", $decryptd_txt);
+            $total_harga = $pecahkan[0];
+            $id_departure = $pecahkan[1];
+            $penumpang = $pecahkan[2];
+
+            
+ 
+              $Transaksi = new TransaksiModel();  
+              $Passenger = new PassengerModel();  
+
+              $LasrID = $Transaksi->countAll()+1; 
+ 
+
+                $data = [
+                    'id_transaksi'          => $LasrID,
+                    'id_departure'          => $id_departure,
+                    'total_passenger'       => $penumpang,
+                    'total_price'           => $total_harga,
+                    'title_order'           => $title1,
+                    'name_order'            => $fname1,
+                    'email_order'           => $email1,
+                    'phone_order'           => $phone1,
+                    'metode_order'          => $metode,
+                    'status_order'          => "Order",
+                    'tgl_crt_dt_transaksi'  => date('Y-m-d H:i:s'),
+                ];
+
+                $Transaksi->insert($data); 
+
+                foreach ($title as $key => $value) {  
+                    $senddata[] = [
+                        'id_transaksi'          => $LasrID,
+                        'title_passenger'       => $value,
+                        'name_passenger'        => $fname[$key],
+                        'KTP_passenger'         => $idman[$key],
+                        'country_passenger'     => $country[$key],
+                        'tgl_crt_dt_passenger'  => date('Y-m-d H:i:s'),
+                    ];
+                }
+
+                $Passenger->insertBatch($senddata);
+                
+                $pack = $LasrID."^".$metode;
+                $encrypted_txt = $this->encrypt_descrip('encrypt', $pack); 
+                return redirect()->to(base_url().'/paymen/p/'.$encrypted_txt);   
+
+
+        }
          
    
     }
@@ -245,7 +315,7 @@ class Home extends BaseController
 
     }
 
-
+    /* 
     public function pembayaran_k()
     {
         $tampilkan = [];
@@ -253,12 +323,12 @@ class Home extends BaseController
         if (isset($decrypt_prices)) {
             $prices = $this->encrypt_descrip('decrypt', $decrypt_prices); 
             $pecah = explode("*", $prices); 
-            /*  */
+            
             $harga = $pecah[0];
             $id_departure = $pecah[1];
             if (($harga != "")&&($id_departure != "")) {
                  
-                    /* mitrans */
+                    
                     // Set your Merchant Server Key
                     \Midtrans\Config::$serverKey = 'SB-Mid-server-IlCtlNOSQ5UtaBlirOgmEE30';
                     // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
@@ -357,21 +427,159 @@ class Home extends BaseController
 
  
 
+    } */
+
+
+    public function paymen_p($id = null)
+    {
+        
+
+        $decrypted_txt1 = $this->encrypt_descrip('decrypt', $id);
+        $pecah = explode("^", $decrypted_txt1);
+
+        $method = $pecah[1]; 
+        $id_transaksi = $pecah[0]; 
+
+
+        if ($method == 1) {
+
+            $User = new UserModel();  
+            $Transaksi = new TransaksiModel();  
+            $Departure = new DepartureModel();
+            $Destination = new DestinationModel();
+
+            $Transaksi = $Transaksi->where(['id_transaksi ' => $id_transaksi,])->first();
+            $Departure = $Departure->where(['id_departure ' => $Transaksi->id_departure,])->first();
+            $Destination = $Destination->where(['id_destination ' => $Departure->id_destination,])->first();
+
+            /*  */
+            $title = 'Home &rsaquo; [SIPORT]';
+    
+            $sessionID = session()->get('ID');
+            if (isset($sessionID)) {
+            
+                $getUser = $User->where(['id_user' => session()->get('ID'),])->first();
+    
+                $timesaatlog = strtotime($getUser->tgl_log_user);
+                $timesaatini = strtotime(date("Y-m-d H:i:s")); 
+            
+            }
+            $data = array(
+                'menu'                  => 'Home_visa',
+                'title'                 => $title,    
+                'user'                  => session()->get('name'), 
+                'timesaatini'           => $timesaatini,
+                'timesaatlog'           => $timesaatlog ,  
+                'Transaksi'             => $Transaksi,
+                'Destination'           => $Destination,
+                'Departure'             => $Departure,
+            );
+    
+            echo view('ext/L1/header', $data);
+            echo view('ext/L1/menu', $data); 
+            echo view('v_creditcard', $data);
+            echo view('ext/L1/footer', $data);
+     
+
+        }
+
+     
     }
 
-
-    public function pembayaran_kV()
+    public function paymen_checkout()
     {
 
-       echo $payment_type = $this->VARs()->getVar('payment_type');  
+        // Set your Merchant Server Key
+        \Midtrans\Config::$serverKey = 'SB-Mid-server-IlCtlNOSQ5UtaBlirOgmEE30';
+        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+        \Midtrans\Config::$isProduction = false;
+        // Set sanitization on (default)
+        \Midtrans\Config::$isSanitized = true;
+        // Set 3DS transaction for credit card to true
+        \Midtrans\Config::$is3ds = true;
 
-       /* echo $order_id = $this->VARs()->getVar('order_id');  
-       echo $gross_amount = $this->VARs()->getVar('gross_amount');  
-       echo $va_numbers = $this->VARs()->getVar('va_numbers');  
-       echo $bank = $this->VARs()->getVar('bank');  
- */
+        $Transaksi = new TransaksiModel();  
+
+        
+        $token_id = $this->VARs()->getVar('token_id');
+
+        $id_encrypt = $this->VARs()->getVar('id_encrypt');
+        $decrypted_txt1 = $this->encrypt_descrip('decrypt', $id_encrypt);
+        $id_transaksi = $decrypted_txt1;
+
+        $Transaksi = $Transaksi->where(['id_transaksi ' => $id_transaksi,])->first();
+
+
+
+        $params = array(
+            'transaction_details' => array(
+                'order_id' => rand(),
+                'gross_amount' => $Transaksi->total_price,
+            ),
+            'payment_type' => 'credit_card',
+            'credit_card'  => array(
+                'token_id'      => $token_id,
+                'authentication' => true,
+                // 'bank'        => 'bni', // optional acquiring bank
+                'save_token_id'  => false,
+            ),
+            'customer_details' => array(
+                'first_name' => $Transaksi->title_order,
+                'last_name' => $Transaksi->name_order,
+                'email' => $Transaksi->email_order,
+                'phone' => $Transaksi->phone_order,
+            ),
+        );
+         
+        $response = \Midtrans\CoreApi::charge($params);
+
+
+        echo json_encode($response);  
+
+
     }
 
+    public function paymen_checkout_req()
+    {
+        $id_encrypt = $this->VARs()->getVar('id_encrypt');
+        $decrypted_txt1 = $this->encrypt_descrip('decrypt', $id_encrypt);
+        $id_transaksi = $decrypted_txt1; 
+        $order_id = $this->VARs()->getVar('order_id');
+        $bank = $this->VARs()->getVar('bank');
+        $payment_type = $this->VARs()->getVar('payment_type');
+        $currency = $this->VARs()->getVar('currency');
+        $gross_amount = $this->VARs()->getVar('gross_amount');
+        $no_card = $this->VARs()->getVar('no_card');
+        $name_card = $this->VARs()->getVar('name_card');
+        $transaction_status = $this->VARs()->getVar('transaction_status');
+        $status_message = $this->VARs()->getVar('status_message');
+        $transaction_time = $this->VARs()->getVar('transaction_time'); 
+
+        $CreditCard = new CreditCardModel();
+
+            
+        $CreditCard->insert([  
+            'id_transaksi' => $id_transaksi,
+            'order_id' => $order_id,
+            'bank' => $bank,
+            'currency' => $currency,
+            'payment_type' => $payment_type,
+            'gross_amount' => $gross_amount,
+            'no_card' => $no_card,
+            'name_card' => $name_card,
+            'transaction_status' => $transaction_status,
+            'status_message' => $status_message,
+            'transaction_time' => $transaction_time, 
+            'tgl_crt_dt_creditcar' => date('Y-m-d H:i:s'),
+        ]); 
+
+        $data = [
+            'sts' => '200'
+        ];
+
+        echo json_encode($data);
+
+    }
 
 
 }
