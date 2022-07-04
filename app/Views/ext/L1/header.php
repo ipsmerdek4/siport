@@ -19,6 +19,11 @@
   <link rel="stylesheet" href="<?=base_url()?>/assets/country-picker-flags/build/css/countrySelect.css">
   <!-- block mitrans -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/featherlight/1.7.12/featherlight.min.css">
+  <!-- datatables  --> 
+  <link rel="stylesheet" href="<?= base_url() ?>/assets/datatables/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="<?= base_url() ?>/assets/datatables/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="<?= base_url() ?>/assets/datatables/datatables-buttons/css/buttons.bootstrap4.min.css">
+
 
 
   <!-- Template CSS -->

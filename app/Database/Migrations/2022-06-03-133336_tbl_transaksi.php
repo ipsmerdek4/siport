@@ -7,8 +7,8 @@ class Tbl_transaksi extends Migration{
     public function up(){
         $this->forge->addField([ 
             'id_transaksi'          => [
-                'type'           => 'INT',
-                'constraint'     => 10,
+                'type'           => 'BIGINT',
+                'constraint'     => 20,
                 'unsigned'       => true,
                 'auto_increment' => true
             ],  
@@ -16,7 +16,12 @@ class Tbl_transaksi extends Migration{
                 'type'           => 'INT',
                 'constraint'     => 10,
                 'unsigned'       => true, 
-			],   
+			],    
+			'id_destination'     => [
+                'type'           => 'INT',
+                'constraint'     => 10,
+                'unsigned'       => true, 
+			],    
 			'total_passenger'      => [  
 				'type'           => 'INT',
                 'constraint'     => 10,
@@ -52,9 +57,9 @@ class Tbl_transaksi extends Migration{
 				'null'       	 => true,
 			], 
         ]);
-        $this->forge->addPrimaryKey('id_transaksi', true); 
+        $this->forge->addPrimaryKey('id_transaksi', true);  
         $this->forge->addForeignKey('id_departure', 'tbl_departure', 'id_departure');
-
+        $this->forge->addForeignKey('id_destination', 'tbl_destination', 'id_destination'); 
         $this->forge->createTable('tbl_transaksi'); 
     }
 

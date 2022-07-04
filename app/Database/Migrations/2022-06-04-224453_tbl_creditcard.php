@@ -21,15 +21,12 @@ class Tbl_creditcard extends Migration{
                 'constraint'     => 10,
                 'unsigned'       => true,
                 'auto_increment' => true
-            ],  
+            ],   
 			'id_transaksi'     => [
-                'type'           => 'INT',
-                'constraint'     => 10,
+                'type'           => 'BIGINT',
+                'constraint'     => 20,
                 'unsigned'       => true, 
-			],     
-			'order_id'              => [
-				'type'           => 'BIGINT', 
-			],  
+			],   
 			'bank'                  => [
 				'type'           => 'VARCHAR',
 				'constraint'     => '100', 
@@ -68,8 +65,8 @@ class Tbl_creditcard extends Migration{
 				'null'       	 => true,
 			], 
         ]);
-        $this->forge->addPrimaryKey('id_creditcard', true);  
-		$this->forge->addForeignKey('id_transaksi', 'tbl_transaksi', 'id_transaksi'); 
+        $this->forge->addPrimaryKey('id_creditcard', true);          
+		$this->forge->addForeignKey('id_transaksi', 'tbl_transaksi', 'id_transaksi');
         $this->forge->createTable('tbl_creditcard'); 
     
     }

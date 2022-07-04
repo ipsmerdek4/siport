@@ -14,8 +14,8 @@ class Tbl_passenger extends Migration{
                 'auto_increment' => true
             ],  
 			'id_transaksi'     => [
-                'type'           => 'INT',
-                'constraint'     => 10,
+                'type'           => 'BIGINT',
+                'constraint'     => 20,
                 'unsigned'       => true, 
 			],     
 			'title_passenger'      => [  

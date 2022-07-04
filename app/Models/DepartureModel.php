@@ -10,6 +10,11 @@ class DepartureModel extends Model{
     protected $allowedFields = ['id_destination','id_vehicle', 'plat_number', 'book_seat', 'id_driver', 'date_of_departure', 'price', 'tgl_crt_dt_departure'];
 
 
+   
+
+
+
+
     function whereandlike($nameW = null, $where = null, $nameL = null, $like = null)
     { 
         $builder = $this->db->table('tbl_departure');

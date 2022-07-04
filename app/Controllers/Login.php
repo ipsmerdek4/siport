@@ -59,7 +59,7 @@ class Login extends Controller{
                 
                 $dataUser = $User->reqLogin($username);
 
-                if ($dataUser[0]) {  
+                if (isset($dataUser[0])) {  
                     if (password_verify($password, $dataUser[0]->password)) { 
                         $log = 
                         $User->update($dataUser[0]->id_user, ['tgl_log_user' => date("Y-m-d H:i:s")]);
@@ -78,11 +78,17 @@ class Login extends Controller{
                         
                     }else{
                         session()->setFlashdata('error', '<div class="" style="font-size:15px;">'. 
-                                                        '[ Password Salah ]'.
+                                                        '[ Wrong Password ]'.
                                                         '</div>');
                         return redirect()->to(base_url('/login')); 
                     } 
-                } 
+                }else{
+                    session()->setFlashdata('error', '<div class="" style="font-size:15px;">'. 
+                                                    '[ Wrong Username ]'.
+                                                    '</div>');
+                    return redirect()->to(base_url('/login'));
+
+                }
             }
 
 

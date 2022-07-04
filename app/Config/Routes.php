@@ -50,7 +50,8 @@ $routes->post('/trans/kv', 'Home::pembayaran_kV');
 
 
 
-$routes->get('/myorder', 'Order::index'); 
+$routes->get('/myorder', 'Order::index');  
+$routes->post('/myorder/list', 'Order::list');
 
 
 $routes->get('/views/z/(:any)', 'Home::views_z/$1');

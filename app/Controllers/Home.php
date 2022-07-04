@@ -6,9 +6,9 @@ use App\Models\CreditCardModel;
 use App\Models\UserModel; 
 use App\Models\PassengerModel; 
 use App\Models\TransaksiModel; 
+use App\Models\VehicleModel; 
 use App\Models\DestinationModel;   
-use App\Models\DepartureModel;   
-use Nullix\CryptoJsAes\CryptoJsAes;
+use App\Models\DepartureModel;         
  
 require "../public/assets/scure/src/CryptoJsAes.php";
 
@@ -124,9 +124,7 @@ class Home extends BaseController
         session()->setFlashdata('error', $warningX);
         return redirect()->to(base_url('login'));
     }
-
-  
-    /*  */
+ 
     public function views_z($id = null)
     {
   
@@ -219,17 +217,20 @@ class Home extends BaseController
             $id_departure = $pecahkan[1];
             $penumpang = $pecahkan[2];
 
-            
- 
+
+              $Departure = new DepartureModel();
               $Transaksi = new TransaksiModel();  
               $Passenger = new PassengerModel();  
 
               $LasrID = $Transaksi->countAll()+1; 
- 
+              $order_id = rand(999,9999).$LasrID;
+
+              $getDeparture = $Departure->where(['id_departure' => $id_departure,])->first(); 
 
                 $data = [
-                    'id_transaksi'          => $LasrID,
+                    'id_transaksi'          => $order_id,
                     'id_departure'          => $id_departure,
+                    'id_destination'        => $getDeparture->id_destination,
                     'total_passenger'       => $penumpang,
                     'total_price'           => $total_harga,
                     'title_order'           => $title1,
@@ -245,7 +246,7 @@ class Home extends BaseController
 
                 foreach ($title as $key => $value) {  
                     $senddata[] = [
-                        'id_transaksi'          => $LasrID,
+                        'id_transaksi'          => $order_id,
                         'title_passenger'       => $value,
                         'name_passenger'        => $fname[$key],
                         'KTP_passenger'         => $idman[$key],
@@ -256,7 +257,7 @@ class Home extends BaseController
 
                 $Passenger->insertBatch($senddata);
                 
-                $pack = $LasrID."^".$metode;
+                $pack = $order_id."^".$metode;
                 $encrypted_txt = $this->encrypt_descrip('encrypt', $pack); 
                 return redirect()->to(base_url().'/paymen/p/'.$encrypted_txt);   
 
@@ -275,42 +276,61 @@ class Home extends BaseController
         $id_departure = $pecahorder[0];
         $penumpang = $pecahorder[1];
         
+        
         /*  */
         $Departure = new DepartureModel();
-        $getDeparture = $Departure->joinAll($id_departure);
+        $Destination = new DestinationModel();
+        $Vehicle = new VehicleModel();
 
 
-        /*  */
-        $User = new UserModel();  
 
-        $title = 'Home &rsaquo; [SIPORT]';
-
-        $sessionID = session()->get('ID');
-        if (isset($sessionID)) {
-        
-            $getUser = $User->where(['id_user' => session()->get('ID'),])->first();
-
-            $timesaatlog = strtotime($getUser->tgl_log_user);
-            $timesaatini = strtotime(date("Y-m-d H:i:s")); 
-        
-        }
+        $getDeparture = $Departure->where(['id_departure' => $id_departure,])->first();
+        $getDestination  = $Destination->where(['id_destination' => $getDeparture->id_destination,])->first();
+        $getVehicle   = $Vehicle->where(['id_vehicle' => $getDeparture->id_vehicle,])->first();
  
-        $data = array(
-            'menu'                  => 'Home_order',
-            'title'                 => $title,    
-            'user'                  => session()->get('name'), 
-            'timesaatini'           => $timesaatini,
-            'timesaatlog'           => $timesaatlog ,  
-            'penumpang'             => $penumpang ,  
-            'getDeparture'          => $getDeparture[0],
-        );
+        $ceakseat = ($penumpang+$getDeparture->book_seat);         
+        if($ceakseat > $getVehicle->seat){ 
+            return redirect()->back()->withInput()->with('error', '<div class="" style="font-size:15px;">'. 
+                                                            '[ Seats Are Full. ]'.
+                                                            '</div>'
+                                                        );
+ 
+        }else{
+  
+                /*  */
+                $User = new UserModel();  
 
-        echo view('ext/L1/header', $data);
-        echo view('ext/L1/menu', $data); 
-        echo view('v_order_lv1', $data);
-        echo view('ext/L1/footer', $data);
+                $title = 'Home &rsaquo; [SIPORT]';
 
+                $sessionID = session()->get('ID');
+                if (isset($sessionID)) {
+                
+                    $getUser = $User->where(['id_user' => session()->get('ID'),])->first();
 
+                    $timesaatlog = strtotime($getUser->tgl_log_user);
+                    $timesaatini = strtotime(date("Y-m-d H:i:s")); 
+                
+                }
+        
+                $getDeparture2 = $Departure->joinAll($id_departure);
+
+                $data = array(
+                    'menu'                  => 'Home_order',
+                    'title'                 => $title,    
+                    'user'                  => session()->get('name'), 
+                    'timesaatini'           => $timesaatini,
+                    'timesaatlog'           => $timesaatlog ,  
+                    'penumpang'             => $penumpang ,  
+                    'getDeparture'          => $getDeparture2[0],
+                );
+
+                echo view('ext/L1/header', $data);
+                echo view('ext/L1/menu', $data); 
+                echo view('v_order_lv1', $data);
+                echo view('ext/L1/footer', $data);
+
+        } 
+       
 
 
     }
@@ -433,27 +453,29 @@ class Home extends BaseController
     public function paymen_p($id = null)
     {
         
+        $CreditCard = new CreditCardModel();
+
 
         $decrypted_txt1 = $this->encrypt_descrip('decrypt', $id);
         $pecah = explode("^", $decrypted_txt1);
 
         $method = $pecah[1]; 
         $id_transaksi = $pecah[0]; 
+ 
+        $CreditCard = $CreditCard->where(['id_transaksi ' => $id_transaksi,])->first(); 
 
-
-        if ($method == 1) {
+        if (($method == 1)&&(!isset($CreditCard))) {
 
             $User = new UserModel();  
             $Transaksi = new TransaksiModel();  
             $Departure = new DepartureModel();
             $Destination = new DestinationModel();
 
-            $Transaksi = $Transaksi->where(['id_transaksi ' => $id_transaksi,])->first();
+            $Transaksi = $Transaksi->where(['id_transaksi ' => $id_transaksi,])->first();  
             $Departure = $Departure->where(['id_departure ' => $Transaksi->id_departure,])->first();
             $Destination = $Destination->where(['id_destination ' => $Departure->id_destination,])->first();
 
-            /*  */
-            $title = 'Home &rsaquo; [SIPORT]';
+             $title = 'Home &rsaquo; [SIPORT]';
     
             $sessionID = session()->get('ID');
             if (isset($sessionID)) {
@@ -478,9 +500,14 @@ class Home extends BaseController
             echo view('ext/L1/header', $data);
             echo view('ext/L1/menu', $data); 
             echo view('v_creditcard', $data);
-            echo view('ext/L1/footer', $data);
-     
-
+            echo view('ext/L1/footer', $data); 
+ 
+             
+        }else{
+            session()->setFlashdata('error', '<div class="" style="font-size:15px;">'. 
+                                                    '[ Your Payment is Complete. ]'.
+                                                    '</div>');
+            return redirect()->to(base_url('myorder'));   
         }
 
      
@@ -509,11 +536,11 @@ class Home extends BaseController
 
         $Transaksi = $Transaksi->where(['id_transaksi ' => $id_transaksi,])->first();
 
-
+ 
 
         $params = array(
             'transaction_details' => array(
-                'order_id' => rand(),
+                'order_id' => $Transaksi->id_transaksi,
                 'gross_amount' => $Transaksi->total_price,
             ),
             'payment_type' => 'credit_card',
@@ -556,11 +583,14 @@ class Home extends BaseController
         $transaction_time = $this->VARs()->getVar('transaction_time'); 
 
         $CreditCard = new CreditCardModel();
+        $Transaksi = new TransaksiModel();  
+        $Departure = new DepartureModel();
 
-            
+        $getTransaksi = $Transaksi->where(['id_transaksi' => $id_transaksi,])->first();
+        $getDeparture = $Departure->where(['id_departure' => $getTransaksi->id_departure,])->first();
+
         $CreditCard->insert([  
-            'id_transaksi' => $id_transaksi,
-            'order_id' => $order_id,
+            'id_transaksi' => $order_id, 
             'bank' => $bank,
             'currency' => $currency,
             'payment_type' => $payment_type,
@@ -572,6 +602,14 @@ class Home extends BaseController
             'transaction_time' => $transaction_time, 
             'tgl_crt_dt_creditcar' => date('Y-m-d H:i:s'),
         ]); 
+ 
+ 
+        if ($transaction_status == "capture") {  
+            $Departure->update($getDeparture->id_departure, [ 'book_seat' => $getTransaksi->total_passenger+$getDeparture->book_seat, ]);      
+            $Transaksi->update($id_transaksi, [  'status_order' => $transaction_status, ]);   
+        }
+
+ 
 
         $data = [
             'sts' => '200'

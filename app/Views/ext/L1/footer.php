@@ -43,282 +43,34 @@
 
 <?php if (isset($menu)) : ?> 
     <?php if ($menu == "Home_view") : ?> 
-
-
-        <!-- kosong -->
+ 
+        <script> 
+              <?php if (!empty(session()->getFlashdata('error'))) : ?>    
+              Swal.fire({
+                            title: 'Warning',
+                            html: '<?php echo session()->getFlashdata('error'); ?>',
+                            icon: 'warning', 
+                        });
+              <?php endif; ?>
+              <?php if (!empty(session()->getFlashdata('msg'))) : ?>    
+              Swal.fire({
+                            title: 'Success',
+                            html: '<?php echo session()->getFlashdata('msg'); ?>',
+                            icon: 'success', 
+                        });
+              <?php endif; ?> 
+        </script>
 
     <?php elseif ($menu == "Home_visa") : ?> 
 
       <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/featherlight/1.7.12/featherlight.min.js"></script>
       <script id="midtrans-script" type="text/javascript" src="https://api.midtrans.com/v2/assets/js/midtrans-new-3ds.min.js" data-environment="sandbox" data-client-key="SB-Mid-client-tY7QOp5fnqXQfQHM"></script>
+      <!-- <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-tY7QOp5fnqXQfQHM"></script> -->
 
-      <script>
+      <script src="<?= base_url() ?>/assets/js/home_visa.js"></script>   
 
-
-          (function($) {
-            $.fn.inputFilter = function(callback, errMsg) {
-              return this.on("input keydown keyup mousedown mouseup select contextmenu drop focusout", function(e) {
-                if (callback(this.value)) {
-                  // Accepted value
-                  if (["keydown","mousedown","focusout"].indexOf(e.type) >= 0){
-                    $(this).removeClass("input-error");
-                    this.setCustomValidity("");
-                  }
-                  this.oldValue = this.value;
-                  this.oldSelectionStart = this.selectionStart;
-                  this.oldSelectionEnd = this.selectionEnd;
-                } else if (this.hasOwnProperty("oldValue")) {
-                  // Rejected value - restore the previous one
-                  $(this).addClass("input-error");
-                  this.setCustomValidity(errMsg);
-                  this.reportValidity();
-                  this.value = this.oldValue;
-                  this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
-                } else {
-                  // Rejected value - nothing to restore
-                  this.value = "";
-                }
-              });
-            };
-          }(jQuery));
-
-          $(document).ready(function() {
-
-                  $('.card-number').inputFilter(function(value) {
-                      return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 9999999999999999); 
-                  }, "Max 16 Digit Number"); 
-
-                  $('.card-expiry-month').inputFilter(function(value) {
-                      return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 99); 
-                  }, "Max 2 Digit Number"); 
-
-                  $('.card-expiry-year').inputFilter(function(value) {
-                      return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 9999); 
-                  }, "Max 4 Digit Number"); 
-
-                  var options = {
-                      performAuthentication: function(redirect_url){
-                          openDialog(redirect_url);
-                      },
-                      onSuccess: function(response){ 
-                          $.ajax({
-                              type: "post",
-                              url: "/checkout/request",
-                              data: {
-                                id_encrypt: $('.id_encrypt').val(), 
-                                order_id: response.order_id,
-                                bank: response.bank, 
-                                payment_type: response.payment_type,
-                                currency: response.currency,
-                                gross_amount: response.gross_amount,
-                                no_card: $('.card-number').val(),
-                                name_card: $('.name-numbers').val(),
-                                transaction_status: response.transaction_status,
-                                status_message: response.status_message,
-                                transaction_time: response.transaction_time
-                              },
-                              dataType: "json",
-                              success: function (response) {
-                                  console.log(response); 
-                                  if (response.sts == 200) { 
-                                    closeDialog(); 
-                                    Swal.fire({
-                                              title: 'Success',
-                                              text: 'Your Payment is Successful',
-                                              icon: 'success',
-                                              confirmButtonText: 'close'
-                                            }) 
-                                  }
-                              }
-                          });
-
-
-                      },
-                      onFailure: function(response){ 
-                        $.ajax({
-                              type: "post",
-                              url: "/checkout/request",
-                              data: {
-                                id_encrypt: $('.id_encrypt').val(), 
-                                order_id: response.order_id,
-                                bank: response.bank, 
-                                payment_type: response.payment_type,
-                                currency: response.currency,
-                                gross_amount: response.gross_amount,
-                                no_card: $('.card-number').val(),
-                                name_card: $('.name-number').val(),
-                                transaction_status: response.transaction_status,
-                                status_message: response.status_message,
-                                transaction_time: response.transaction_time
-                              },
-                              dataType: "json",
-                              success: function (responseX) { 
-                                    closeDialog(); 
-                                    Swal.fire({
-                                          title: 'Error',
-                                          text: response.status_message,
-                                          icon: 'error',                                               
-                                          confirmButtonText: 'close' 
-                                    }).then((result) => {
-                                          if (result.value) {
-                                                location.reload();
-                                          }
-                                    });
-
-                              }
-                          }); 
-                      },
-                      onPending: function(response){
-                          $.ajax({
-                              type: "post",
-                              url: "/checkout/request",
-                              data: {
-                                id_encrypt: $('.id_encrypt').val(), 
-                                order_id: response.order_id,
-                                bank: response.bank, 
-                                payment_type: response.payment_type,
-                                currency: response.currency,
-                                gross_amount: response.gross_amount,
-                                no_card: $('.card-number').val(),
-                                name_card: $('.name-number').val(),
-                                transaction_status: response.transaction_status,
-                                status_message: response.status_message,
-                                transaction_time: response.transaction_time
-                              },
-                              dataType: "json",
-                              success: function (responseX) { 
-                                    closeDialog(); 
-                                    Swal.fire({
-                                          title: 'Error',
-                                          text: response.status_message,
-                                          icon: 'error',                                               
-                                          confirmButtonText: 'close' 
-                                    }).then((result) => {
-                                          if (result.value) {
-                                                location.reload();
-                                          }
-                                    });
-
-                              }
-                          }); 
-                      }
-                  };
-
-                  function openDialog(url) {
-                      $.featherlight({
-                          iframe: url, 
-                          iframeMaxWidth: '100%', 
-                          iframeWidth: 450, 
-                          iframeHeight: 500,
-                          closeOnClick: false,
-                          closeOnEsc: false,
-                          closeIcon: 'X'
-                      });
-                  }
-
-                  function closeDialog() {
-                      $.featherlight.close();
-                  }
+      <script> 
  
-                  $(".submit-button-visa").click(function (event) { 
-                      $('.cardnumbermsg').html(' ');
-                      $('.cardholdermsg').html(' ');
-                      $('.expirationmsg1').html(' ');
-                      $('.expirationmsg2').html(' ');
-                      $('.cvvmsg').html(' '); 
-                      
-                      var nilaix = 0;
-                      let name = $('.name-numbers').val();
-                      var card = {
-                          "card_number": $(".card-number").val(),
-                          "card_exp_month": $(".card-expiry-month").val(),
-                          "card_exp_year": $(".card-expiry-year").val(),
-                          "card_cvv": $(".card-cvv").val()
-                      }; 
- 
-                      event.preventDefault(); 
-
-                      if (card.card_number == "") {  
-                          $('.cardnumbermsg').append('<b class="text-danger">Card Number cannot be empty</b>');
-                      }else{  
-                          $('.cardnumbermsg').html(' ');
-                          nilaix += 1;  
-                      }
-                       
-                      if (name == "") {  
-                          $('.cardholdermsg').append('<b class="text-danger">Cardholder Name cannot be empty</b>');
-                      }else{  
-                          $('.cardholdermsg').html(' ');
-                          nilaix += 1;  
-                      }
-                       
-                      if (card.card_exp_month == "") {  
-                          $('.expirationmsg1').append('<b class="text-danger">Expiration Date Month cannot be empty</b>');
-                      }else{  
-                          $('.expirationmsg1').html(' ');
-                          nilaix += 1;  
-                      }
-                      
-                      if (card.card_exp_year == "") {  
-                          $('.expirationmsg2').append('<b class="text-danger"><br>Expiration Date Year cannot be empty</b>');
-                      }else{  
-                          $('.expirationmsg2').html(' ');
-                          nilaix += 1;  
-                      }
-                      
-                      if (card.card_cvv == "") {  
-                          $('.cvvmsg').append('<b class="text-danger">Card CVV cannot be empty</b>');
-                      }else{  
-                          $('.cvvmsg').html(' ');
-                          nilaix += 1;  
-                      }
-                        
-                       
-                      if (nilaix == 5) {
-                            MidtransNew3ds.getCardToken(card, getCardTokenCallback);  
-                            return false;  
-                      }else{ 
-                        return false;  
-                      }
-                       
-
-                  });
-
-
-                  // callback functions
-                  var getCardTokenCallback = {
-                      onSuccess: function(response) { 
-                          var token_id = response.token_id;  
-                          var id_encrypt = $('.id_encrypt').val();  
-                          $.ajax({
-                              type: 'POST',
-                              url: '/checkout', 
-                              data: {
-                                token_id: token_id,
-                                id_encrypt: id_encrypt,
-                              },
-                              dataType: "json",
-                              success: function(responseX){  
-                                  let dataResult = JSON.stringify(responseX, null, 2);
-                                  let dataObj = JSON.parse(dataResult); 
-                                  if (dataObj.redirect_url){ 
-                                      MidtransNew3ds.authenticate(dataObj.redirect_url, options); 
-                                  }  
-                              },
-                              error: function(xhr, status, error){
-                                  console.error(xhr);
-                              }
-                          });
-                             
-                      },
-                      onFailure: function(response) { 
-                          console.log('Fail to get card token_id, response:', response);
-                          closeDialog(); 
-                      }
-                  };
- 
-
-
                     /* 
                       $("#pay-button").click(function(e){
                         e.preventDefault(); 
@@ -415,209 +167,123 @@
                     */
   
 
-          });
-
-
-
       </script>
 
-    <?php elseif ($menu == "Home_order") : ?> 
- 
- <!--    <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-tY7QOp5fnqXQfQHM"></script>
-  -->
+    <?php elseif ($menu == "Home_order") : ?>  
+          <script src="<?= base_url() ?>/assets/js/home_order.js"></script>   
+    <?php elseif ($menu == "myorder") : ?>  
+       
+            <script src="<?= base_url() ?>/assets/datatables/datatables/jquery.dataTables.min.js"></script>
+            <script src="<?= base_url() ?>/assets/datatables/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+            <script src="<?= base_url() ?>/assets/datatables/datatables-responsive/js/dataTables.responsive.min.js"></script>
+            <script src="<?= base_url() ?>/assets/datatables/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+            <script src="<?= base_url() ?>/assets/datatables/datatables-buttons/js/dataTables.buttons.min.js"></script>
+            <script src="<?= base_url() ?>/assets/datatables/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+            <script src="<?= base_url() ?>/assets/datatables/datatables-buttons/js/buttons.html5.min.js"></script>
+            <script src="<?= base_url() ?>/assets/datatables/datatables-buttons/js/buttons.print.min.js"></script>
+            <script src="<?= base_url() ?>/assets/datatables/datatables-buttons/js/buttons.colVis.min.js"></script>
+
+            
       <script>
-           
-           function validasi( ) {    
-              var nilai = 0;
-              let penumpang = <?=$penumpang?>;  
 
-              $('.title1msg' ).html('`');    
-              $('.fname1msg' ).html('`');    
-              $('.email1msg' ).html('`');    
-              $('.phonemsg' ).html('`');    
-
-              let titles1 = $('.titles1').val(); 
-              let fnames1 = $('.fnames1').val(); 
-              let email1 = $('.email1').val(); 
-              let phones1 = $('.phones1').val(); 
-
-              if (titles1 == "") {
-                  $('.title1msg' ).append('<b class="text-danger">Choose your title</b>');   
-              }else{ 
-                  $('.title1msg' ).html('`');   
-                  nilai += 1;  
-              }
-
-              if (fnames1 == "") {
-                  $('.fname1msg').append('<br>`<b class="text-danger">Full Name cannot be empty</b>');  
-              }else{ 
-                  $('.fname1msg' ).html('`');   
-                  nilai += 1;  
-              }
-
- 
-              if (email1 == "") {
-                  $('.email1msg' ).append('<b class="text-danger">Email cannot be empty</b>');   
-              }else{ 
-                  $('.email1msg' ).html('`');   
-                  nilai += 1;  
-              }
-              
-              if (phones1 == "") {
-                  $('.phonemsg' ).append('<b class="text-danger">Mobile Phone/WhatsApp cannot be empty</b>');   
-              }else{ 
-                  $('.phonemsg' ).html('`');   
-                  nilai += 1;  
-              }
- 
-
-              for (let index = 1; index <= penumpang; index++) {
-                $('.nametmsg' + [index]).html('`');   
-                $('.fnamemsg' + [index]).html('`');  
-                $('.idmanmsg' + [index]).html('`');  
-                $('.countrymsg' + [index]).html('`');  
-
-                let namet = $('.title' + [index]).val();
-                let fname = $('.fname' + [index]).val();
-                let idman = $('.idman' + [index]).val();
-                let country = $('.country' + [index]).val();
+            $.fn.dataTable.ext.errMode = "none";
+            $(document).ready(function () {
 
 
-                if (namet == "") {
-                    $('.nametmsg' + [index]).append('<b class="text-danger">Choose your title ['+ [index] + '] passenger</b>');   
-                }else{
-                    $('.nametmsg' + [index]).html('`');   
-                    nilai += 1;
-                }
 
-                if (fname == "") {
-                    $('.fnamemsg' + [index]).append('<br>`<b class="text-danger">Full Name cannot be empty ['+ [index] + '] passenger</b>');  
-                }else{
-                    $('.fnamemsg' + [index]).html('`');  
-                    nilai += 1;
-                }
- 
-                if (idman == "") {
-                    $('.idmanmsg' + [index]).append('<b class="text-danger">KTP/Passport/SIM Number cannot be empty ['+ [index] + '] passenger</b>'); 
-                }else{
-                    $('.idmanmsg' + [index]).html('`');  
-                    nilai += 1;
-                }
-
-
-                if (country == "") {
-                    $('.countrymsg' + [index]).append('<b class="text-danger">Country cannot be empty ['+ [index] + '] passenger</b>');  
-                }else{
-                    $('.countrymsg' + [index]).html('`');  
-                    nilai += 1;
-                }
-
-
-                //alert(namet + ", " + fname + ", " + idman + ", " + country);
-
-              }
-               
-
-              let totalnilai = (penumpang*4)+4;
-              if (nilai != totalnilai) { 
-                      Swal.fire({
-                            title: 'Error!',
-                            html: 'Sorry, the data you entered is incomplete.<br> <b> Code "ERROR:X2022Zf000' + nilai + '"</b>',
-                            icon: 'error',                                               
-                            confirmButtonText: 'close' 
-                      }).then((result) => {
-                            if (result.value) {
-                                  //location.reload();
-                            }
+                      var table = $("#example").DataTable({
+                          order: [],
+                          processing: true,
+                          language: {
+                                processing: "Processing...",
+                          },
+                          /* search: {
+                            search: extrakcolect[1],
+                          }, */
+                          serverSide: true,
+                          responsive: true, 
+                          initComplete: function () {
+                            this.api()
+                              .buttons()
+                              .container()
+                              //.appendTo( $ ('#table_id_wrapper .col-md-6:eq(0)', this.api().table (). container ()));
+                              //.appendTo( $('#table_id_wrapper .col-md-6:eq(0)' ) );
+                              .appendTo($(".col-md-6:eq(0)", this.api().table().container()));
+                          },
+                          ajax: {
+                            url: "/myorder/list",
+                            type: "POST",
+                          },
+                          columns: [
+                                    { data: "no", },
+                                    { data: "id_transaksi", }, 
+                                    { data: "nm_destination", }, 
+                                    { data: "total_passenger", },
+                                    { data: "status", },
+                                    { data: "date_of_departure", },
+                                    { data: "action", },  
+                          ],
+                          columnDefs: [
+                                    {
+                                      targets: [0],
+                                      orderable: false,
+                                      className: "text-center pt-3",
+                                    },  
+                                    { targets: [1], className: "text-center pt-3", },
+                                    { targets: [2], className: "text-center pt-3", },
+                                    { targets: [3], className: "text-center pt-3", },
+                                    { targets: [4], className: "text-center pt-3", },
+                                    { targets: [5], className: "text-center pt-3", },
+                                    {
+                                      targets: [6],
+                                      className: "text-center",
+                                      orderable: false,
+                                    },  
+                          ],  
                       });
 
-                      return false;
-              }
-                                
- 
- 
-
- 
-
-           }
- 
-    
-        /*  */
-
-      $(".country_selector").countrySelect({ 
-            responsiveDropdown:true, 
-            defaultCountry:"id",  
-      });
+                      table.on("order.dt search.dt", function () {
+                        table.column(0, {
+                            search: "applied",
+                            order: "applied",
+                          }).nodes().each(function (cell, i) {
+                            cell.innerHTML = i + 1;
+                          });
+                      }).draw();
 
 
-           (function($) {
-            $.fn.inputFilter = function(callback, errMsg) {
-              return this.on("input keydown keyup mousedown mouseup select contextmenu drop focusout", function(e) {
-                if (callback(this.value)) {
-                  // Accepted value
-                  if (["keydown","mousedown","focusout"].indexOf(e.type) >= 0){
-                    $(this).removeClass("input-error");
-                    this.setCustomValidity("");
-                  }
-                  this.oldValue = this.value;
-                  this.oldSelectionStart = this.selectionStart;
-                  this.oldSelectionEnd = this.selectionEnd;
-                } else if (this.hasOwnProperty("oldValue")) {
-                  // Rejected value - restore the previous one
-                  $(this).addClass("input-error");
-                  this.setCustomValidity(errMsg);
-                  this.reportValidity();
-                  this.value = this.oldValue;
-                  this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
-                } else {
-                  // Rejected value - nothing to restore
-                  this.value = "";
-                }
-              });
-            };
-          }(jQuery));
-
-           
-            /*  */
-            var phoneInputID = "#phone";
-            var input = document.querySelector(phoneInputID);
-            var iti = window.intlTelInput(input, {
-                //formatOnDisplay: false, 
-                hiddenInput: "full",
-                separateDialCode: true,
-                // placeholderNumberType: "MOBILE",
-                preferredCountries: ["id"],  
-                initialCountry: "auto",
-
-                
-
-
-                geoIpLookup: function(success, failure) {
-                    $.get("https://ipinfo.io/?token=26507ea7ff400b", function() {}, "jsonp").always(function(resp) {
-                        var countryCode = (resp && resp.country) ? resp.country : "id";
-                        success(countryCode);
-                    });
-                }, 
-                utilsScript: '/assets/intl-tel-input/js/utils.js'
             });
+ 
 
-            $(".form-send").submit(function() {
-                var full_number = iti.getNumber(intlTelInputUtils.numberFormat.E164 );
-                $(".v_format_num").val(full_number); 
-            }); 
-          
-            $(phoneInputID).inputFilter(function(value) {
-                return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 999999999999); 
-            }, "Must be Number or Max Number"); 
-          
-          /*  */
+
+
+      <?php if (!empty(session()->getFlashdata('error'))) : ?>    
+        Swal.fire({
+                      title: 'Warning',
+                      html: '<?php echo session()->getFlashdata('error'); ?>',
+                      icon: 'warning', 
+                  });
+        <?php endif; ?>
+        <?php if (!empty(session()->getFlashdata('msg'))) : ?>    
+        Swal.fire({
+                      title: 'Success',
+                      html: '<?php echo session()->getFlashdata('msg'); ?>',
+                      icon: 'success', 
+                  });
+        <?php endif; ?>
+
+
+
+
+
 
 
       </script>
+
 
     <?php else: ?>
         <script src="<?= base_url() ?>/assets/js/home.js"></script>
-    <?php endif; ?>
+    <?php endif; ?>  
 <?php else: ?>
     <script src="<?= base_url() ?>/assets/js/home.js"></script> 
 <?php endif; ?>
@@ -626,6 +292,7 @@
 
 <script>
 
+      
   
 
 </script>

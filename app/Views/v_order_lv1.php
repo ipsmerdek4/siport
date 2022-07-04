@@ -1,4 +1,4 @@
-<form action="<?=base_url()?>/views/k" method="post" class="form-send" onSubmit="return validasi();">
+<form action="<?=base_url()?>/views/k" method="post" class="form-send" onSubmit="return validasi('<?=$penumpang?>');">
 
 <div class="row">
     <div class="col-lg-7"> 
