@@ -46,7 +46,7 @@ Berikut Cara Installasi Siport
 > $ php spark migrate
 
 9. jalankan seed
-> $ php spark db:seed runsemua
+> $ php spark db:seed UserDefault
 
 10. finish jalankan sistem dengan username dan password default : admin2022 pada alamat : http://siport.local
 
