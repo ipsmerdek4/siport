@@ -50,14 +50,17 @@ Berikut Cara Installasi Siport
 
 10. finish jalankan sistem dengan username dan password default : admin2022 pada alamat : http://siport.local
 
+<br>
 
-
+## Sistem Integrasi :
+1. [Midtrans](https://midtrans.com/)
+2. [QRcode](https://github.com/endroid/qr-code)
+3. [Thema Stisla](https://github.com/stisla/stisla)
+<br><br>
 ## Perangkat pendukung :
-
-1. Composer
-2. git
-3. CodeIgniter 4
-4. thema Stisla
-5. xampp php 8^
+1. [Composer](https://getcomposer.org/)
+2. [gitbash](https://git-scm.com/downloads)
+3. [xampp php 8^](https://www.apachefriends.org/download.html)
+4. [Node.js](https://nodejs.org/en/)
 
 
