@@ -9,7 +9,8 @@
         "codeigniter4/framework": "^4.0",
         "brainfoolong/cryptojs-aes-php": "^2.1",
         "midtrans/midtrans-php": "^2.5",
-        "endroid/qr-code": "^4.4"
+        "endroid/qr-code": "^4.4",
+        "dompdf/dompdf": "^2.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9",

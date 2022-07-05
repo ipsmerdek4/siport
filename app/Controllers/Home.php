@@ -631,7 +631,7 @@ class Home extends BaseController
         $writer = new PngWriter();
 
         // Create QR code
-        $qrCode = QrCode::create($order_id."#".$name_card."#".$getDestination->nm_destination."#".$getTransaksi->total_passenger."Pessenger#".$getDeparture->date_of_departure)
+        $qrCode = QrCode::create($order_id."#".$getTransaksi->name_order."#".$getDestination->nm_destination."#".$getTransaksi->total_passenger."Pessenger#".$getDeparture->date_of_departure)
             ->setEncoding(new Encoding('UTF-8'))
             ->setErrorCorrectionLevel(new ErrorCorrectionLevelLow())
             ->setSize(300)

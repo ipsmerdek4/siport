@@ -5,6 +5,9 @@ namespace App\Controllers;
 use CodeIgniter\Controller;
 use App\Models\UserModel; 
 use App\Models\TransaksiModel; 
+use App\Models\PassengerModel; 
+use App\Models\DestinationModel; 
+use App\Models\DepartureModel; 
 
 
 
@@ -19,7 +22,7 @@ class Order extends Controller{
         $secret_iv = '555555334342423';
         // hash
         $key = hash('sha256', $secret_key);
-
+    
         // iv - encrypt method AES-256-CBC expects 16 bytes - else you will get a warning
         $iv = substr(hash('sha256', $secret_iv), 0, 16);
         if ( $action == 'encrypt' ) {
@@ -78,9 +81,7 @@ class Order extends Controller{
 
         $data = array();
         $no = $_POST['start'];
-        foreach ($listing as $key) {
-
-            
+        foreach ($listing as $key) { 
             $pack = $key->id_transaksi."^".$key->metode_order;
             $encrypted_txt = $this->encrypt_descrip('encrypt', $pack); 
 
@@ -92,13 +93,17 @@ class Order extends Controller{
                 'nm_destination' => $key->nm_destination, 
                 'total_passenger' => $key->total_passenger .' Seat', 
                 'status' => $key->status_order,  
-                'picture' => '<img class="img" style="width:150px;" src="/QRCODE/'.$key->id_transaksi.'.png">',  
+                'picture' => '<img id="qr" data-data="' . $key->id_transaksi . '" class="img" style="width:30px;cursor:pointer" src="/QRCODE/'.$key->id_transaksi.'.png">',  
                 'date_of_departure' => $key->date_of_departure,  
-                 'action' => '<button id="editdata" class="btn btn-success mr-1 pr-2 "'. 
-                            //'data-data="' . $dataviewsweetalert . '"   ' .
-                            'data-href="' . base_url() . '/destination/update/' . $key->id_transaksi . '"   >' .
+                'action' => '<button id="details" class="btn btn-success mr-1 pr-2 "'. 
+                            'data-data="' . $encrypted_txt . '"   >' .
                             '<i class="fa fa-info mr-2"></i>'. 
                             ' Details'.
+                            '</button>' .
+                            '<button id="Print" class="btn btn-danger mr-1 pr-2 "'. 
+                            'data-data="' . $encrypted_txt . '"   >' .
+                            '<i class="fa fa-print mr-0"></i>'. 
+                            ' Print'.
                             '</button>' .
                             '<a class="btn btn-primary mr-1 pr-2 "'.  
                             'href="' . base_url() . '/paymen/p/' . $encrypted_txt . '"   >' .
@@ -119,6 +124,39 @@ class Order extends Controller{
 
 
         echo json_encode($output);  
+
+    }
+
+    public function mydetails()
+    {
+
+        $Transaksi = new TransaksiModel();
+        $Passenger = new PassengerModel();
+        $Destination = new DestinationModel();
+        $Departure = new DepartureModel();
+
+
+        $datas = $this->VARs()->getVar('datas');  
+
+        $rubah = $this->encrypt_descrip('decrypt', $datas);
+        $pecahkan = explode('^', $rubah);
+
+
+        $getTransaksi = $Transaksi->where(['id_transaksi' => $pecahkan[0],])->first();
+        $getPassenger = $Passenger->where(['id_transaksi' => $pecahkan[0],])->get()->getResult();
+        $getDestination = $Destination->where(['id_destination ' => $getTransaksi->id_destination ,])->first();
+        $getDeparture = $Departure->where(['id_departure' => $getTransaksi->id_departure ,])->first();
+ 
+        $data = [
+            'getPassenger'          => $getPassenger,
+            'getTransaksi'          => $getTransaksi,
+            'nm_destination'        => $getDestination->nm_destination,
+            'date_of_departure'     => $getDeparture->date_of_departure,
+            'price'                 => "Rp " . number_format($getDeparture->price,2,',','.'),
+            'total'                 => "Rp " . number_format($getTransaksi->total_price,2,',','.'),
+        ];
+
+        echo json_encode($data);
 
     }
 

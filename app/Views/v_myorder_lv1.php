@@ -39,7 +39,30 @@
                 </table>
 
 
+<!-- Modal -->
+<div class="modal fade" id="showmodaldetails" tabindex="-1" role="dialog" aria-labelledby="showmodaldetails" aria-hidden="true">
+  <div class="modal-dialog " role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="detailsLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <br>
+      </div>
+      <hr class="border-top border-second w-100">
 
+      <div class="modal-body "> 
+        <div class="head row"></div>
+        <div class="body row"></div>
+        <div class="footer row"></div>
+            
+      </div>
+      <div class="modal-footer"> 
+      </div>
+    </div>
+  </div>
+</div>
 
             </div>   
 

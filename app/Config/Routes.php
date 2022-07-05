@@ -48,10 +48,12 @@ $routes->post('/checkout/request', 'Home::paymen_checkout_req');
 $routes->post('/trans/k', 'Home::pembayaran_k'); 
 $routes->post('/trans/kv', 'Home::pembayaran_kV'); 
 
+$routes->get('/receipt', 'Receipt::index'); 
 
 
 $routes->get('/myorder', 'Order::index');  
 $routes->post('/myorder/list', 'Order::list');
+$routes->post('/myorder/details', 'Order::mydetails');
 
 
 $routes->get('/views/z/(:any)', 'Home::views_z/$1');
