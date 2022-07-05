@@ -55,13 +55,12 @@ Berikut Cara Installasi Siport
 ## Sistem Integrasi :
 1. [Midtrans](https://midtrans.com/)
 2. [QRcode](https://github.com/endroid/qr-code)
+3. [Thema Stisla](https://github.com/stisla/stisla)
 <br><br>
 ## Perangkat pendukung :
-1. Composer
-2. gitbash
-3. CodeIgniter 4
-4. thema Stisla
-5. xampp php 8^
-6. Node.js
+1. [Composer](https://getcomposer.org/)
+2. [gitbash](https://git-scm.com/downloads)
+3. [xampp php 8^](https://www.apachefriends.org/download.html)
+4. [Node.js](https://nodejs.org/en/)
 
 
