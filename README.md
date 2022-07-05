@@ -28,14 +28,14 @@ Berikut Cara Installasi Siport
 <&#47;VirtualHost> <br>
 
 6. Enable # HOST
-> location : C:/Windows/System32/drivers/etc/hosts
-> add
+> location : C:/Windows/System32/drivers/etc/hosts <br>
+> add <br>
 > 127.0.0.1 siport.local
 
 7. setting php.ini
-> extension=gd
-> extension=intl
-> extension=curl
+> extension=gd <br>
+> extension=intl<br>
+> extension=curl<br>
 > hilangkan semua titikkoma (;) di awal huruf untuk mengaktifkan
 
 
