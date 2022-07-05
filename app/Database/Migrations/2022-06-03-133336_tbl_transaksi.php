@@ -21,7 +21,12 @@ class Tbl_transaksi extends Migration{
                 'type'           => 'INT',
                 'constraint'     => 10,
                 'unsigned'       => true, 
-			],    
+			],   
+			'id_user'     => [
+                'type'           => 'INT',
+                'constraint'     => 10,
+                'unsigned'       => true, 
+			],     
 			'total_passenger'      => [  
 				'type'           => 'INT',
                 'constraint'     => 10,
@@ -60,6 +65,7 @@ class Tbl_transaksi extends Migration{
         $this->forge->addPrimaryKey('id_transaksi', true);  
         $this->forge->addForeignKey('id_departure', 'tbl_departure', 'id_departure');
         $this->forge->addForeignKey('id_destination', 'tbl_destination', 'id_destination'); 
+        $this->forge->addForeignKey('id_user', 'tbl_user', 'id_user'); 
         $this->forge->createTable('tbl_transaksi'); 
     }
 

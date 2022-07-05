@@ -10,7 +10,21 @@ use App\Models\VehicleModel;
 use App\Models\DestinationModel;   
 use App\Models\DepartureModel;         
  
-require "../public/assets/scure/src/CryptoJsAes.php";
+/* require "../public/assets/scure/src/CryptoJsAes.php";
+ */
+
+   
+use Endroid\QrCode\Color\Color;
+use Endroid\QrCode\Encoding\Encoding;
+use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelLow;
+use Endroid\QrCode\QrCode;
+use Endroid\QrCode\Label\Label;
+use Endroid\QrCode\Logo\Logo;
+use Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeMargin;
+use Endroid\QrCode\Writer\PngWriter;
+
+
+
 
 class Home extends BaseController
 {
@@ -231,6 +245,7 @@ class Home extends BaseController
                     'id_transaksi'          => $order_id,
                     'id_departure'          => $id_departure,
                     'id_destination'        => $getDeparture->id_destination,
+                    'id_user'               => session()->get('ID'),
                     'total_passenger'       => $penumpang,
                     'total_price'           => $total_harga,
                     'title_order'           => $title1,
@@ -585,9 +600,11 @@ class Home extends BaseController
         $CreditCard = new CreditCardModel();
         $Transaksi = new TransaksiModel();  
         $Departure = new DepartureModel();
+        $Destination = new DestinationModel();
 
         $getTransaksi = $Transaksi->where(['id_transaksi' => $id_transaksi,])->first();
         $getDeparture = $Departure->where(['id_departure' => $getTransaksi->id_departure,])->first();
+        $getDestination = $Destination->where(['id_destination' => $getDeparture->id_destination,])->first();
 
         $CreditCard->insert([  
             'id_transaksi' => $order_id, 
@@ -608,6 +625,41 @@ class Home extends BaseController
             $Departure->update($getDeparture->id_departure, [ 'book_seat' => $getTransaksi->total_passenger+$getDeparture->book_seat, ]);      
             $Transaksi->update($id_transaksi, [  'status_order' => $transaction_status, ]);   
         }
+
+ 
+        
+        $writer = new PngWriter();
+
+        // Create QR code
+        $qrCode = QrCode::create($order_id."#".$name_card."#".$getDestination->nm_destination."#".$getTransaksi->total_passenger."Pessenger#".$getDeparture->date_of_departure)
+            ->setEncoding(new Encoding('UTF-8'))
+            ->setErrorCorrectionLevel(new ErrorCorrectionLevelLow())
+            ->setSize(300)
+            ->setMargin(10)
+            ->setRoundBlockSizeMode(new RoundBlockSizeModeMargin())
+            ->setForegroundColor(new Color(0, 0, 0))
+            ->setBackgroundColor(new Color(255, 255, 255));
+
+        // Create generic logo
+        $logo = Logo::create(__DIR__.'/../../public/assets/img/ico/pelindoQR.png')
+            ->setResizeToWidth(70);
+
+        // Create generic label
+        $label = Label::create($getDestination->nm_destination)
+            ->setTextColor(new Color(67, 72, 217));
+
+        $result = $writer->write($qrCode, $logo, $label);
+
+        
+        // Directly output the QR code
+        header('Content-Type: '.$result->getMimeType());
+        $result->getString();
+
+        // Save it to a file
+        $result->saveToFile(__DIR__.'/../../public/QRCODE/'.$order_id.'.png');
+
+        // Generate a data URI to include image data inline (i.e. inside an <img> tag)
+        $dataUri = $result->getDataUri();
 
  
 

@@ -1,9 +1,12 @@
-<?php 
+<?php  
+ 
 namespace App\Controllers;
 
 use CodeIgniter\Controller;
 use App\Models\UserModel; 
 use App\Models\TransaksiModel; 
+
+
 
 class Order extends Controller{
 
@@ -28,9 +31,11 @@ class Order extends Controller{
         return $output;
     }
 
+   
 
     public function index()
-    { 
+    {  
+  
             $User = new UserModel();    
 
             $title = 'Home &rsaquo; [SIPORT]';
@@ -87,6 +92,7 @@ class Order extends Controller{
                 'nm_destination' => $key->nm_destination, 
                 'total_passenger' => $key->total_passenger .' Seat', 
                 'status' => $key->status_order,  
+                'picture' => '<img class="img" style="width:150px;" src="/QRCODE/'.$key->id_transaksi.'.png">',  
                 'date_of_departure' => $key->date_of_departure,  
                  'action' => '<button id="editdata" class="btn btn-success mr-1 pr-2 "'. 
                             //'data-data="' . $dataviewsweetalert . '"   ' .
@@ -94,8 +100,7 @@ class Order extends Controller{
                             '<i class="fa fa-info mr-2"></i>'. 
                             ' Details'.
                             '</button>' .
-                            '<a id="editdata" class="btn btn-primary mr-1 pr-2 "'. 
-                            //'data-data="' . $dataviewsweetalert . '"   ' .
+                            '<a class="btn btn-primary mr-1 pr-2 "'.  
                             'href="' . base_url() . '/paymen/p/' . $encrypted_txt . '"   >' .
                             '<i class="fas fa-money-check mr-1"></i>'. 
                             ' Checkout'.

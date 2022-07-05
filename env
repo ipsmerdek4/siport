@@ -43,7 +43,7 @@
  database.default.hostname = 127.0.0.1
  database.default.database = siport
  database.default.username = root
- database.default.password = berasputih
+ database.default.password = 
  database.default.DBDriver = MySQLi
  database.default.DBPrefix =
 

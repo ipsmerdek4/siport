@@ -221,6 +221,7 @@
                                     { data: "total_passenger", },
                                     { data: "status", },
                                     { data: "date_of_departure", },
+                                    { data: "picture", },
                                     { data: "action", },  
                           ],
                           columnDefs: [
@@ -234,8 +235,11 @@
                                     { targets: [3], className: "text-center pt-3", },
                                     { targets: [4], className: "text-center pt-3", },
                                     { targets: [5], className: "text-center pt-3", },
+                                    { targets: [6],  
+                                      className: "text-center",
+                                      orderable: false, },
                                     {
-                                      targets: [6],
+                                      targets: [7],
                                       className: "text-center",
                                       orderable: false,
                                     },  
@@ -301,3 +305,5 @@
 </body>
 
 </html>
+
+

@@ -14,6 +14,7 @@
             </div>   
 
             <div class="col-12   "> 
+ 
 
                 <table id="example" class="table table-bordered" style="width:100%">
                     <thead>
@@ -24,6 +25,7 @@
                             <th>Passenger</th> 
                             <th>Status</th> 
                             <th>Date of Departure</th> 
+                            <th>QR</th> 
                             <th>Opsi</th>  
                         </tr>
                     </thead>
