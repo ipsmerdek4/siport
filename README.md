@@ -15,6 +15,7 @@ Berikut Cara Installasi Siport
 
 5. setting vhost, jika menggunakan xampp
 > open file lokasi C:\xampp\apache\conf\extra\httpd-vhosts.conf
+<br><br>
 <VirtualHost siport.local&#58;80> <br>
 &#32;&#32;&#32;ServerName siport.local <br>
 &#32;&#32;&#32;ServerAlias siport.local <br>
