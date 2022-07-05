@@ -31,7 +31,7 @@
 <script src="<?=base_url()?>/assets/Datetime/dayjs-f/dayjs/dayjs.min.js"></script> 
 <script src="<?=base_url()?>/assets/Datetime/dayjs-f/datepicker-bs4.js"></script> 
  
-<script src="<?=base_url()?>/assets/country-picker-flags/build/js/countrySelect.js"></script>
+<script src="<?=base_url()?>/assets/country-picker-flags/builds/js/countrySelect.js"></script>
 
  
 <!-- Page Specific JS File -->
