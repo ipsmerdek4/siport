@@ -51,7 +51,7 @@ Berikut Cara Installasi Siport
 
 
 
-##perangkat pendukung :
+## Perangkat pendukung :
 
 1. Composer
 2. git
