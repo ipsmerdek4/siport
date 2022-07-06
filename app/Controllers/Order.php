@@ -100,7 +100,7 @@ class Order extends Controller{
                             '<i class="fa fa-info mr-2"></i>'. 
                             ' Details'.
                             '</button>' .
-                            '<button id="Print" class="btn btn-danger mr-1 pr-2 "'. 
+                            '<button id="print" class="btn btn-danger mr-1 pr-2 "'. 
                             'data-data="' . $encrypted_txt . '"   >' .
                             '<i class="fa fa-print mr-0"></i>'. 
                             ' Print'.

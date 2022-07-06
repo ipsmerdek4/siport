@@ -31,7 +31,7 @@
                         </div> -->
                         <div class="card-body">
 
-                            <form action="<?= ($loadHttp == 'insert') ? base_url() . '/driver/insert/p' : base_url() . '/driver/update/p/'. $getDriver->id_driver  ?> " method="POST" class="row" enctype="multipart/form-data">
+                            <form action="<?= ($loadHttp == 'insert') ? base_url() . '/driver/insert/p' : base_url() . '/driver/update/p/'. $getDriver->id_driver  ?> " method="POST" class="row form-" enctype="multipart/form-data">
                                 <div class="col-12 col-lg-6">
                                     <div class="form-group">
                                         <label class="text-primary">NIK</label>

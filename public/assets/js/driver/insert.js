@@ -45,10 +45,10 @@
           utilsScript: '/assets/intl-tel-input/js/utils.js'
       });
   
-      /* $(".form-regist").submit(function() {
+      $(".form-").submit(function() {
           var full_number = iti.getNumber(intlTelInputUtils.numberFormat.E164 );
           $(".v_g_HP").val(full_number); 
-      }); */
+      }); 
   
       $(phoneInputID).inputFilter(function(value) {
           return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 999999999999); 

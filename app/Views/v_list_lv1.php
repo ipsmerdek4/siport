@@ -32,14 +32,14 @@
  <div class="section-body">
 
 
-    <h2 class="section-title mb-3">Filter</h2>
+    <!-- <h2 class="section-title mb-3">Filter</h2>
     <div class=" ml-5">
         <select name="" id="" class="form-control col-10 col-lg-3">
             <option value="">Lowest Price</option>
             <option value="">Earliest Departure</option>
             <option value="">Last Departure</option>
         </select>
-    </div> 
+    </div>  -->
 
     <div class="row mt-3"> 
 
@@ -57,7 +57,7 @@
                   <div class="mx-2 px-3 pt-4 h6"><?=$value->plat_number?></div>
                 </div>
                 <div class="col-12 col-lg-6">
-                  <div class="mx-2 px-3 pt-4 h6"><?=$value->date_of_departure?></div>
+                  <div class="mx-2 px-3 pt-4 h6"><b><?=$value->date_of_departure?></b></div>
                 </div>
                 <div class="col-12 col-lg-2">
                       <div class="py-2 mb-4 ml-2 text-center ">
@@ -75,7 +75,7 @@
                 </div>
                 <div class="col-12 col-lg-2 align-self-center text-center ">
                 <div class=" ">Price</div>
-                <div class=" ">Rp <?=$value->price?>,-</div>
+                <div class=" "> <?="Rp " . number_format($value->price,2,',','.');?> </div>
                 </div>
                 <div class="col-12 col-lg-3 align-self-center text-center ">
                   <form action="<?=base_url()?>/departure/k" method="post">

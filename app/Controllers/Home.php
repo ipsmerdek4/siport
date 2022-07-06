@@ -8,11 +8,17 @@ use App\Models\PassengerModel;
 use App\Models\TransaksiModel; 
 use App\Models\VehicleModel; 
 use App\Models\DestinationModel;   
-use App\Models\DepartureModel;         
+use App\Models\DepartureModel;      
+use App\Models\DriverModel;         
  
+
+
 /* require "../public/assets/scure/src/CryptoJsAes.php";
  */
 
+
+use Dompdf\Dompdf;
+use Dompdf\Options;
    
 use Endroid\QrCode\Color\Color;
 use Endroid\QrCode\Encoding\Encoding;
@@ -601,8 +607,11 @@ class Home extends BaseController
         $Transaksi = new TransaksiModel();  
         $Departure = new DepartureModel();
         $Destination = new DestinationModel();
+        $Vehicle = new VehicleModel();
+        $Passenger = new PassengerModel();
+        $Driver = new DriverModel();
 
-        $getTransaksi = $Transaksi->where(['id_transaksi' => $id_transaksi,])->first();
+        $getTransaksi = $Transaksi->where(['id_transaksi' => $id_transaksi,])->first(); 
         $getDeparture = $Departure->where(['id_departure' => $getTransaksi->id_departure,])->first();
         $getDestination = $Destination->where(['id_destination' => $getDeparture->id_destination,])->first();
 
@@ -650,21 +659,79 @@ class Home extends BaseController
 
         $result = $writer->write($qrCode, $logo, $label);
 
-        
+
         // Directly output the QR code
         header('Content-Type: '.$result->getMimeType());
         $result->getString();
-
         // Save it to a file
         $result->saveToFile(__DIR__.'/../../public/QRCODE/'.$order_id.'.png');
-
         // Generate a data URI to include image data inline (i.e. inside an <img> tag)
         $dataUri = $result->getDataUri();
 
  
 
+
+        
+        $getPassenger = $Passenger->where(['id_transaksi' => $id_transaksi,])->get()->getResult();
+        $getCreditCard = $CreditCard->where(['id_transaksi' => $id_transaksi,])->first();   
+        $getVehicle = $Vehicle->where(['id_vehicle' => $getDeparture->id_vehicle ,])->first(); 
+        $getDriver  = $Driver->where(['id_driver' => $getDeparture->id_driver ,])->first();
+
+
+        /* generate pdf */
+
+        $dataZX = [
+            'title'             => "Receipt~SIPORT [".$getTransaksi->tgl_crt_dt_transaksi.']',
+            'getTransaksi'      => $getTransaksi,
+            'getCreditCard'     => $getCreditCard,
+            'getDestination'    => $getDestination,
+            'getVehicle'        => $getVehicle,
+            'getDeparture'      => $getDeparture,
+            'getPassenger'      => $getPassenger,
+            'getDriver'         => $getDriver,
+        ];
+        
+        $views = view('receipt_pdf', $dataZX);
+
+        $namepdf= 'Laporan'.date('Ymdhis').'.pdf';
+ 
+        $dompdf = new Dompdf();
+        $html = $views; 
+        $dompdf->set_option('isRemoteEnabled', TRUE);
+        $dompdf->set_option("isPhpEnabled", true); 
+        $dompdf->setPaper('A4', 'Portrait'); 
+        $dompdf->loadHtml($html);  
+        $dompdf->render();
+        $output = $dompdf->output();
+        $hasil = file_put_contents(__DIR__.'/../../public/PDF/'.$namepdf, $output);
+        
+        if ($hasil) { 
+            $email = service('email'); 
+
+            $attachment = base_url('PDF/'.$namepdf);
+            $message = "<h1>Payment Receipt</h1><br>Thank you for ordering, Here is a Receipt for the Purchase you have made.";
+    
+    
+    
+            $email->setFrom('admin@gmail.com','SIPORT (SiSTEM TRANSPORT ONLINE)');
+            $email->setTo($getTransaksi->email_order);
+    
+            $email->attach($attachment);
+    
+            $email->setSubject('Invoice');
+            $email->setMessage($message);
+    
+            if(! $email->send()){
+                $nilai = '404';
+            }else{
+                $nilai = '200';
+            }  
+        }
+        
+ 
+
         $data = [
-            'sts' => '200'
+            'sts' => $nilai,
         ];
 
         echo json_encode($data);

@@ -48,7 +48,9 @@ $routes->post('/checkout/request', 'Home::paymen_checkout_req');
 $routes->post('/trans/k', 'Home::pembayaran_k'); 
 $routes->post('/trans/kv', 'Home::pembayaran_kV'); 
 
-$routes->get('/receipt', 'Receipt::index'); 
+$routes->get('/receipt/(:any)', 'Receipt::goto/$1'); 
+$routes->get('/receipt/save', 'Receipt::save'); 
+$routes->get('/receipt/email', 'Receipt::email'); 
 
 
 $routes->get('/myorder', 'Order::index');  

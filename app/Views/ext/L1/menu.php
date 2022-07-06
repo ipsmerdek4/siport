@@ -30,7 +30,7 @@
               }
               ?>
               <div class="dropdown-title">Logged in <?= floor($menit / 60) ?> min ago</div>
-              <a href="features-profile.html" class="dropdown-item has-icon">
+              <!-- <a href="features-profile.html" class="dropdown-item has-icon">
                 <i class="far fa-user"></i> Profile
               </a>
               <a href="features-activities.html" class="dropdown-item has-icon">
@@ -38,7 +38,7 @@
               </a>
               <a href="features-settings.html" class="dropdown-item has-icon">
                 <i class="fas fa-cog"></i> Settings
-              </a>
+              </a> -->
               <div class="dropdown-divider"></div>
               <a href="<?= base_url() ?>/logout" class="dropdown-item has-icon text-danger">
                 <i class="fas fa-sign-out-alt"></i> Logout

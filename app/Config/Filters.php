@@ -56,7 +56,7 @@ class Filters extends BaseConfig
                                             'paymen/*',
                                             'checkout','checkout/*',
                                             'myorder','myorder/*',
-                                            'receipt',
+                                            'receipt', 'receipt/*',
                                             ]
                         ],
             'authadmin' => ['except' => [  
