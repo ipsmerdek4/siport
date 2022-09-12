@@ -48,7 +48,7 @@
         
           $datedata = strtotime($value->date_of_departure);
           $dateskrang = strtotime(date("Y-m-d h:i A"));
-          if ($datedata <> $dateskrang) : ?>
+          if (($datedata <> $dateskrang)&&(!$value->book_seat > 0)) : ?>
              
       <div class="col-12 col-sm-12 col-md-12 col-lg-12">
         <article class="article">  

@@ -67,7 +67,7 @@ class Driver extends Controller{
                 'no'                => $no,
                 'NIK'               => $key->NIK,
                 'full_name'         => $key->full_name,
-                'number_driver'     => '+62'.$key->number_driver, 
+                'number_driver'     => $key->number_driver, 
                 'picture'           =>  '<div>'. 
                                             '<img src="'.base_url(). '/uploads/driver/pic_driver/'. 
                                             $key->picture.'" alt="'. $key->picture.'"'. 'class="img " id="pictureview" style="width:50px;cursor: pointer;" '. 
@@ -286,6 +286,7 @@ class Driver extends Controller{
                 $newName3 = "";
             }
 
+ 
             $Driver->insert([
                 'NIK'                       => $nik, 
                 'full_name'                 => $fullname, 
@@ -294,7 +295,7 @@ class Driver extends Controller{
                 'picture_KTP'               => $newName2, 
                 'picture_SIM'               => $newName3, 
                 'tgl_crt_dt_driver'         => $tgldriver,
-            ]);
+            ]);  
 
             session()->setFlashdata('msg', '<div style="font-size:15px;">Insert Successfully.</div>');
             return redirect()->to(base_url('/driver'))->withInput(); 
