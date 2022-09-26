@@ -7,7 +7,7 @@ class DepartureModel extends Model{
     protected $table      = 'tbl_departure';
     protected $primaryKey = 'id_departure';
     protected $returnType = 'object'; 
-    protected $allowedFields = ['id_destination','id_vehicle', 'plat_number', 'book_seat', 'id_driver', 'date_of_departure', 'price', 'tgl_crt_dt_departure'];
+    protected $allowedFields = ['id_destination','id_vehicle', 'plat_number', 'book_seat', 'id_driver', 'date_of_departure', 'price', 'tgl_crt_dt_departure','sts_departure','tgl_del_dt_departure'];
 
 
    
@@ -24,6 +24,7 @@ class DepartureModel extends Model{
         $builder->where($nameW, $where); 
         $builder->like($nameL, $like); 
 
+        $builder->where('sts_departure !=', 9); 
         $query = $builder->get();
         return $query->getResult();
     }
@@ -35,6 +36,7 @@ class DepartureModel extends Model{
         $builder->join('tbl_driver', 'tbl_driver.id_driver = tbl_departure.id_driver'); 
         $builder->where('id_departure', $id); 
 
+        $builder->where('sts_departure !=', 9); 
         $query = $builder->get();
         return $query->getResult();
     }
@@ -78,6 +80,7 @@ class DepartureModel extends Model{
                 $builder->orderBy($result_order, $result_dir);
                 $builder->limit($_POST['length'], $_POST['start']); 
 
+                $builder->where('sts_departure !=', 9); 
                 $query = $builder->get();
 
             return $query->getResult();
@@ -91,6 +94,8 @@ class DepartureModel extends Model{
         $builder->join('tbl_vehicle', 'tbl_vehicle.id_vehicle = tbl_departure.id_vehicle');
         $builder->join('tbl_driver', 'tbl_driver.id_driver = tbl_departure.id_driver');
         $builder->selectCount('id_departure');
+
+        $builder->where('sts_departure !=', 9); 
 
         $query = $builder->get();
         return $query->getResult();
@@ -120,6 +125,8 @@ class DepartureModel extends Model{
         }
 
 
+
+        $builder->where('sts_departure !=', 9); 
         $query = $builder->get();
         return $query->getResult();
 

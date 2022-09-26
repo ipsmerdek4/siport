@@ -7,7 +7,7 @@ class DriverModel extends Model{
     protected $table      = 'tbl_driver';
     protected $primaryKey = 'id_driver';
     protected $returnType = 'object'; 
-    protected $allowedFields = ['id_driver', 'NIK','full_name', 'number_driver', 'picture', 'picture_KTP', 'picture_SIM','tgl_crt_dt_driver'];
+    protected $allowedFields = ['id_driver', 'NIK','full_name', 'number_driver', 'picture', 'picture_KTP', 'picture_SIM','tgl_crt_dt_driver','sts_driver','tgl_del_dt_driver'];
 
 
 
@@ -48,6 +48,7 @@ class DriverModel extends Model{
 
                 $builder->orderBy($result_order, $result_dir);
                 $builder->limit($_POST['length'], $_POST['start']); 
+                $builder->where('sts_driver !=', 9); 
 
                 $query = $builder->get();
 
@@ -59,6 +60,7 @@ class DriverModel extends Model{
     {
         $builder = $this->db->table('tbl_driver');
         $builder->selectCount('id_driver');
+        $builder->where('sts_driver !=', 9); 
 
         $query = $builder->get();
         return $query->getResult();
@@ -86,6 +88,7 @@ class DriverModel extends Model{
         }
 
 
+        $builder->where('sts_driver !=', 9); 
         $query = $builder->get();
         return $query->getResult();
 

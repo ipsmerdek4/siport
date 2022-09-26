@@ -7,7 +7,7 @@ class VehicleModel extends Model{
     protected $table      = 'tbl_vehicle';   
     protected $primaryKey = 'id_vehicle';
     protected $returnType = 'object'; 
-    protected $allowedFields = ['id_vehicle','nm_vehicle','seat','tgl_crt_dt_vehicle'];
+    protected $allowedFields = ['id_vehicle','nm_vehicle','seat','tgl_crt_dt_vehicle','sts_vehicle','tgl_del_dt_vehicle'];
     
 
     var $column_order = array('id_vehicle','nm_vehicle','seat','tgl_crt_dt_vehicle');
@@ -42,6 +42,7 @@ class VehicleModel extends Model{
 
                 $builder->orderBy($result_order, $result_dir);
                 $builder->limit($_POST['length'], $_POST['start']); 
+                $builder->where('sts_vehicle !=', 9); 
 
                 $query = $builder->get();
 
@@ -53,6 +54,7 @@ class VehicleModel extends Model{
     {
         $builder = $this->db->table('tbl_vehicle');
         $builder->selectCount('id_vehicle');
+        $builder->where('sts_vehicle !=', 9); 
 
         $query = $builder->get();
         return $query->getResult();
@@ -75,6 +77,7 @@ class VehicleModel extends Model{
         }
 
 
+        $builder->where('sts_vehicle !=', 9); 
         $query = $builder->get();
         return $query->getResult();
 

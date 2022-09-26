@@ -42,9 +42,18 @@ class Tbl_departure extends Migration{
 			'price'              => [  
 				'type'           => 'BIGINT', 
 			],  
+			'sts_departure'       => [
+				'type'           => 'TINYINT', 
+                'default'           => 0,
+			],   
 			'tgl_crt_dt_departure'  => [
 				'type'              => 'DATETIME',
 				'null'       	    => true,
+			], 
+			'tgl_del_dt_departure' => [
+				'type'           => 'DATETIME',
+				'null'       	 => true,
+                'default'       => null,
 			], 
         ]);
         $this->forge->addPrimaryKey('id_departure', true); 

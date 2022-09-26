@@ -84,7 +84,7 @@
             <div class="col-12">
                 <div class="form-group ">
                     <label class="text-primary ">Cardholder Name</label> 
-                    <input type="text" class="form-control border border-primary name-numbers" placeholder="-" style="letter-spacing:2px" value="ojan"> 
+                    <input type="text" class="form-control border border-primary name-numbers" placeholder="-" style="letter-spacing:2px" value="Azriel"> 
                     <small class="cardholdermsg"></small>
                 </div> 
             </div>  

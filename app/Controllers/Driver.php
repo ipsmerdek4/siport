@@ -509,15 +509,15 @@ class Driver extends Controller{
     {
         $id_driver = $id; 
         $Driver = new DriverModel();
-
         $getDriver = $Driver->where(['id_driver' => $id_driver ,])->first(); 
- 
-        if ($Driver->find($id_driver)) {
-            @unlink("uploads/driver/pic_driver/" . $getDriver->picture);
-            @unlink("uploads/driver/pic_ktp/" . $getDriver->picture_KTP);
-            @unlink("uploads/driver/pic_sim/" . $getDriver->picture_SIM);
-            $Driver->delete($id_driver);
 
+        $data = [
+            'sts_driver'           => 9, 
+            'tgl_del_dt_driver'    => date("Y-m-d H:i:s"),
+        ];  
+        $delete = $Driver->update($id_driver, $data);   
+ 
+        if ($delete) { 
             session()->setFlashdata('msg',  '<div style="font-size:15px;">Delete Successfully.<br><br>' . 
                                             '<b>[ NIK => ' .  $getDriver->NIK. ' ]</b><br>' .
                                             '<b>[ Name => ' . $getDriver->full_name . ' ]</b><br>' .
@@ -527,6 +527,26 @@ class Driver extends Controller{
             session()->setFlashdata('error', '<div class="" style="font-size:15px;">An error occurred while deleting data.<br>Please repeat again.</div>');
             return redirect()->to(base_url('/driver'));
         } 
+
+
+        /*   
+        if ($Driver->find($id_driver)) {
+            @unlink("uploads/driver/pic_driver/" . $getDriver->picture);
+            @unlink("uploads/driver/pic_ktp/" . $getDriver->picture_KTP);
+            @unlink("uploads/driver/pic_sim/" . $getDriver->picture_SIM);
+            $Driver->delete($id_driver);
+
+          
+        } else {
+            session()->setFlashdata('error', '<div class="" style="font-size:15px;">An error occurred while deleting data.<br>Please repeat again.</div>');
+            return redirect()->to(base_url('/driver'));
+        } 
+        */
+
+
+
+
+
     }
 
 

@@ -132,21 +132,21 @@ class Departure extends Controller{
     public function serchone()
     {
         $Destination = new DestinationModel();   
-        $dataDestination = $Destination->findAll(); 
+        $dataDestination = $Destination->where('sts_destination !=', 9)->findAll(); 
         echo json_encode(array("tampil" => $dataDestination));   
     }
 
     public function serchtwo()
     {
         $Vehicle = new VehicleModel();   
-        $dataVehicle = $Vehicle->findAll(); 
+        $dataVehicle = $Vehicle->where('sts_vehicle !=', 9)->findAll(); 
         echo json_encode(array("tampil" => $dataVehicle));   
     }
 
     public function serchtree()
     {
         $Driver = new DriverModel();   
-        $dataDriver = $Driver->findAll(); 
+        $dataDriver = $Driver->where('sts_driver !=', 9)->findAll(); 
         echo json_encode(array("tampil" => $dataDriver));   
     }
  
@@ -433,24 +433,31 @@ class Departure extends Controller{
         $Departure = new DepartureModel();
  
         $getdeparture = $Departure->joinAll($id_departure);
-  
-        if ($Departure->find($id_departure)) {
-            $Departure->delete($id_departure);
 
+        $data = [
+            'sts_departure'           => 9, 
+            'tgl_del_dt_departure'    => date("Y-m-d H:i:s"),
+        ];  
+        $delete = $Departure->update($id_departure, $data);   
+ 
+        if ($delete) { 
             session()->setFlashdata('msg', '<div style="font-size:15px;">Delete Successfully.<br><br>'. 
-            "<b>[ Destination => " . $getdeparture[0]->nm_destination  .  " ]</b><br>" . 
-            "<b>[ Vehicle => ". $getdeparture[0]->nm_vehicle  . " ]</b><br>" .
-            "<b>[ Plat Number => " . $getdeparture[0]->plat_number  . " ]</b><br>" . 
-            "<b>[ Driver => " . $getdeparture[0]->full_name  . " ]</b><br>" . 
-            "<b>[ Date of Departure => " . $getdeparture[0]->date_of_departure  . " ]</b><br>" . 
-            "<b>[ Price => " . "Rp " . number_format($getdeparture[0]->price,2,',','.') . " ]</b><br>" . 
-            "</div>"); 
+                                            "<b>[ Destination => " . $getdeparture[0]->nm_destination  .  " ]</b><br>" . 
+                                            "<b>[ Vehicle => ". $getdeparture[0]->nm_vehicle  . " ]</b><br>" .
+                                            "<b>[ Plat Number => " . $getdeparture[0]->plat_number  . " ]</b><br>" . 
+                                            "<b>[ Driver => " . $getdeparture[0]->full_name  . " ]</b><br>" . 
+                                            "<b>[ Date of Departure => " . $getdeparture[0]->date_of_departure  . " ]</b><br>" . 
+                                            "<b>[ Price => " . "Rp " . number_format($getdeparture[0]->price,2,',','.') . " ]</b><br>" . 
+                                            "</div>"); 
 
-            return redirect()->to(base_url('/departure')); 
+                                            return redirect()->to(base_url('/departure')); 
         } else {
-            session()->setFlashdata('error', '<div class="" style="font-size:15px;">An error occurred while deleting data.<br>Please repeat again.</div>');
+              session()->setFlashdata('error', '<div class="" style="font-size:15px;">An error occurred while deleting data.<br>Please repeat again.</div>');
             return redirect()->to(base_url('/departure'));
         } 
+ 
+
+ 
     }
 
 

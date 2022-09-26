@@ -63,7 +63,7 @@ class Home extends BaseController
             $User = new UserModel();  
             $Destination = new DestinationModel();
             
-            $getDestination = $Destination->findAll();
+            $getDestination = $Destination->where('sts_destination !=', 9)->findAll();
 
 
             $title = 'Home &rsaquo; [SIPORT]';

@@ -280,12 +280,15 @@ class Vehicle extends Controller{
         $id_Vehicle  = $id;
         $Vehicle = new VehicleModel();
 
-
         $getVehicle = $Vehicle->where(['id_vehicle' => $id_Vehicle,])->first();
- 
-        if ($Vehicle->find($id_Vehicle)) {
-            $Vehicle->delete($id_Vehicle);
 
+        $data = [
+            'sts_vehicle'           => 9, 
+            'tgl_del_dt_vehicle'    => date("Y-m-d H:i:s"),
+        ];  
+        $delete = $Vehicle->update($id_Vehicle, $data);   
+ 
+        if ($delete) {  
             session()->setFlashdata('msg', '<div style="font-size:15px;">Delete Successfully.<br><br>'. 
             '<b>[ Name Vehicle => ' . $getVehicle->nm_vehicle . ' ]</b><br>' .
             '<b>[ Date Data => '. $getVehicle->tgl_crt_dt_vehicle.' ]</b></div>');
@@ -294,6 +297,11 @@ class Vehicle extends Controller{
             session()->setFlashdata('error', '<div class="" style="font-size:15px;">An error occurred while deleting data.<br>Please repeat again.</div>');
             return redirect()->to(base_url('/vehicle'));
         } 
+
+ 
+
+
+
     }
 
 

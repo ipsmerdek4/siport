@@ -32,10 +32,19 @@ class Tbl_driver extends Migration{
 			],  
 			'picture_SIM'        => [  
 				'type'           => 'TEXT', 
-			],  
+			], 
+			'sts_driver'       => [
+				'type'           => 'TINYINT', 
+                'default'           => 0,
+			],   
 			'tgl_crt_dt_driver'  => [
 				'type'           => 'DATETIME',
 				'null'       	 => true,
+			], 
+			'tgl_del_dt_driver' => [
+				'type'           => 'DATETIME',
+				'null'       	 => true,
+                'default'       => null,
 			], 
         ]);
         $this->forge->addPrimaryKey('id_driver', true); 

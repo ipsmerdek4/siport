@@ -20,10 +20,19 @@ class Tbl_Vehicle extends Migration{
 			'seat'       => [
 				'type'           => 'INT',
 				'constraint'     => '5', 
+			],   
+			'sts_vehicle'       => [
+				'type'           => 'TINYINT', 
+                'default'           => 0,
 			],  
 			'tgl_crt_dt_vehicle' => [
 				'type'           => 'DATETIME',
 				'null'       	 => true,
+			], 
+			'tgl_del_dt_vehicle' => [
+				'type'           => 'DATETIME',
+				'null'       	 => true,
+                'default'       => null,
 			], 
         ]);
         $this->forge->addPrimaryKey('id_vehicle', true); 

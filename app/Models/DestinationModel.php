@@ -7,7 +7,7 @@ class DestinationModel extends Model{
     protected $table      = 'tbl_destination';   
     protected $primaryKey = 'id_destination';
     protected $returnType = 'object'; 
-    protected $allowedFields = ['id_destination','nm_destination','picture_destination','tgl_crt_dt_destination'];
+    protected $allowedFields = ['id_destination','nm_destination','picture_destination','sts_destination','tgl_crt_dt_destination','tgl_del_dt_destination'];
 
     var $column_order = array('id_destination','nm_destination','tgl_crt_dt_destination');
     var $order = array('tgl_crt_dt_destination' => 'DESC');
@@ -40,10 +40,13 @@ class DestinationModel extends Model{
 
                 $builder->orderBy($result_order, $result_dir);
                 $builder->limit($_POST['length'], $_POST['start']); 
+                $builder->where('sts_destination !=', 9); 
+
+
 
                 $query = $builder->get();
 
-            return $query->getResult();
+                return $query->getResult();
  
     }
 
@@ -51,6 +54,7 @@ class DestinationModel extends Model{
     {
         $builder = $this->db->table('tbl_destination');
         $builder->selectCount('id_destination');
+        $builder->where('sts_destination !=', 9); 
 
         $query = $builder->get();
         return $query->getResult();
@@ -72,6 +76,7 @@ class DestinationModel extends Model{
         }
 
 
+        $builder->where('sts_destination !=', 9); 
         $query = $builder->get();
         return $query->getResult();
 

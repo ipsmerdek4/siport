@@ -20,9 +20,18 @@ class Tbl_Destination extends Migration{
 			'picture_destination'       => [
 				'type'           => 'TEXT', 
 			],  
+			'sts_destination'       => [
+				'type'           => 'TINYINT', 
+                'default'           => 0,
+			],  
 			'tgl_crt_dt_destination' => [
 				'type'           => 'DATETIME',
 				'null'       	 => true,
+			], 
+			'tgl_del_dt_destination' => [
+				'type'           => 'DATETIME',
+				'null'       	 => true,
+                'default'       => null,
 			], 
         ]);
         $this->forge->addPrimaryKey('id_destination', true); 

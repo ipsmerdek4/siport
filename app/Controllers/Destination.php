@@ -331,13 +331,15 @@ class Destination extends Controller{
     {
         $id_destination  = $id;
         $Destination = new DestinationModel();
-
-
         $getDestination = $Destination->where(['id_destination' => $id_destination,])->first();
- 
-        if ($Destination->find($id_destination)) {
-            $Destination->delete($id_destination);
 
+        $data = [
+            'sts_destination'           => 9, 
+            'tgl_del_dt_destination'    => date("Y-m-d H:i:s"),
+        ];  
+        $delete = $Destination->update($id_destination, $data);   
+ 
+        if ($delete) { 
             session()->setFlashdata('msg', '<div style="font-size:15px;">Delete Successfully.<br><br>'.
             '<b>[ ID => ' . $getDestination->id_destination  . ' ]</b><br>' .
             '<b>[ Destination => ' . $getDestination->nm_destination . ' ]</b><br>' .
@@ -347,6 +349,8 @@ class Destination extends Controller{
             session()->setFlashdata('error', '<div class="" style="font-size:15px;">An error occurred while deleting data.<br>Please repeat again.</div>');
             return redirect()->to(base_url('/destination'));
         } 
+ 
+
     }
 
 
